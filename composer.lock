@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c498483e5e9b702875a72c997729431",
+    "content-hash": "ac9ab34d34024524b8b04959ddf35233",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5825,6 +5825,63 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
+            "name": "laravel/breeze",
+            "version": "v1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/breeze.git",
+                "reference": "e98e855ab4bde5bf0083c4a4d73c0f5b474241ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/e98e855ab4bde5bf0083c4a4d73c0f5b474241ae",
+                "reference": "e98e855ab4bde5bf0083c4a4d73c0f5b474241ae",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^8.42|^9.0",
+                "illuminate/support": "^8.42|^9.0",
+                "illuminate/validation": "^8.42|^9.0",
+                "php": "^7.3|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Breeze\\BreezeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Breeze\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
+            "keywords": [
+                "auth",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/breeze/issues",
+                "source": "https://github.com/laravel/breeze"
+            },
+            "time": "2022-06-28T11:52:06+00:00"
+        },
+        {
             "name": "laravel/sail",
             "version": "v1.19.0",
             "source": {
@@ -6533,16 +6590,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.7",
+            "version": "9.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c993f0d3b0489ffc42ee2fe0bd645af1538a63b2"
+                "reference": "17d621b3aff84d0c8b62539e269e87d8d5baa76e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c993f0d3b0489ffc42ee2fe0bd645af1538a63b2",
-                "reference": "c993f0d3b0489ffc42ee2fe0bd645af1538a63b2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/17d621b3aff84d0c8b62539e269e87d8d5baa76e",
+                "reference": "17d621b3aff84d0c8b62539e269e87d8d5baa76e",
                 "shasum": ""
             },
             "require": {
@@ -6616,7 +6673,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.7"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.8"
             },
             "funding": [
                 {
@@ -6632,7 +6689,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-14T08:58:40+00:00"
+            "time": "2023-05-11T05:14:45+00:00"
         },
         {
             "name": "sebastian/cli-parser",
