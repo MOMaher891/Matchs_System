@@ -11,34 +11,25 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function uploadImage($imageName,$request,$filePath)
+    protected $adminPath = 'uploads/superadmin/admin/';
+
+    public function uploadImage($image,$filePath)
     {
-        if($request)
-        {
-       
-            $file_path= $filePath;
-            $image = $request->file($imageName);
-            $filename = $image->hashName();
-            $request->$imageName->move($file_path,$filename);
-            return $filename;
-        }else{
-            return "Error";
-        }
+        $imageName =  $image->hashName();  
+        $path = $image->move(public_path($filePath), $imageName);
+        return $imageName;    
     }
 
-    public function updateImage($oldImage,$newImage,$request,$filePath)
+    public function updateImage($oldImage, $newImage = null,$filePath)
     {
         if($oldImage)
         {
             unlink($filePath.'/'.$oldImage);
         }
 
-        if($newImage)
+        if($newImage != null)
         {
-        return $this->uploadImage($newImage,$request,$filePath);
-        }else{
-            return 'error';
+            return $this->uploadImage($newImage,$filePath);
         }
-
     }
 }
