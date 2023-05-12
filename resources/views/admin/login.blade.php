@@ -1,9 +1,9 @@
 @extends('layouts.login')
 @section('content')
-@section('title', 'Super Admin Login')
+@section('title', 'Admin Login')
 
 
-<form class="pt-3" method="POST" action="{{ route('login') }}">
+<form class="pt-3" method="POST" action="{{ route('admin.login.check') }}">
     @csrf
     <div class="form-group">
         <input type="email" class="form-control form-control-lg" name="email" id="exampleInputEmail1"

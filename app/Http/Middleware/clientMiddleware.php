@@ -17,10 +17,10 @@ class clientMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::guard('client')->check())
-        {
-            return redirect(route('login'));
-        }
+        // if(!Auth::guard('client')->check())
+        // {
+        //     return redirect(route('login'));
+        // }
         return $next($request);
     }
 }
