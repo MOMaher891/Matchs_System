@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('website.index');
 });
+
+Route::get('register',[AuthController::class,'registerView'])->name('register.view');
+Route::get('verifiy',[AuthController::class,'verifiyView'])->name('register.verifiy-view');
+
+
+Route::post('register',[AuthController::class,'register'])->name('register');
+Route::post('verifiy',[AuthController::class,''])->name('');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -11,8 +11,8 @@ class Client extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','phone','password','address','image','lat','long','birth_date','is_blocked'];
-    protected $timestamps = false;
+    protected $fillable = ['name','phone','verified','password','address','image','lat','long','birth_date','is_blocked'];
+    public $timestamps = false;
 
     /**
      * Relations

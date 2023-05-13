@@ -32,9 +32,26 @@
                             <div class="brand-logo">
                                 <img src="../../images/logo.svg" alt="logo">
                             </div>
-                            <h4>Hello! let's get started</h4>
-                            <h6 class="font-weight-light">Sign in to continue.</h6>
-                            @yield('content')
+                            {{-- <h4>Hello! let's get started</h4> --}}
+                            <h6 class="font-weight-light">Verifiy Your Email to continue.</h6>
+                            {{-- <form action=""> --}}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Enter Verfication Code</label>
+                                            <input type="text" class="form-control" id="codeToVerify" name="ver-code" placeholder="xxxxx">
+                                        </div>
+                                    </div>
+                        
+                                    <div id="recaptcha-container"></div>
+
+                                    <div class="mt-3">
+                                        {{-- <button class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" id="Ve">Submit</button> --}}
+                                        <a  class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" id="verifPhNum" >Submit</a>
+                                    </div>
+                        
+                                </div>
+                            {{-- </form> --}}
                         </div>
                     </div>
                 </div>
@@ -56,6 +73,10 @@
     <script src="{{ asset('Admin/js/template.js') }}"></script>
     <script src="{{ asset('Admin/js/settings.js') }}"></script>
     <script src="{{ asset('Admin/js/todolist.js') }}"></script>
+
+    <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.0.1/firebase.js"></script>
+
+    <script src="{{asset('js/firebase.js')}}"></script>
     <!-- endinject -->
-    @yield('js')
 </body>
