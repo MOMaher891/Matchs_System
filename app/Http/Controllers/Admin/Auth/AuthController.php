@@ -20,8 +20,8 @@ class AuthController extends Controller
         if (Auth::guard('admin')->attempt(['email'=>$request->email,'password'=>$request->password])) {
             // Authentication successful
             return redirect()->route('admin.home')->with('admin_login','Welcome Mr.'.Auth::guard('admin')->user()->name);
-
         }
+        return redirect()->back()->with('auth_failed','Email or password invalid');
     }
 
     public function logout(){

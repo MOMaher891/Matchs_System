@@ -27,8 +27,9 @@ class StoreAdmin extends FormRequest
             //
             'name'=>'required',
             'email'=>'required|email',
-            'password'=>'required|confirmed',
-            'image'=>'image'
+            'password'=>'required|confirmed|min:5',
+            'image'=>'image',
+            'phone'=>'required|numeric|unique:admins,phone'
         ];
     }
 }

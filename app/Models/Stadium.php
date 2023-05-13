@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stadium extends Model
 {
+    protected $table = 'stadiums';
     protected $fillable = ['name','description','price','phone','is_open','long','lat','region_id','admin_id'];
-    protected $timestamps = false;
+    public $timestamps = false;
 
 
     /**
