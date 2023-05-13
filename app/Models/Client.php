@@ -7,8 +7,10 @@ use App\Models\BookRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Client extends Model
+
+class Client extends Authenticatable
 {
     use HasFactory;
 

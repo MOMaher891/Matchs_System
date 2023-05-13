@@ -33,15 +33,37 @@ function onSignInSubmit() {
         $(this).attr('disabled', 'disabled');
         $(this).text('Processing..');
         confirmationResult.confirm(code).then(function (result) {
-                    // alert('Succecss');
-                    isAuth = true;
-                    phoneNo = result.user.phoneNumber;
-                    console.log(phoneNo);
-                    console.log(isAuth);
-                    var user = result.user;
-            console.log(user);
-    
-    
+                // alert('Succecss');
+                isAuth = true;
+                phoneNo = result.user.phoneNumber;
+                // console.log(phoneNo);
+                // console.log(isAuth);
+                var user = result.user;
+                console.log(user);
+                
+            //     $.ajax({
+            //        url:"/verifiy",
+                   
+            //        type:'GET',
+            //        data: {
+            //           'phone': phoneNo,
+            //           'isAuth': isAuth,
+            //        },
+            //        processData:false,
+            //        contentType:false,
+            //        success:function(data){
+            //            // console.log(data.error);
+            //         //    window.location.replace("/")
+            //            // url = `/verifiy?phone=${phoneNo}`
+            //            // window.location.href(url)
+                    
+            //        },
+            //        error:function(data)
+            //        {
+            //           alert('error')   
+            //        }
+                
+            //    });
             // ...
         }.bind($(this))).catch(function (error) {
         
@@ -92,14 +114,15 @@ function onSignInSubmit() {
             success:function(data){
                 // console.log(data.error);
                 // window.location.replace("/verifiy")
-                $("#register-btn").html('Sign UP').prop('disabled', false);
+                $("#register-btn").html('Sign up').prop('disabled', false);
+                console.log('Code Sent');
                 // url = `/verifiy?phone=${phoneNo}`
                 // window.location.href(url)
 
             },
             error:function(data)
             {
-                $("#register-btn").html('Sign UP').prop('disabled', false);
+                $("#register-btn").html('Sign up').prop('disabled', false);
                 
                 if(data.status == 422){
                     // printErrorMsg(data.responseJSON.errors)

@@ -17,7 +17,7 @@ Route::group(['middleware'=>'auth'],function(){
  * Super Admins
  */
 
-    Route::group(['prefix'=>'admins','controller'=>AdminController::class],function(){
+   Route::group(['prefix'=>'admins','middleware'=>'auth.superadmin','controller'=>AdminController::class],function(){
         $PREFIX = 'super_admin.admins.';
         Route::get('/','index')->name($PREFIX.'index');
         Route::get('data','data')->name($PREFIX.'data');
