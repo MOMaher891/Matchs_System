@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\BookRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
@@ -29,6 +30,11 @@ class Client extends Authenticatable
 
     public function block_user(){
         return $this->belongsToMany(Stadium::class,'blocked_users','stadium_id','client_id');
+    }
+
+    public function getBirthDateAttribute()
+    {
+        return Carbon::parse($this->attributes['birth_date'])->age;
     }
 
 }

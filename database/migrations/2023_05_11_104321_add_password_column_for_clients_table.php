@@ -15,7 +15,7 @@ class AddPasswordColumnForClientsTable extends Migration
     {
         Schema::table('clients', function (Blueprint $table) {
             $table->string('password')->after('phone');
-            $table->boolean('is_blocked')->after('image');
+            $table->boolean('is_blocked')->after('image')->default(false);
         });
     }
 

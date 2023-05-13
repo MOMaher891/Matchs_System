@@ -20,5 +20,5 @@ Route::group(['controller'=>AuthController::class],function(){
  */
 
 Route::group(['controller'=>HomeController::class],function(){
-    Route::get('/home','index')->name('admin.home');
+    Route::get('/','index')->name('admin.home');
 });

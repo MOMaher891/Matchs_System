@@ -15,11 +15,12 @@ class AdminController extends Controller
     protected $view = 'superadmin.admins.';
 
     /**
-    * view functions 
+    * view functions
     */
     public function index()
     {
         return view($this->view.'index');
+
     }
 
     public function create()
@@ -58,7 +59,6 @@ class AdminController extends Controller
         $this->updateImage($data->image,null,$this->adminPath);
         $data->delete();
         return redirect()->back()->with('success','Deleted');
-
     }
     public function update(StoreAdmin $request,$id)
     {

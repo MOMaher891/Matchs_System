@@ -16,4 +16,16 @@ class HomeController extends Controller
     public function index(){
         return view('superadmin.index');
     }
+
+    public function admins(){
+        return view('superadmin.admins.index');
+    }
+
+    public function clients(){
+        return view('superadmin.clients.index');
+    }
+
+    public function stadiums(){
+        return view('superadmin.stadiums.index');
+    }
 }
