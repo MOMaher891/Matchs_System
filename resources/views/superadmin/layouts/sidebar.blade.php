@@ -7,7 +7,8 @@
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
-      <li class="nav-item">
+      @if (auth()->user()->is_admin == true)
+        <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <i class="icon-layout menu-icon"></i>
           <span class="menu-title">Users</span>
@@ -19,6 +20,7 @@
           </ul>
         </div>
       </li>
+      @endif
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
           <i class="icon-columns menu-icon"></i>

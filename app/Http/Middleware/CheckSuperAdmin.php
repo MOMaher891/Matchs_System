@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class clientMiddleware
+class CheckSuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class clientMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::guard('client')->check()  && auth('client')->user()->verified != true)
+        if(Auth::user()->is_admin == true)
         {
-            return redirect('/')->with('error','Invaild Email or Password');
+            return $next($request);
         }
-        return $next($request);
+        return redirect()->back()->with('error','You Dont Have Permission to Enter This Route');
     }
 }

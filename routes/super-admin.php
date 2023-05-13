@@ -10,7 +10,7 @@ Route::group(['middleware'=>'auth'],function(){
     $PREFIX = 'super_admin.';    
     Route::get('/',[HomeController::class,'index'])->name($PREFIX.'index');
 
-    Route::group(['prefix'=>'admins','controller'=>AdminController::class],function(){
+    Route::group(['prefix'=>'admins','middleware'=>'auth.superadmin','controller'=>AdminController::class],function(){
         $PREFIX = 'super_admin.admins.';    
         Route::get('index','index')->name($PREFIX.'index');
         Route::get('data','data')->name($PREFIX.'data');
