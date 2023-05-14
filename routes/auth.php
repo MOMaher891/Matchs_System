@@ -53,6 +53,6 @@ Route::middleware('auth')->group(function () {
 
     // Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
     //             ->name('logout');
-    Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->name('logout');
+    Route::get('super_admin/logout', [AuthenticatedSessionController::class, 'destroy'])
+                ->name('super_admin.logout');
 });

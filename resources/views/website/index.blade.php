@@ -1,10 +1,10 @@
 @extends('website.layouts.layout')
 @section('content')
-@section('title', 'ملاعبنا')
+@section('title', 'Ml3bna')
 <section class="home" id="home">
     <div class="content">
-        <h3>welcome to A Stadiums</h3>
-        <p>dicover new places with us, luxury awaits</p>
+        <h3>welcome to A Ml3bna</h3>
+        <p>You Can Book Stadium Through Us</p>
         <a href="#" class="btn">discover more</a>
     </div>
 
