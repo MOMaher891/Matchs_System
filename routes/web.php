@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Client\Auth\AuthController;
+use App\Http\Controllers\WebSite\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('website.index');
+Route::group(['controller'=>WebsiteController::class],function(){
+    Route::get('/','index');
 });
 
 Route::get('register',[AuthController::class,'registerView'])->name('register.view');

@@ -11,4 +11,8 @@ class StadiumImage extends Model
     protected $fillable = ['image','stadium_id'];
     public $timestamps = false;
     use HasFactory;
+
+    // public function setImageAttribute($value){
+    //     $this->attributes['image'] = json_encode($value);
+    // }
 }
