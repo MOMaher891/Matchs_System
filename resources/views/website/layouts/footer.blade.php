@@ -1,4 +1,3 @@
-
 <section class="book" id="book">
     <h1 class="heading">
         <span>b</span>

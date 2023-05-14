@@ -20,7 +20,6 @@
                     <table class="table table-striped" id="User-Table">
                         <thead>
                             <tr>
-                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Phone</th>
@@ -62,9 +61,6 @@
 
 
                 columns: [{
-                        data: 'image'
-                    },
-                    {
                         data: 'name'
                     },
                     {
