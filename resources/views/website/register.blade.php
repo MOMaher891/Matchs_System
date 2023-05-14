@@ -77,14 +77,13 @@
         </div>
     </form>
 
-
 @endsection
 
 @section('js')
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.0.1/firebase.js"></script>
-
 <script src="{{asset('js/firebase.js')}}"></script>
+
 {{-- <script>
     $('#verifPhNum').on('click', function() {
         let isAuth = false;

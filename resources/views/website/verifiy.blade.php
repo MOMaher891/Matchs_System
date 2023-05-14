@@ -62,6 +62,11 @@
     </div>
     <!-- container-scroller -->
 
+    <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.0.1/firebase.js"></script>
+
+    <script src="{{asset('js/firebase.js')}}"></script>
+
     <!-- plugins:js -->
     <script src="{{ asset('Admin/vendors/js/vendor.bundle.base.js') }}"></script>
     <!-- endinject -->
@@ -74,9 +79,5 @@
     <script src="{{ asset('Admin/js/settings.js') }}"></script>
     <script src="{{ asset('Admin/js/todolist.js') }}"></script>
 
-    <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.0.1/firebase.js"></script>
-
-    <script src="{{asset('js/firebase.js')}}"></script>
-    <!-- endinject -->
+       <!-- endinject -->
 </body>

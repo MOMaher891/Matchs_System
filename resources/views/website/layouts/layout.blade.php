@@ -57,7 +57,7 @@
 </head>
 
 <body>
-    @include('website.layouts.navbar')
+    @include('website.layouts.nav')
     @yield('content')
     @include('website.layouts.footer')
 
@@ -83,6 +83,21 @@
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
+        });
+    </script>
+
+    <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js" defer data-deferred="1"></script>
+    <script src="{{ asset('website/main.js') }}" defer data-deferred="1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
+    <script>
+        $(document).ready(function() {
+            toastr.options.timeOut = 10000;
+            @if (Session::has('error'))
+                toastr.error('{{ Session::get('error') }}');
+            @elseif (Session::has('success'))
+                toastr.success('{{ Session::get('success') }}');
+            @endif
         });
     </script>
 </body>

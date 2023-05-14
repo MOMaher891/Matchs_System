@@ -21,10 +21,13 @@ Route::group(['controller'=>WebsiteController::class],function(){
 
 Route::get('register',[AuthController::class,'registerView'])->name('register.view');
 Route::get('verifiy',[AuthController::class,'verifiyView'])->name('register.verifiy-view');
-
-
 Route::post('register',[AuthController::class,'register'])->name('register');
-Route::post('verifiy',[AuthController::class,''])->name('');
+Route::post('verifiy',[AuthController::class,''])->name('verifiy');
+Route::post('login',[AuthController::class,'login'])->name('client.login');
+
+Route::group(['middleware'=>'client'],function(){
+    Route::get('logout',[AuthController::class,'logout'])->name('client.logout');
+});
 
 
 Route::get('/dashboard', function () {

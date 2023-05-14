@@ -7,8 +7,9 @@ use App\Http\Requests\Client\Auth\LoginRequest;
 use App\Http\Requests\Client\Auth\RegisterRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth as MainAuth;
 use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
@@ -16,10 +17,11 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $data = $request->validated();
-        if(Auth::guard('client')->attempt(['email'=>$request->email,'password'=>$request->password])){
-            return redirect()->route('home');
+        // return $data;
+        if(MainAuth::guard('client')->attempt(['phone'=>$data['phone'],'password'=>$data['password']]) ){
+            return redirect('/')->with('success','Welcome');
         }else{
-            return redirect()->route('client.login')->with('error','Invaild Email or Password');
+            return redirect('/')->with('error','Invaild Email or Password');
         }
     }
 
@@ -51,8 +53,26 @@ class AuthController extends Controller
 
     public function verifiy(Request $request)
     {
-        $client = Client::findOrFail($request->id);
-        $client->update(['verified'=>true]);
-        return redirect('/')->with('success','Account Verified');
+        $request->validate([
+            'code'=>'required'
+        ]);
+        
+        $client = Client::where('phone',$request->phone);
+
+        if($client->update(['verified' => $request->isAuth]))
+        {
+            return redirect('/')->with('success','Account Verified');
+
+        }else{
+            return redirect()->back()->with('error','Error Accure Try Again Later');
+        }
     }
+
+    public function logout()
+    {
+        MainAuth::guard('client')->logout();
+        return redirect('/')->with('success','Logout Successfuly');
+    }
+
+
 }

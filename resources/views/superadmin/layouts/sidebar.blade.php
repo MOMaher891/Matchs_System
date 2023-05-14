@@ -7,6 +7,7 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+        @if (auth()->user()->is_admin == true)
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#supder_admin" aria-expanded="false"
                 aria-controls="supder_admin">
@@ -24,7 +25,7 @@
                 </ul>
             </div>
         </li>
-
+        @endif
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="false" aria-controls="users">
                 <i class="icon-columns menu-icon"></i>
@@ -81,15 +82,10 @@
             aria-controls="form-elements">
             <i class="icon-columns menu-icon"></i>
             <span class="menu-title">Form elements</span>
-            <i class="menu-arrow"></i>
-        </a>
-        <div class="collapse" id="form-elements">
-            <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a>
-                </li>
-            </ul>
-        </div>
-    </li>
+            <i class="menu-arrow"></i>      
+      </li>
+    
+    
 
 
     </ul>
