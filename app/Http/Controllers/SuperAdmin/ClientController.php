@@ -66,6 +66,7 @@ class ClientController extends Controller
     }
 
     public function toggle(Request $request){
+        
         $client = Client::findOrFail( $request->clientID);
 
         if($client->is_blocked ==0){
