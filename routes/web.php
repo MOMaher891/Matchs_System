@@ -23,8 +23,10 @@ Route::get('register',[AuthController::class,'registerView'])->name('register.vi
 Route::get('verifiy',[AuthController::class,'verifiyView'])->name('register.verifiy-view');
 Route::post('register',[AuthController::class,'register'])->name('register');
 Route::post('verifiy',[AuthController::class,''])->name('verifiy');
+
 Route::post('login',[AuthController::class,'login'])->name('client.login');
-Route::get('client/logout',[AuthController::class,'logout'])->name('client.logout')->middleware('auth.client');
+
+Route::get('client/logout',[AuthController::class,'logout'])->name('client.logout')->middleware('auth:client');
 
 
 Route::get('/dashboard', function () {

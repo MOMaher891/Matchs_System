@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SuperAdmin\Admin;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAdmin extends FormRequest
+class TestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,17 +26,12 @@ class StoreAdmin extends FormRequest
         return [
             //
             'name'=>'required',
-            'email'=>'required|email',
-            'password'=>'required|confirmed|min:5',
-            'image'=>'image',
-            'phone'=>'required|numeric|unique:admins,phone'
+            'email'=>''
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'name.required'=>'Over Over',
-        ];
-    }
+    // public function messages()
+    // {
+
+    // }
 }

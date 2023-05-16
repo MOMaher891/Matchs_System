@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['controller'=>AuthController::class],function(){
     $prefix = 'admin';
-    Route::get('/login','loginView')->name($prefix.'.login');
+    Route::get('/login','loginView')->middleware('guest:admin')->name($prefix.'.login');
     Route::post('/login','login')->name($prefix.'.login.check');
     Route::get('/logout','logout')->name($prefix.'.logout');
 });
@@ -19,6 +19,6 @@ Route::group(['controller'=>AuthController::class],function(){
  * Routes
  */
 
-Route::group(['controller'=>HomeController::class],function(){
+Route::group(['controller'=>HomeController::class,'middleware'=>'auth:admin'],function(){
     Route::get('/','index')->name('admin.home');
 });

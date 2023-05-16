@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SuperAdmin\Admin;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAdmin extends FormRequest
+class StoreStadium extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,19 +24,15 @@ class StoreAdmin extends FormRequest
     public function rules()
     {
         return [
-            //
             'name'=>'required',
-            'email'=>'required|email',
-            'password'=>'required|confirmed|min:5',
-            'image'=>'image',
-            'phone'=>'required|numeric|unique:admins,phone'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required'=>'Over Over',
+            'description'=>'required',
+            'price'=>'required|numeric',
+            'phone'=>'required|min:11|unique:stadiums,phone',
+            'admin_id'=>'required',
+            'lat'=>'required',
+            'long'=>'required',
+            // 'image'=>'req'
+            //
         ];
     }
 }
