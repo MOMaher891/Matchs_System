@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stadium extends Model
 {
+    use HasFactory;
+
     protected $table = 'stadiums';
     protected $fillable = ['name','description','price','phone','is_open','long','lat','region_id','admin_id'];
     public $timestamps = false;
@@ -38,6 +40,5 @@ class Stadium extends Model
 
     public function block_user(){
         return $this->belongsToMany(Client::class,'blocked_users','client_id','stadium_id');
-    }
-    use HasFactory;
+    }    
 }

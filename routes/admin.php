@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\RequestController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -19,6 +20,20 @@ Route::group(['controller'=>AuthController::class],function(){
  * Routes
  */
 
-Route::group(['controller'=>HomeController::class,'middleware'=>'auth:admin'],function(){
-    Route::get('/','index')->name('admin.home');
+Route::group(['middleware'=>'auth:admin'],function(){
+    
+    Route::group(['controller'=>HomeController::class,'prefix'=>'home'],function(){
+        Route::get('/','index')->name('admin.home');    
+    });
+
+    
+    Route::group(['controller'=>RequestController::class,'prefix'=>'requests'],function(){
+        $prefix = 'request.';
+        Route::get('/','index')->name($prefix.'index');
+        Route::get('/data','data')->name($prefix.'data');
+        Route::get('/toggle-active','toggleActive')->name($prefix.'toggle-active');    
+
+    });
 });
+
+
