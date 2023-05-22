@@ -31,8 +31,7 @@ Route::group(['middleware'=>'auth:admin'],function(){
         $prefix = 'request.';
         Route::get('/','index')->name($prefix.'index');
         Route::get('/data','data')->name($prefix.'data');
-        Route::get('/toggle-active','toggleActive')->name($prefix.'toggle-active');    
-
+        Route::get('/toggle-status','toggleStatus')->name($prefix.'toggle-status');    
     });
 });
 

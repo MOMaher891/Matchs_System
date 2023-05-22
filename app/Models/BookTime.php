@@ -7,5 +7,4 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookTime extends Model
 {
-    use HasFactory;
 }

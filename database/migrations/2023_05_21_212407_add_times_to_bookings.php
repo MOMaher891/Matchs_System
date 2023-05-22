@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusToBooking extends Migration
+class AddTimesToBookings extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddStatusToBooking extends Migration
     public function up()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->enum('status',['bending','accept','decline'])->default('bending');
+            $table->string('times')->nullable();      
         });
     }
 
@@ -25,7 +25,7 @@ class AddStatusToBooking extends Migration
      */
     public function down()
     {
-        Schema::table('booking', function (Blueprint $table) {
+        Schema::table('bookings', function (Blueprint $table) {
             //
         });
     }
