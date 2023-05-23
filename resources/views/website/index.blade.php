@@ -36,13 +36,15 @@
 
     </h1>
 
-    <div class="box-container">
+    <div class="box-container row">
         @foreach ($stadiums as $stadium)
-            <div class="box">
-                <img decoding="async" src="{{ asset('uploads/stadium/' . $stadium->stadium_image[0]->image) }}"
+            <div class="box col-md-3">
+                <img decoding="async" src="  {{ asset('uploads/stadium/' . $stadium->stadium_image[0]->image) }}"
                     alt="">
                 <div class="content">
-                    <h3><i class="fas fa-map-marker-alt"></i> {{ $stadium->name }} </h3>
+                    <h3 class="mb-3">{{ $stadium->name }} </h3>
+                    <h3><i class="fas fa-map-marker-alt"></i> {{ $stadium->region->name }}
+                        - {{ $stadium->region->city->name }} </h3>
                     <p>{!! $stadium->description !!}</p>
                     <div class="stars">
                         <i class="fas fa-star"></i>

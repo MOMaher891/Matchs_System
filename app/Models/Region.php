@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Region extends Model
 {
     protected $fillable = ['name'];
-    protected $timestamps = false;
+    public $timestamps = false;
     use HasFactory;
 
     /**
@@ -17,5 +17,9 @@ class Region extends Model
 
     public function city(){
         return $this->belongsTo(City::class);
+    }
+
+    public function stadium(){
+        return $this->hasMany(Stadium::class);
     }
 }

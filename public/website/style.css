@@ -351,6 +351,7 @@ header .search-bar-container label:hover {
 }
 
 .packages .box-container .box {
+    width: calc(100% / 3);
     flex: 1 1 30rem;
     border-radius: .5rem;
     overflow: hidden;

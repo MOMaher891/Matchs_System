@@ -11,7 +11,7 @@ class WebsiteController extends Controller
 {
     public function index(){
         $images = StadiumImage::get('image');
-        $stadiums = Stadium::with('stadium_image')->paginate(5);
+        $stadiums = Stadium::with(['stadium_image','region'])->paginate(5);
         return view('website.index',compact('images','stadiums'));
         // return $images;
 

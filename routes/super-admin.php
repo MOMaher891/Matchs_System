@@ -26,6 +26,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('delete/{id}','delete')->name($PREFIX.'delete');
         Route::post('store','store')->name($PREFIX.'store');
         Route::post('update/{id}','update')->name($PREFIX.'update');
+
     });
 
 /**
@@ -57,6 +58,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('delete/{id}','delete')->name($PREFIX.'delete');
         Route::post('store','store')->name($PREFIX.'store');
         Route::post('update/{id}','update')->name($PREFIX.'update');
+        Route::get('regions/{city_id}','getRegions')->name($PREFIX.'get.regions');
     });
 
 /**
