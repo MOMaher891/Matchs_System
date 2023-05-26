@@ -29,6 +29,13 @@ class Stadium extends Model
 
 
     /**
+     *  Local Scope
+     */
+    public function scopeActive($query){
+        return $query->where('is_open',1);
+    }
+
+    /**
      * Relations
      */
 
@@ -55,5 +62,5 @@ class Stadium extends Model
 
     public function block_user(){
         return $this->belongsToMany(Client::class,'blocked_users','client_id','stadium_id');
-    }    
+    }
 }

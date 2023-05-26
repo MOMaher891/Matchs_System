@@ -20,6 +20,7 @@ Route::group(['controller'=>WebsiteController::class],function(){
     Route::get('show_stadium/{stadium_id}','showStadium')->name('web.stadium');
     Route::post('book','booking')->name('booking');
     Route::get('getDate','getTime')->name('getDates');
+    Route::get('getTwoHour','getTwoHour')->name('getTwoHour');
     Route::get('getLocation','getlocation');
 });
 Route::get('start-test-message',function(){
