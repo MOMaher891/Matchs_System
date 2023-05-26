@@ -41,7 +41,12 @@ Route::group(['middleware'=>'auth:admin'],function(){
         $prefix = 'admin.stadiums.';
         Route::get('/','index')->name($prefix.'index');
         Route::get('/data','data')->name($prefix.'data');
-        Route::get('/toggle-status','toggleOpen')->name($prefix.'toggle-status');    
+        Route::get('/toggle-status','toggleOpen')->name($prefix.'toggle-status');   
+        Route::get('create','create')->name($prefix.'create');
+        Route::post('store','store')->name($prefix.'store'); 
+        Route::get('edit/{id}','edit')->name($prefix.'edit');
+        Route::post('update/{id}','update')->name($prefix.'update'); 
+        Route::get('get-region-data','getRegions')->name($prefix.'get-region-data');
     });
 });
 

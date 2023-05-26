@@ -28,8 +28,9 @@
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
+    
     @yield('css')
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
     <style>
         html,
@@ -169,6 +170,8 @@
             },
         });
     </script>
+
+
 </body>
 
 </html>

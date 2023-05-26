@@ -1,15 +1,15 @@
 @extends('admin.layouts.app')
-@section('title', 'Requests')
+@section('title', 'Stadiums')
 @section('content')
 
 
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                {{-- <div class="content m-2 text-center">
-                    <a class="btn btn-primary" href="{{ route('super_admin.admins.create') }}">Add Admins <i
+                <div class="content m-2 text-center">
+                    <a class="btn btn-primary" href="{{ route('admin.stadiums.create') }}">Add Stadiums <i
                             class="fa fa-plus"></i></a>
-                </div> --}}
+                </div>
 
                 <h4 class="card-title">Stadiums</h4>
                 <p class="card-description">
