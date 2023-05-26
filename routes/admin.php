@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RequestController;
+use App\Http\Controllers\Admin\StadiumController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -32,6 +33,15 @@ Route::group(['middleware'=>'auth:admin'],function(){
         Route::get('/','index')->name($prefix.'index');
         Route::get('/data','data')->name($prefix.'data');
         Route::get('/toggle-status','toggleStatus')->name($prefix.'toggle-status');    
+    });
+
+
+    
+    Route::group(['controller'=>StadiumController::class,'prefix'=>'stadiums'],function(){
+        $prefix = 'admin.stadiums.';
+        Route::get('/','index')->name($prefix.'index');
+        Route::get('/data','data')->name($prefix.'data');
+        Route::get('/toggle-status','toggleOpen')->name($prefix.'toggle-status');    
     });
 });
 

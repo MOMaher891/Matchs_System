@@ -31,14 +31,19 @@ class Stadium extends Model
     }
 
     public function stadium_image(){
-        return $this->hasMany(StadiumImage::class);
+        return $this->hasMany(StadiumImage::class,'stadium_id');
     }
 
     public function region(){
-        return $this->hasOne(Region::class);
+        return $this->belongsTo(Region::class,'region_id');
     }
 
     public function block_user(){
         return $this->belongsToMany(Client::class,'blocked_users','client_id','stadium_id');
     }    
+
+    public function scopeOwner($query)
+    {
+        $query->where('admin_id',auth()->user()->id);
+    }
 }

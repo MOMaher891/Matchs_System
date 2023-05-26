@@ -15,6 +15,21 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.stadiums.index') }}">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Stadiums</span>
+            </a>
+        </li>
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.stadiums.index') }}">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Users</span>
+            </a>
+        </li>
+
     </ul>
 </nav>
 <!-- partial -->
