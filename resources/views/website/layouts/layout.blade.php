@@ -9,11 +9,15 @@
 
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{ asset('website/style.css') }}">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+
     <style>
         html,
         body {
@@ -32,7 +36,7 @@
 
         .swiper {
             width: 100%;
-            height: 100vh;
+            height: 100%;
             border-radius: 20px;
         }
 
@@ -59,7 +63,9 @@
 <body>
     @include('website.layouts.nav')
     @yield('content')
-    @include('website.layouts.footer')
+    <div style="width:150% !important;">
+        @include('website.layouts.footer')
+    </div>
 
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js" defer data-deferred="1"></script>
     <script src="{{ asset('website/main.js') }}" defer data-deferred="1"></script>
@@ -70,14 +76,14 @@
     <script>
         var swiper = new Swiper(".mySwiper", {
             spaceBetween: 30,
-            centeredSlides: false,
+            centeredSlides: true,
             autoplay: {
-                delay: 7000,
-                disableOnInteraction: true,
+                delay: 2500,
+                disableOnInteraction: false,
             },
             pagination: {
                 el: ".swiper-pagination",
-                clickable: false,
+                clickable: true,
             },
             navigation: {
                 nextEl: ".swiper-button-next",
@@ -87,9 +93,16 @@
     </script>
 
     <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+
+
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js" defer data-deferred="1"></script>
     <script src="{{ asset('website/main.js') }}" defer data-deferred="1"></script>
+    <script src="{{ asset('website/calendar.js') }}" defer data-deferred="1"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
             toastr.options.timeOut = 10000;
@@ -100,6 +113,8 @@
             @endif
         });
     </script>
+
+
 </body>
 
 </html>

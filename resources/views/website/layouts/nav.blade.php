@@ -1,10 +1,14 @@
-<header>
-
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+<header style="z-index: 1000">
     <div id="menu-bar" class="fas fa-bars"></div>
 
-    <a href="#" class="logo"><span>ML3</span>bna</a>
+    <a href="{{ route('client.home') }}" class="logo"><span>ML3</span>bna</a>
     <nav class="navbar">
-        <a href="#home">home</a>
+        <a href="{{ route('client.home') }}">home</a>
         <a href="#review">reviews</a>
         <a href="#review">Book</a>
         @if (!auth('client')->user())

@@ -22,23 +22,19 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label for="users">User</label>
-                            <select name="admin_id" id="users_search" class="form-control" disabled>
-                                <option value="" disabled>Select User</option>
-                                <option value="">{{ $data->admin->name }}</option>
-                            </select>
+                            <input class="form-control" type="text" name="" value="{{ $data->admin->name }}"
+                                disabled id="">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="exampleInputEmail3">City</label>
-                            <select name="city" class="form-control" id="city_search" disabled>
-                                <option value="">{{ $data->region->city->name }}</option>
-                            </select>
+                            <input class="form-control" type="text" name=""
+                                value="{{ $data->region->city->name }}" disabled id="">
                         </div>
 
                         <div class="form-group col-md-3">
                             <label for="exampleInputEmail3">Region</label>
-                            <select name="region_id" class="form-control" id="region_search" disabled>
-                                <option value="">{{ $data->region->name }}</option>
-                            </select>
+                            <input class="form-control" type="text" name="" value="{{ $data->region->name }}"
+                                disabled id="">
                         </div>
                     </div>
 
@@ -168,33 +164,29 @@
 
 
 
-
-{{-- <h3 class="card-title">Stadium Location</h3>
-<div class="row">
-    <div class="col-md-6">
-        <div id="map" style="height:400px; width: 650px;" class="my-3" disabled></div>
-    </div>
-</div> --}}
 @section('js')
 
     {{-- Get Long and lat from map --}}
     <script>
         CKEDITOR.replace('description');
+    </script>
+
+    <script>
         let map;
 
         function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
                 center: {
-                    lat: {{ $data->lat }},
-                    lng: {{ $data->long }}
+                    lat: 33.89362857288377,
+                    lng: 35.47826286142629
                 },
                 zoom: 8,
                 scrollwheel: true,
             });
 
             const uluru = {
-                lat: {{ $data->lat }},
-                lng: {{ $data->long }}
+                lat: 33.89362857288377,
+                lng: 35.47826286142629
             };
             let marker = new google.maps.Marker({
                 position: uluru,
@@ -217,4 +209,6 @@
                 })
         }
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" type="text/javascript"></script>
+
 @stop
