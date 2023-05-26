@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
 :root {
-    --orange: green;
+    --orange: #85C240;
 }
 
 * {
@@ -246,7 +246,7 @@ header .search-bar-container label:hover {
 .home {
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     flex-flow: column;
     position: relative;
@@ -270,12 +270,13 @@ header .search-bar-container label:hover {
     padding: .5rem 0;
 }
 
-.home .video-container video {
+.home .video-container video,
+.swiper {
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
-    height: 100%;
+    height: 100vh !important;
     width: 100%;
     object-fit: cover;
 }
@@ -350,6 +351,7 @@ header .search-bar-container label:hover {
 }
 
 .packages .box-container .box {
+    width: calc(100% / 3);
     flex: 1 1 30rem;
     border-radius: .5rem;
     overflow: hidden;

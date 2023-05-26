@@ -14,7 +14,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="exampleInputName1">Name</label>
                             <input type="text" class="form-control" name="name" id="exampleInputName1"
                                 placeholder="Name">
@@ -22,7 +22,7 @@
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="users">User</label>
                             <select name="admin_id" id="users_search" class="form-control">
                                 <option value="" disabled>Select User</option>
@@ -31,7 +31,35 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="form-group col-md-4">
+                            <label for="exampleInputEmail3">City</label>
+                            <select name="city" class="form-control" id="city_search" onchange="getRegion()">
+                                <option value="">Select City</option>
+                                @foreach ($cities as $city)
+                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('city')
+                                <span class="text-danger"> {{ $message }} </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail3">Region</label>
+                            <select name="region_id" class="form-control" id="region_search">
+                                <option value="" disabled>Select Region</option>
+                            </select>
+                            @error('city')
+                                <span class="text-danger"> {{ $message }} </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3">
                             <label for="exampleInputPassword4">Price</label>
                             <input type="text" class="form-control" name="price" id="exampleInputPassword4"
                                 placeholder="Price">
@@ -40,7 +68,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="exampleInputPassword4">Phone</label>
                             <input type="text" class="form-control" name="phone" id="exampleInputPassword4"
                                 placeholder="Phone">
@@ -48,10 +76,18 @@
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="exampleInputPassword4">Image</label>
                             <input type="file" class="form-control" name="image[]" multiple id="exampleInputPassword4"
                                 placeholder="Image">
+                            @error('price')
+                                <span class="text-danger"> {{ $message }} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="exampleInputPassword4">Number Of Playes</label>
+                            <input type="text" class="form-control" name="num_of_player" id="exampleInputPassword4"
+                                placeholder="num_of_player">
                             @error('price')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
@@ -61,22 +97,84 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="exampleInputEmail3">Description</label>
-                            <textarea name="description" id="description" class="description" cols="30" rows="10"></textarea>
+                            <textarea name="description" id="description" class="description"></textarea>
                             @error('description')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
+                        <div class="col-md-6">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Option</th>
+                                        <th>Checked</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Clothes</td>
+                                        <td>
+                                            <div
+                                                class="custom-control custom-switch custom-switch-off-danger custom-switch-on-danger d-inline">
+                                                <input type="checkbox" name="clothes" class="custom-control-input"
+                                                    id="clothes" />
+                                                <label class="custom-control-label" for="clothes"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bathroom</td>
+                                        <td>
+                                            <div
+                                                class="custom-control custom-switch custom-switch-off-danger custom-switch-on-danger d-inline">
+                                                <input type="checkbox" name="bathroom" class="custom-control-input"
+                                                    id="Bathroom" />
+                                                <label class="custom-control-label" for="Bathroom"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Shower Bathroom</td>
+                                        <td>
+                                            <div
+                                                class="custom-control custom-switch custom-switch-off-danger custom-switch-on-danger d-inline">
+                                                <input type="checkbox" name="s_bathroom" class="custom-control-input"
+                                                    id="s_Bathroom" />
+                                                <label class="custom-control-label" for="s_Bathroom"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Closing period</td>
+                                        <td>
+                                            <div>
+                                                <select name="period[]" id="" multiple class="form-control">
+                                                    <option value="" selected>Select Periods</option>
+                                                    @foreach ($times as $time)
+                                                        <option value="{{ $time->id }}">{{ $time->from }} -
+                                                            {{ $time->to }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
 
                         {{-- Location Inputs --}}
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <input type="hidden" class="form-control" placeholder="lat" name="lat" id="lat">
-                            <input type="hidden" class="form-control" placeholder="long" name="long" id="lng">
+                            <input type="hidden" class="form-control" placeholder="long" name="long"
+                                id="lng">
                             <label for="">Select stadium location</label>
                             <div id="map" style="height:300px; width: 600px;" class="my-3"></div>
                         </div>
                         {{-- Location Inputs --}}
                     </div>
-
 
 
 
@@ -90,17 +188,41 @@
 @section('js')
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
+
     <script>
         CKEDITOR.replace('description');
 
-
-
         $(document).ready(function() {
             $('#users_search').select2({
-                placeholder: 'Select an option',
+                placeholder: 'Select an User',
+                allowClear: true
+            });
+            $('#city_search').select2({
+                placeholder: 'Select an City',
+                allowClear: true
+            });
+            $('#region_search').select2({
+                placeholder: 'Select an Region',
                 allowClear: true
             });
         });
+
+        function getRegion() {
+            let city_id = $("#city_search").find(":selected").val();
+
+            $.ajax({
+                type: 'GET',
+                url: `regions/${city_id}`,
+                success: function(data) {
+                    $("#region_search").html(data);
+                },
+                error: function(error) {
+                    console.log('error');
+                }
+            });
+        }
     </script>
 
     {{-- Get Long and lat from map --}}

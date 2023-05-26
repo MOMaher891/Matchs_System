@@ -32,4 +32,11 @@ class StoreAdmin extends FormRequest
             'phone'=>'required|numeric|unique:admins,phone'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required'=>'Over Over',
+        ];
+    }
 }

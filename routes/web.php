@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Client\Auth\AuthController;
+use App\Http\Controllers\WebSite\WebsiteController;
 use Illuminate\Support\Facades\Route;
-
+use App\Utils\WhatsApp;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,19 +15,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('website.index');
+Route::group(['controller'=>WebsiteController::class],function(){
+    Route::get('/','index')->name('client.home');
+    Route::get('show_stadium/{stadium_id}','showStadium')->name('web.stadium');
+    Route::post('book','booking')->name('booking');
+    Route::get('getDate','getTime')->name('getDates');
+    Route::get('getTwoHour','getTwoHour')->name('getTwoHour');
+    Route::get('getLocation','getlocation');
+});
+Route::get('start-test-message',function(){
+    // return 'test message';
+    $message  =new WhatsApp("+201113050566",'magdy',rand(10000,99999));
+    $message->startConversation();
+    return $message->sendingWhatsAppMessage();
+
+    // return $message->sendingWhatsAppMessage();
+});
+// Route::get('test-message',function(){
+//     // return 'test message';
+//     $message  =new WhatsApp("+201113050566",'magdy');
+// });
+
+
+Route::group(['controller'=>AuthController::class],function(){
+    Route::get('register','registerView')->name('register.view');
+    Route::get('verifiy','verifiyView')->name('register.verifiy-view');
+    Route::get('resend','resend')->name('resend');
+    Route::get('client/logout','logout')->name('client.logout')->middleware('auth:client');
+    Route::post('register','register')->name('register');
+    Route::post('verifiy','verifiy')->name('verifiy');
+    Route::post('login','login')->name('client.login');
 });
 
-Route::get('register',[AuthController::class,'registerView'])->name('register.view');
-Route::get('verifiy',[AuthController::class,'verifiyView'])->name('register.verifiy-view');
-Route::post('register',[AuthController::class,'register'])->name('register');
-Route::post('verifiy',[AuthController::class,''])->name('verifiy');
-Route::post('login',[AuthController::class,'login'])->name('client.login');
-
-Route::group(['middleware'=>'client'],function(){
-    Route::get('logout',[AuthController::class,'logout'])->name('client.logout');
-});
 
 
 Route::get('/dashboard', function () {

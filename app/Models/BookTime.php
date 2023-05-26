@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookTime extends Model
 {
-    use HasFactory;
+    protected $fillable = ['book_id','time_id','date'];
+    public $timestamps = false;
 }

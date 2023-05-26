@@ -14,11 +14,11 @@ class Client extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = ['name','phone','verified','password','address','image','lat','long','birth_date','is_blocked'];
+    protected $fillable = ['name','phone','verified','password','address','image','lat','long','birth_date','is_blocked','otp'];
     public $timestamps = false;
 
     /**
-     * Relations
+     *  Relations
     */
     public function request(){
         return $this->hasMany(BookRequest::class);

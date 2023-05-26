@@ -8,7 +8,7 @@ class Notification{
         'cluster' => 'eu',
         'useTLS' => true
     ];
-  
+
     public static function send($id,$message)
     {   
         $pusher = new Pusher(

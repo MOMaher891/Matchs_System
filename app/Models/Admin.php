@@ -27,4 +27,5 @@ class Admin extends Authenticatable
         return $this->hasManyThrough(BookRequest::class,Stadium::class);
     }
 
+ 
 }

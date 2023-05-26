@@ -89,19 +89,28 @@
 
         setUserDatatable();
 
+    
+    </script>
+    <script>
+        // $(document).ready(function () {
+        // });
         function toggleStatus(id) {
-            var id = id;
-            $.ajax({
-                url: "{{ route('super_admin.clients.toggle') }}",
-                type: 'GET',
-                data: {
-                    clientID: id
-                },
-                success: function() {
-                    UsersTable.ajax.reload();
-                },
-            })
-        }
+                
+                console.log(id);
+    
+    
+                    $.ajax({
+                        url: "{{ route('super_admin.clients.toggle') }}",
+                        type: 'GET',
+                        data: {
+                            clientID: id
+                        },
+                        success: function() {
+                            UsersTable.ajax.reload();
+                        },
+                    })
+            }
+       
     </script>
 
 @stop

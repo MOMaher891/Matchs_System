@@ -1,13 +1,13 @@
 @extends('layouts.login')
 
 @section('content')
-    <form action="{{route('register')}}" method="POST" id="SendCode">
+    <form action="{{route('register')}}" id="Register" method="POST">
         @csrf
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="">Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
                     @error('name')
                         {{$message}}
                     @enderror
@@ -80,41 +80,62 @@
 @endsection
 
 @section('js')
-<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.0.1/firebase.js"></script>
-<script src="{{asset('js/firebase.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
-{{-- <script>
-    $('#verifPhNum').on('click', function() {
-        let isAuth = false;
-        let phoneNo = '';
-        var code = $('#codeToVerify').val();
-        console.log(code);
-        $(this).attr('disabled', 'disabled');
-        $(this).text('Processing..');
-        confirmationResult.confirm(code).then(function (result) {
-                    // alert('Succecss');
-                    isAuth = true;
-                    phoneNo = result.user.phoneNumber;
-                    console.log(phoneNo);
-                    console.log(isAuth);
-                    var user = result.user;
-            console.log(user);
+{{-- <script src="http://code.jquery.com/jquery-3.5.1.js"></script> --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.0.1/firebase.js"></script>
+<script src="{{asset('js/firebase.js')}}"></script> --}}
+
+<script>
+    $(document).ready(function() {
+        $('#Register').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+            url:"/register",
+            header:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            type:'POST',
+            data: new FormData(this),
+            processData:false,
+            contentType:false,
+            success:function(data){
+                // console.log(data.error);
+                $("#register-btn").html('Sign up').prop('disabled', false);
+                localStorage.setItem('phone',JSON.stringify($("#phone").val()));
+                localStorage.setItem('name', JSON.stringify($("#name").val()));
+
+                window.location.replace("/verifiy")
+
+                console.log('Code Sent');
+                // url = `/verifiy?phone=${phoneNo}`
+                // window.location.href(url)
+
+            },
+            error:function(data)
+            {
+                $("#register-btn").html('Sign up').prop('disabled', false);
+                
+                if(data.status == 422){
+                    // printErrorMsg(data.responseJSON.errors)
+                    msg = data.responseJSON.errors
+                    $.each(msg,function(key,value){
+                        $(`.${key}_err`).text(value)
+                        notyf.open({
+                                type: 'error',
+                                message: value
+                        
+                            });
+                    })
+                }
+
+                
+            }
+
+        });
+    }); 
+    })
+   
     
-    
-            // ...
-        }.bind($(this))).catch(function (error) {
-        
-            // User couldn't sign in (bad verification code?)
-            // ...
-            $(this).removeAttr('disabled');
-            $(this).text('Invalid Code');
-            setTimeout(() => {
-                $(this).text('Verify Phone No');
-            }, 2000);
-        }.bind($(this)));
-    
-    });
-    
-</script> --}}
+</script>
 @stop
