@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
-class CreateIsAdminColumn extends Migration
+class AddDateBookTimesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +14,8 @@ class CreateIsAdminColumn extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->boolean('is_admin')->default(false);
+        Schema::table('book_times', function (Blueprint $table) {
+            $table->date('date')->nullable()->default(DB::raw('CURRENT_DATE'));
         });
     }
 
@@ -26,8 +26,6 @@ class CreateIsAdminColumn extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

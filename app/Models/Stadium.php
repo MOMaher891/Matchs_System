@@ -10,7 +10,21 @@ class Stadium extends Model
     use HasFactory;
 
     protected $table = 'stadiums';
-    protected $fillable = ['name','description','price','phone','is_open','long','lat','region_id','admin_id'];
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'phone',
+        'is_open',
+        'long','lat',
+        'region_id',
+        'admin_id',
+        'num_of_player',
+        'clothes',
+        'bathroom',
+        's_bathroom',
+        'period',
+    ];
     public $timestamps = false;
 
 
@@ -35,8 +49,9 @@ class Stadium extends Model
     }
 
     public function region(){
-        return $this->belongsTo(Region::class,'region_id');
+        return $this->belongsTo(Region::class);
     }
+
 
     public function block_user(){
         return $this->belongsToMany(Client::class,'blocked_users','client_id','stadium_id');

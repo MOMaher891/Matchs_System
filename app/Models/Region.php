@@ -18,4 +18,8 @@ class Region extends Model
     public function city(){
         return $this->belongsTo(City::class);
     }
+
+    public function stadium(){
+        return $this->hasMany(Stadium::class);
+    }
 }

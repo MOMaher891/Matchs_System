@@ -16,7 +16,11 @@ use App\Utils\WhatsApp;
 */
 
 Route::group(['controller'=>WebsiteController::class],function(){
-    Route::get('/','index');
+    Route::get('/','index')->name('client.home');
+    Route::get('show_stadium/{stadium_id}','showStadium')->name('web.stadium');
+    Route::post('book','booking')->name('booking');
+    Route::get('getDate','getTime')->name('getDates');
+    Route::get('getLocation','getlocation');
 });
 Route::get('start-test-message',function(){
     // return 'test message';
@@ -32,14 +36,16 @@ Route::get('start-test-message',function(){
 // });
 
 
-Route::get('register',[AuthController::class,'registerView'])->name('register.view');
-Route::get('verifiy',[AuthController::class,'verifiyView'])->name('register.verifiy-view');
-Route::post('register',[AuthController::class,'register'])->name('register');
-Route::post('verifiy',[AuthController::class,'verifiy'])->name('verifiy');
-Route::get('resend',[AuthController::class,'resend'])->name('resend');
-Route::post('login',[AuthController::class,'login'])->name('client.login');
+Route::group(['controller'=>AuthController::class],function(){
+    Route::get('register','registerView')->name('register.view');
+    Route::get('verifiy','verifiyView')->name('register.verifiy-view');
+    Route::get('resend','resend')->name('resend');
+    Route::get('client/logout','logout')->name('client.logout')->middleware('auth:client');
+    Route::post('register','register')->name('register');
+    Route::post('verifiy','verifiy')->name('verifiy');
+    Route::post('login','login')->name('client.login');
+});
 
-Route::get('client/logout',[AuthController::class,'logout'])->name('client.logout')->middleware('auth:client');
 
 
 Route::get('/dashboard', function () {

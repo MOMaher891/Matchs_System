@@ -33,16 +33,17 @@
         <span>u</span>
         <span>m</span>
         <span>s</span>
-
     </h1>
 
-    <div class="box-container">
+    <div class="box-container row">
         @foreach ($stadiums as $stadium)
-            <div class="box">
-                <img decoding="async" src="{{ asset('uploads/stadium/' . $stadium->stadium_image[0]->image) }}"
+            <div class="box col-md-3">
+                <img decoding="async" src="  {{ asset('uploads/stadium/' . $stadium->stadium_image[0]->image) }}"
                     alt="">
                 <div class="content">
-                    <h3><i class="fas fa-map-marker-alt"></i> {{ $stadium->name }} </h3>
+                    <h3 class="mb-3">{{ $stadium->name }} </h3>
+                    <h3><i class="fas fa-map-marker-alt"></i> {{ $stadium->region->name }}
+                        - {{ $stadium->region->city->name }} </h3>
                     <p>{!! $stadium->description !!}</p>
                     <div class="stars">
                         <i class="fas fa-star"></i>
@@ -52,7 +53,11 @@
                         <i class="far fa-star"></i>
                     </div>
                     <div class="price"> ${{ $stadium->price }}</div>
-                    <a href="#" class="btn">book now</a>
+                    @if (!Auth::guard('client')->check())
+                        <a disabled title="Login In First" class="btn">Book Now</a>
+                    @else
+                        <a href="{{ route('web.stadium', $stadium->id) }}" class="btn">Book Now</a>
+                    @endif
                 </div>
             </div>
         @endforeach
@@ -306,7 +311,44 @@
 </section>
 
 
+<section class="book" id="book">
+    <h1 class="heading">
+        <span>b</span>
+        <span>o</span>
+        <span>o</span>
+        <span>k</span>
+        <span class="space"></span>
+        <span>n</span>
+        <span>o</span>
+        <span>w</span>
+    </h1>
 
+    <div class="row">
+        <div class="img">
+            <img decoding="async" src="img/book-img.svg" alt="">
+        </div>
+
+        <form action="">
+            <div class="inputBox">
+                <h3>where to</h3>
+                <input type="text" placeholder="place name">
+            </div>
+            <div class="inputBox">
+                <h3>how many</h3>
+                <input type="number" placeholder="number of guests">
+            </div>
+            <div class="inputBox">
+                <h3>arrivals</h3>
+                <input type="date">
+            </div>
+            <div class="inputBox">
+                <h3>leaving</h3>
+                <input type="date">
+            </div>
+            <input type="submit" class="btn" value="book now">
+        </form>
+    </div>
+</section>
 
 
 
