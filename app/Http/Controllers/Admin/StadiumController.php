@@ -37,6 +37,11 @@ class StadiumController extends Controller
             return view('admin.stadium.action',['type'=>'description','data'=>$d]);
             
         })
+        ->editColumn('is_open',function($d)
+        {
+            return view('admin.stadium.action',['type'=>'is_open','data'=>$d]);
+            
+        })
         ->addColumn('image',function($data){
             return view('admin.stadium.action',['type'=>'image','data'=>$data]);
 
@@ -176,6 +181,18 @@ class StadiumController extends Controller
         $data->is_open = $request->is_open;
         $data->save();
         return response()->json(['status'=>true]);   
+    }
+
+    public function delete($id)
+    {
+        $data = Stadium::findOrFail($id);
+        $stadImg =StadiumImage::where('stadium_id',$id)->get('image');
+        foreach($stadImg as $img)
+        {
+            $this->updateImage($img->image,null,$this->stadiumPath);
+        }
+        $data->delete();
+        return redirect()->back()->with('success','Deleted');
     }
 
     public function getRegions(Request $request){

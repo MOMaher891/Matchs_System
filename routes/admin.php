@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RequestController;
 use App\Http\Controllers\Admin\StadiumController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -47,7 +48,18 @@ Route::group(['middleware'=>'auth:admin'],function(){
         Route::get('edit/{id}','edit')->name($prefix.'edit');
         Route::post('update/{id}','update')->name($prefix.'update'); 
         Route::get('get-region-data','getRegions')->name($prefix.'get-region-data');
+        Route::get('delete/{id}','delete')->name($prefix.'delete');
     });
+
+    Route::group(['controller'=>UserController::class,'prefix'=>'users'],function(){
+        $prefix = 'admin.users.';
+        Route::get('/','index')->name($prefix.'index');
+        Route::get('/data','data')->name($prefix.'data');
+        Route::get('/active-user','ActiveUser')->name($prefix.'active-user');
+        Route::get('/block-user','BlockUser')->name($prefix.'block-user');
+    });
+
+
 });
 
 

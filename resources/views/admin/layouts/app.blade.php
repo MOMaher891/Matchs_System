@@ -151,6 +151,9 @@
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
+    {{-- SWeet Alert --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+  
     <!-- Initialize Swiper -->
     <script>
         var swiper = new Swiper(".mySwiper", {

@@ -1,19 +1,15 @@
 @extends('admin.layouts.app')
-@section('title', 'Stadiums')
+@section('title', 'Users')
 @section('content')
 
 
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <div class="content m-2 text-center">
-                    <a class="btn btn-primary" href="{{ route('admin.stadiums.create') }}">Add Stadiums <i
-                            class="fa fa-plus"></i></a>
-                </div>
 
-                <h4 class="card-title">Stadiums</h4>
+                <h4 class="card-title">Users</h4>
                 <p class="card-description">
-                    Show Stadiums
+                    Show Users
                 </p>
 
                 <div class="table-responsive">
@@ -22,13 +18,8 @@
                             <tr>
                                 <th>Image</th>
                                 <th>Name</th>
-                                <th>Price</th>
-                                <th>Description</th>
                                 <th>Phone</th>
-                                <th>Region</th>
-                                <th>Is Open</th>
-
-                                <th>Actions</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,12 +32,12 @@
 @stop
 @section('js')
     <script>
-        let StadiumsTable = null
+        let UsersTable = null
 
         function setUserDatatable() {
-            var url = "{{ route('admin.stadiums.data') }}";
+            var url = "{{ route('admin.users.data') }}";
 
-            StadiumsTable = $("#User-Table").DataTable({
+            UsersTable = $("#User-Table").DataTable({
                 processing: true,
                 serverSide: true,
                 dom: 'Blfrtip',
@@ -71,19 +62,7 @@
                         data: 'name'
                     },
                     {
-                        data: 'price'
-                    },
-                    {
-                        data:'description'
-                    },
-                    {
                         data: 'phone'
-                    },
-                    {
-                        data: 'region_id'
-                    },
-                    {
-                        data: 'is_open'
                     },
                     {
                         data: 'actions'
@@ -94,25 +73,40 @@
 
         setUserDatatable();
 
-
-        function toggleSwitch(id,is_open)
+        function activeUser(id)
         {
-           
-                 $.ajax({
-                     type: 'GET',
-                     url: "{{route('admin.stadiums.toggle-status')}}",
-                     data: {is_open:is_open,id:id},
-                     dataType: 'JSON',
-                     success: function (results) {
-                       console.log(results);
-                       StadiumsTable.ajax.reload()
-                     },
-                     error:function(result){
-                        console.log(result);
-                        alert(error)
-                     }
-                 });
+            $.ajax({
+                type: 'GET',
+                url: "{{route('admin.users.active-user')}}",
+                data: {id:id},
+                dataType: 'JSON',
+                success: function (results) {
+                  console.log(results);
+                  UsersTable.ajax.reload()
+                },
+                error:function(result){
+                   console.log(result);
+                   alert(error)
+                }
+            });
+        }
 
+        function blockUser(id)
+        {
+            $.ajax({
+                type: 'GET',
+                url: "{{route('admin.users.block-user')}}",
+                data: {id:id},
+                dataType: 'JSON',
+                success: function (results) {
+                  console.log(results);
+                  UsersTable.ajax.reload()
+                },
+                error:function(result){
+                   console.log(result);
+                   alert(error)
+                }
+            });
         }
      
     </script>

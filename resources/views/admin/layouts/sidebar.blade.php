@@ -24,7 +24,7 @@
 
         
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.stadiums.index') }}">
+            <a class="nav-link" href="{{ route('admin.users.index') }}">
                 <i class="icon-grid menu-icon"></i>
                 <span class="menu-title">Users</span>
             </a>
