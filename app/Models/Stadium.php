@@ -29,6 +29,13 @@ class Stadium extends Model
 
 
     /**
+     *  Local Scope
+     */
+    public function scopeActive($query){
+        return $query->where('is_open',1);
+    }
+
+    /**
      * Relations
      */
 
@@ -45,7 +52,7 @@ class Stadium extends Model
     }
 
     public function stadium_image(){
-        return $this->hasMany(StadiumImage::class);
+        return $this->hasMany(StadiumImage::class,'stadium_id');
     }
 
     public function region(){
@@ -56,4 +63,9 @@ class Stadium extends Model
     public function block_user(){
         return $this->belongsToMany(Client::class,'blocked_users','client_id','stadium_id');
     }    
+
+    public function scopeOwner($query)
+    {
+        $query->where('admin_id',auth()->user()->id);
+    }
 }

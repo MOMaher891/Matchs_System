@@ -18,8 +18,9 @@ use App\Utils\WhatsApp;
 Route::group(['controller'=>WebsiteController::class],function(){
     Route::get('/','index')->name('client.home');
     Route::get('show_stadium/{stadium_id}','showStadium')->name('web.stadium');
-    Route::post('book','booking')->name('booking');
+    Route::post('book','booking')->name('booking')->middleware('is_blocked');
     Route::get('getDate','getTime')->name('getDates');
+    Route::get('getTwoHour','getTwoHour')->name('getTwoHour');
     Route::get('getLocation','getlocation');
 });
 Route::get('start-test-message',function(){

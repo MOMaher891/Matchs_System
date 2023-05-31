@@ -29,7 +29,8 @@ class Client extends Authenticatable
     }
 
     public function block_user(){
-        return $this->belongsToMany(Stadium::class,'blocked_users','stadium_id','client_id');
+        // return $this->belongsToMany(Admin::class,'blocked_users','admin_id','client_id');
+        return $this->hasMany(BlockedUser::class,'client_id');
     }
 
     public function getBirthDateAttribute()

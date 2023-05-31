@@ -35,4 +35,16 @@ class Controller extends BaseController
             return $this->uploadImage($newImage,$filePath);
         }
     }
+
+    public function implodeArr($arr)
+    {
+        $data =  implode(',',$arr);
+        return $data;
+    }
+
+    public function encodeTimes($str)
+    {
+        $data = explode(',',$str);
+        return $data;
+    }
 }
