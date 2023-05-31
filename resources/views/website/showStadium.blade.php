@@ -185,11 +185,27 @@
 
                             <input type="submit" value="Book" class="btn btn-success">
                         </div>
-                        <div class="form-check form-switch mt-5 justify-content-center align-items-center">
-                            <input class="form-check-input" style="font-size:20px" type="checkbox" role="switch"
-                                id="flexSwitchCheckDefault" name="type">
-                            <label class="form-check-label fw-bolder" for="flexSwitchCheckDefault">Const
-                                Booking</label>
+                        <div class="d-flex flex-column">
+
+                            <div class="form-check form-switch mt-5 justify-content-center align-items-center">
+                                <input class="form-check-input" style="font-size:20px" type="checkbox" role="switch"
+                                    id="flexSwitchCheckDefault" onclick="typeToggle()" name="type">
+
+                                <label class="form-check-label fw-bolder" id="const"
+                                    for="flexSwitchCheckDefault">Const
+                                    Booking</label>
+                                <input type="number" hidden class="form-control mt-3 p-3 w-100"
+                                    placeholder="Enter Month Number" name="months" id="months">
+
+                            </div>
+
+
+                            <div class="form-check form-switch mt-5 justify-content-center align-items-center">
+                                <input class="form-check-input" style="font-size:20px" type="checkbox" role="switch"
+                                    id="flexSwitchCheckDefault" name="twoHour" value="off" onclick="hourToggle()">
+                                <label class="form-check-label fw-bolder" for="flexSwitchCheckDefault">Two Hour
+                                </label>
+                            </div>
                         </div>
                         @php
                             use Illuminate\Support\Facades\Auth;
@@ -201,7 +217,8 @@
                     <div class="row" id="time_btn">
                         @foreach ($times as $time)
                             <button class="col-md-3" onclick="getTime({{ $time->id }})"
-                                id="">{{ $time->from }} - {{ $time->to }}</button>
+                                id="{{ $time->id }}">{{ Carbon\Carbon::parse($time->from)->format('h') }} -
+                                {{ Carbon\Carbon::parse($time->to)->format('h') }}</button>
                         @endforeach
                     </div>
                 </div>
@@ -213,13 +230,6 @@
         {{-- Get Long and lat from map --}}
 
         <script>
-            var ids = [];
-
-            function getTime(id) {
-                ids.push(id);
-                document.getElementsByName('times')[0].value = ids[ids.length - 1];
-            }
-
             function getDate() {
                 var x = document.getElementsByName('date')[0].value;
                 var stadium_id = document.getElementsByName('stadium_id')[0].value;
@@ -240,6 +250,77 @@
                         console.log('reject');
                     }
                 })
+            }
+        </script>
+
+        <script>
+            var ids = [];
+            var x = document.getElementsByName('twoHour')[0].value;
+            var y = document.getElementsByName('type')[0].value;
+            var hidden_month_input = document.querySelector('#months');
+
+            function getTime(id) {
+                ids.push(id);
+                if (x != 'on') {
+                    ids = ids.slice(-1);
+                    document.getElementsByName('times')[0].value = ids[ids.length - 1];
+
+                    var buttons = document.querySelectorAll('#time_btn .col-md-3');
+                    buttons.forEach(function(e) {
+                        if (e.id == ids[0]) {
+                            console.log(ids);
+                            e.style.backgroundColor = "#85c240";
+                            e.style.color = 'white';
+
+
+                        } else {
+                            e.style.backgroundColor = "rgb(240 240 248)";
+                            e.style.color = "black";
+                        }
+                    })
+                } else {
+                    ids = ids.slice(-2);
+                    // console.log(ids);
+                    var buttons = document.querySelectorAll('#time_btn .col-md-3');
+                    buttons.forEach(function(e) {
+                        if (e.id == ids[0] || e.id == ids[1]) {
+                            console.log(ids);
+                            e.style.backgroundColor = "#85c240";
+                            e.style.color = 'white';
+
+
+                        } else {
+                            e.style.backgroundColor = "rgb(240 240 248)";
+                            e.style.color = "black";
+                        }
+                    })
+
+                    document.getElementsByName('times')[0].value = ids;
+                }
+            }
+
+
+
+            function hourToggle() {
+
+                if (x == 'off') {
+                    x = 'on';
+
+                } else {
+                    x = 'off';
+                }
+            }
+
+            function typeToggle() {
+
+                if (y == 'off') {
+                    y = 'on';
+                    hidden_month_input.hidden = true;
+
+                } else {
+                    y = 'off';
+                    hidden_month_input.hidden = false;
+                }
             }
         </script>
         <script>
