@@ -114,7 +114,6 @@ class StadiumController extends Controller
             'period'=>$period,
             'region_id'=>$request->region_id,
         );
-
         $stadium = DB::table('stadiums')->insertGetId($data);
 
         // $images =[];
