@@ -14,7 +14,7 @@
 
                 <div class="table-responsive">
                     <table class="table table-striped" id="User-Table">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
                                 <th>Image</th>
                                 <th>Name</th>
@@ -22,7 +22,7 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                         </tbody>
                     </table>
                 </div>

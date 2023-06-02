@@ -1,7 +1,7 @@
 @switch($type)
     @case('actions')
-    <a class="btn btn-sm btn-success" onclick="toggleStatus({{$data->id}},'accept')" ><i class="fa-solid fa-check"></i></a>    
-    <a class="btn btn-sm btn-danger" onclick="toggleStatus({{$data->id}},'decline')" ><i class="fa-solid fa-x"></i></a>    
+    <a class="btn btn-sm btn-success" onclick="toggleStatus({{$data->client_id}},{{$data->stadium_id}},{{$data->times}},'accept')" ><i class="fa-solid fa-check"></i></a>    
+    <a class="btn btn-sm btn-danger" onclick="toggleStatus({{$data->client_id}},{{$data->stadium_id}},{{$data->times}},'decline')" ><i class="fa-solid fa-x"></i></a>    
     @break
     @case('image')
     <div class="py-1">

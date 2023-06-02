@@ -16,4 +16,4 @@
         <label class="custom-control-label" for="is_blocked-{{$data->id}}"></label>
     </div>
 
-    @endif
+@endif

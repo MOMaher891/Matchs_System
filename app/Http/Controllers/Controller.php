@@ -47,4 +47,5 @@ class Controller extends BaseController
         $data = explode(',',$str);
         return $data;
     }
+
 }

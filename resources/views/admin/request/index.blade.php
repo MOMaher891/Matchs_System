@@ -22,8 +22,12 @@
                             <tr>
                                 <th>Image</th>
                                 <th>Name</th>
+                                <th>Type</th>
                                 <th>Stadium</th>
+
                                 <th>Times</th>
+                                <th>Date</th>
+
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -67,10 +71,16 @@
                         data: 'client_id'
                     },
                     {
+                        data:'type'
+                    },
+                    {
                         data: 'stadium_id'
                     },
                     {
                         data:'times'
+                    },
+                    {
+                        data:'date'
                     },
                     {
                         data: 'actions'
@@ -82,13 +92,16 @@
         setUserDatatable();
 
 
-        function toggleStatus(id,status)
+        function toggleStatus(client_id,stadium_id,times,status)
         {
-           
                  $.ajax({
                      type: 'GET',
                      url: "{{route('request.toggle-status')}}",
-                     data: {status:status,id:id},
+                     data: {status:status,
+                        client_id:client_id,
+                        stadium_id,
+                        times
+                    },
                      dataType: 'JSON',
                      success: function (results) {
                        console.log(results);
