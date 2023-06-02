@@ -17,14 +17,18 @@ use App\Utils\WhatsApp;
 
 Route::group(['controller'=>WebsiteController::class],function(){
     Route::get('/','index')->name('client.home');
+    
     Route::group(['middleware'=>'is_blocked'],function(){
         Route::get('show_stadium/{stadium_id}','showStadium')->name('web.stadium')->middleware('checkStadiumBlock');
         Route::post('book','booking')->name('booking');
         Route::get('getDate','getTime')->name('getDates');
         Route::get('getLocation','getlocation');
-    
+        Route::get('getTwoHour','getTwoHour')->name('getTwoHour');
+        Route::get('getLocation','getlocation');
+     
     });
 });
+
 Route::get('start-test-message',function(){
     // return 'test message';
     $message  =new WhatsApp("+201113050566",'magdy',rand(10000,99999));

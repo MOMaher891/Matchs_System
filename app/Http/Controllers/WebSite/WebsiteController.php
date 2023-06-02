@@ -16,7 +16,7 @@ class WebsiteController extends Controller
     public function index()
     {
         $images = StadiumImage::get('image');
-        $stadiums = Stadium::with(['stadium_image', 'region'])->paginate(5);
+        $stadiums = Stadium::active()->with(['stadium_image', 'region'])->paginate(5);
         return view('website.index', compact('images', 'stadiums'));
         // return $images;
     }
@@ -42,13 +42,44 @@ class WebsiteController extends Controller
     }
 
     public function booking(Request $request){
-        $request['type'] = $request->has('type') ? 'const' : 'once';
-        $book = Booking::create($request->all());
-        BookTime::create([
-            'book_id' => $book['id'],
-            'time_id' => $book['times'],
-            'date'=>$book['date']
-        ]);
+        // return $request;
+        if($request->has('type')){
+            $request['type'] = 'const';
+            //Get Selected Date
+            $current_date =  Carbon::parse($request->date);
+            $end_date = Carbon::parse($request->date)->addMonths($request->months);
+            //Get Number Of Weeks
+            $weeks = $end_date->diffInWeeks($current_date);
+            //Loop To Add 7days limit number of months
+            for($i=0;$i<$weeks;$i++){
+
+                $book = Booking::create([
+                    'client_id'=>$request->client_id,
+                    'stadium_id'=>$request->stadium_id,
+                    'times'=>$request->times,
+                    'date'=>$current_date,
+                    'type'=>$request['type']
+                ]);
+
+                $current_date = $current_date->addWeek();
+
+
+            }
+        }else{
+            $book = Booking::create([
+                'client_id'=>$request->client_id,
+                'stadium_id'=>$request->stadium_id,
+                'times'=>$request->times,
+                'date'=>$request->date,
+            ]);
+            BookTime::create([
+                'book_id' => $book['id'],
+                'time_id' => $book['times'],
+                'date'=>$book['date']
+            ]);
+        }
+
+
         return redirect()->back()->with('success','Booking Success');
 
     }
@@ -59,43 +90,46 @@ class WebsiteController extends Controller
 
         $period = explode(',', $period->period);
 
-        $ids = [];
+        $ids =[];
         foreach ($book_times as $time){
-            array_push($ids,$time->time_id);
+            array_push($ids, $time['time_id'] -1);
         }
 
-        $times = Time::whereNotIn('id',$ids)->whereNotIn('id',$period)->get();
+        $times = Time::whereNotIn('id',$book_times)->whereNotIn('id',$period)->get();
 
         $text = "";
 
         foreach($times as $time){
-            $text.="<button class='col-md-3' onclick='getTime( $time->id )'> $time->from </button>";
+            $time_to = Carbon::parse($time->to)->format('h');
+            $time_from = Carbon::parse($time->from)->format('h');
+            $text.="<button class='col-md-3' id='$time->id' onclick='getTime( $time->id )'> $time_from - $time_to  </button>";
         }
         return $text;
     }
 
-    public function getlocation(){
-        $link = "https://goo.gl/maps/Nx2ziisYs8tkHiwH8";
+    public function getTwoHour(Request $request){
+        $book_times = BookTime::whereDate('date',$request->date)->get('time_id');
+        $period = Stadium::findOrFail($request->std_id);
 
-        // Extract latitude and longitude from the link
-        $queryString = parse_url($link, PHP_URL_QUERY);
-        parse_str($queryString, $queryParameters);
+        $period = explode(',', $period->period);
 
-        if (isset($queryParameters['q'])) {
-            $coordinates = explode(',', $queryParameters['q']);
-
-            if (count($coordinates) >= 2) {
-                $latitude = $coordinates[0];
-                $longitude = $coordinates[1];
-                return $latitude;
-                // Use latitude and longitude as needed
-            } else {
-                // Invalid coordinates
-                return 'error';
-            }
-        } else {
-            // Coordinates not found
-            return 'error 1';
+        $ids =[];
+        foreach ($book_times as $time){
+            array_push($ids, $time['time_id'] -1);
         }
+
+        $times = Time::whereNotIn('id',$book_times)->whereNotIn('id',$period)->get();
+
+        $text = "";
+
+        foreach($times as $time){
+            $time_from = Carbon::parse($time->from)->format('h');
+            $time_to = Carbon::parse($time->to)->format('h');
+            $text.="<button class='col-md-3' onclick='getTime( $time->id )'> $time_from - $time_to  </button>";
+        }
+        return $text;
+
+
     }
+
 }

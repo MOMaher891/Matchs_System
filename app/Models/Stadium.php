@@ -29,6 +29,13 @@ class Stadium extends Model
 
 
     /**
+     *  Local Scope
+     */
+    public function scopeActive($query){
+        return $query->where('is_open',1);
+    }
+
+    /**
      * Relations
      */
 
