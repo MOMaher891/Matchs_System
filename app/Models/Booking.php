@@ -40,4 +40,9 @@ class Booking extends Model
     {
         return $this->stadium()->where('admin_id',auth()->user()->id);
     }
+
+    // public function scopeFirst($query)
+    // {
+    //     $this
+    // }
 }
