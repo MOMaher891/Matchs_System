@@ -24,6 +24,8 @@
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Stadium</th>
+                                <th>Price</th>
+
 
                                 <th>Times</th>
                                 <th>Date</th>
@@ -75,6 +77,9 @@
                     },
                     {
                         data: 'stadium_id'
+                    },
+                    {
+                        data: 'price'
                     },
                     {
                         data:'times'

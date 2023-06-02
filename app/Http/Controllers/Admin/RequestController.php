@@ -40,7 +40,12 @@ class RequestController extends Controller
         {
             return $data->user->name;
 
-        })->addColumn('image',function($data){
+        })
+        ->addColumn('price',function($data)
+        {
+            return $data->stadium->price;
+        })
+        ->addColumn('image',function($data){
             return view('admin.request.action',['type'=>'image','data'=>$data]);
         })->make(true);
     }
