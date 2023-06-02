@@ -19,8 +19,9 @@ class AuthController extends Controller
     {
         $data = $request->validated();
         // return $data;
-        if(MainAuth::guard('client')->attempt(['phone'=>$data['phone'],'password'=>$data['password']]) ){
+        if(MainAuth::guard('client')->attempt(['phone'=>$data['phone'],'password'=>$data['password'],'is_blocked'=>false])){
             return redirect('/')->with('success','Welcome');
+            
         }else{
             return redirect('/')->with('error','Invaild Email or Password');
         }
