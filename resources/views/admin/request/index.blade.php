@@ -23,6 +23,8 @@
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Stadium</th>
+                                <th>Type</th>
+
                                 <th>Times</th>
                                 <th>Actions</th>
                             </tr>
@@ -65,6 +67,9 @@
                     },
                     {
                         data: 'client_id'
+                    },
+                    {
+                        data:'type'
                     },
                     {
                         data: 'stadium_id'

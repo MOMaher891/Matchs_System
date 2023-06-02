@@ -18,7 +18,7 @@ class RequestController extends Controller
 
     public function data()
     {
-        $data = Booking::bending()->with(['stadium'=>function($q){
+        $data = Booking::bending()->distinct()->with(['stadium'=>function($q){
             $q->where('admin_id',auth('admin')->user()->id);
         }])->with('user')->latest();
       
