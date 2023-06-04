@@ -29,8 +29,20 @@ class Booking extends Model
         $query->where('status','bending');
     }
 
+    
+    public function scopeNotBending($query)
+    {
+        $query->where('status','delcine')->orWhere('status','accept');
+    }
+
+
     public function getAdminStadiums()
     {
         return $this->stadium()->where('admin_id',auth()->user()->id);
     }
+
+    // public function scopeFirst($query)
+    // {
+    //     $this
+    // }
 }

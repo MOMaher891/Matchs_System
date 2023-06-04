@@ -72,11 +72,6 @@ class WebsiteController extends Controller
                 'times'=>$request->times,
                 'date'=>$request->date,
             ]);
-            BookTime::create([
-                'book_id' => $book['id'],
-                'time_id' => $book['times'],
-                'date'=>$book['date']
-            ]);
         }
 
 
@@ -100,8 +95,8 @@ class WebsiteController extends Controller
         $text = "";
 
         foreach($times as $time){
-            $time_to = Carbon::parse($time->to)->format('h');
-            $time_from = Carbon::parse($time->from)->format('h');
+            $time_to = Carbon::parse($time->to)->format('H:i');
+            $time_from = Carbon::parse($time->from)->format('H:i');
             $text.="<button class='col-md-3' id='$time->id' onclick='getTime( $time->id )'> $time_from - $time_to  </button>";
         }
         return $text;
@@ -123,8 +118,8 @@ class WebsiteController extends Controller
         $text = "";
 
         foreach($times as $time){
-            $time_from = Carbon::parse($time->from)->format('h');
-            $time_to = Carbon::parse($time->to)->format('h');
+            $time_from = Carbon::parse($time->from)->format('H:i');
+            $time_to = Carbon::parse($time->to)->format('H:i');
             $text.="<button class='col-md-3' onclick='getTime( $time->id )'> $time_from - $time_to  </button>";
         }
         return $text;

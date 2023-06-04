@@ -12,7 +12,7 @@ class RequestController extends Controller
 {
     //
     public function index()
-    {
+    {      
         return view('admin.request.index');
     }
 
@@ -20,8 +20,8 @@ class RequestController extends Controller
     {
         $data = Booking::bending()->with(['stadium'=>function($q){
             $q->where('admin_id',auth('admin')->user()->id);
-        }])->with('user')->latest();
-      
+        }])->with('user')->groupBy('stadium_id','times','client_id');
+        
         return DataTables::of($data)->addColumn('actions',function($data){
             return view('admin.request.action',['type'=>'actions','data'=>$data]);
         })
@@ -40,35 +40,52 @@ class RequestController extends Controller
         {
             return $data->user->name;
 
-        })->addColumn('image',function($data){
+        })
+        ->addColumn('price',function($data)
+        {
+            return $data->stadium->price;
+        })
+        ->addColumn('image',function($data){
             return view('admin.request.action',['type'=>'image','data'=>$data]);
         })->make(true);
     }
 
     public function toggleStatus(Request $request)
     {
-        $booking = Booking::findorFail($request->id);
+        // return $request->all();
+        $booking = Booking::where([
+            ['client_id','=',$request->client_id],
+            ['stadium_id','=',$request->stadium_id],
+            ['times','=',$request->times]
+        ])->get();
+        // return $booking;
         if($request->status == 'accept')
         {
-            // Make New Appointment //
-            $booking->status = 'accept';
-            // return $this->encodeTimes($booking->times);
-            $booking->code = $this->generateCode($booking->id);
-            
-            // Add Times
-            $booking->book_time()->sync($this->encodeTimes($booking->times));
-            // Add Notification Here
-            // end Notification
-            $booking->save();
+            foreach($booking as $book)
+            {
+                // Make New Appointment //
+                $book->status = 'accept';
+                // return $this->encodeTimes($booking->times);
+                $book->code = $this->generateCode($book->id);
 
+                // Add Times
+                $book->book_time()->sync($this->encodeTimes($book->times));
+                // Add Notification Here
+                // end Notification
+                $book->save();
+            }
             return response()->json(['status'=>true,'message'=>'Booking Accepted Successfully']);
+
         }else if($request->status == 'decline')
         {
-            $booking->status = 'decline';
-            $booking->save();
-            return response()->json(['status'=>true,'message'=>'Booking Decline Successfully']);
+            foreach($booking as $book)
+            {
+                $book->status = 'decline';
+                $book->save();
+            }
+            return response()->json(['status'=>true]);
+
         }
-        return response()->json(['status'=>true]);
     }
 
 

@@ -157,7 +157,7 @@ class StadiumController extends Controller
         $stadium->update($data);
 
         if($request->hasFile('image')){
-            $dataImage =  StadiumImage::where('stadium_id',$stadium->id)->delete();
+            $dataImage =  StadiumImage::where('stadium_id',$stadium->id)->get();
             foreach($dataImage as $img)
             {
                 $this->updateImage($img->image,null,$this->stadiumPath);
