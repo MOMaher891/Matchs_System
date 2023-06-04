@@ -84,8 +84,11 @@
     </head>
 
     <body class="light dark">
+
         <div class="container py-5 my-5" style="height:175vh;margin-top:50px">
+
             <div class="d-flex justify-content-between" style="margin-top:150px">
+
                 <div class="mt-8">
                     <h2 class="" style="font-weight:bolder">{{ $data->name }}</h2>
                     <h3><i class="fas fa-map-marker-alt" style="color:green"></i> {{ $data->region->name }}
@@ -193,6 +196,9 @@
                             <label for="" class="fw-bolder">Choose Day</label>
                             <input type="date" onchange="getDate()" name="date" placeholder="Choose Day"
                                 class="form-control mt-3 p-3 w-100" id="">
+                            @error('date')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
 
                             <input type="submit" value="Book" class="btn btn-success">
                         </div>
@@ -233,12 +239,16 @@
                         <input type="hidden" name="stadium_id" value="{{ $data->id }}">
                         <input type="hidden" name="times">
                     </form>
+
                     <h2 class="fw-bolder pt-3">Avaliable Times</h2>
                     <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="30%" alt="">
                     <p>You Should Choose <span id="alert" class="fw-bolder"
                             style="color:rgb(133, 194, 64) ;font-size:17px"> 2
                         </span> Buttons For Booking <span id="hours" class="fw-bolder"
                             style="color:rgb(133, 194, 64) ;font-size:17px"> 1 </span> Hour</p>
+                    @error('times')
+                        <div class="alert alert-danger" role="alert">{{ $message }}</div>
+                    @enderror
                     <div class="row time_btn" id="time_btn" style="height: 500px;overflow: scroll;width: 115%;">
                         @foreach ($times as $time)
                             <button class="col-md-3" onclick="getTime({{ $time->id }})"

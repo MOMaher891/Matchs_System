@@ -42,7 +42,10 @@ class WebsiteController extends Controller
     }
 
     public function booking(Request $request){
-        // return $request;
+        $request->validate([
+            'date'=>'required|date',
+            'times'=>'required'
+        ]);
         if($request->has('type')){
             $request['type'] = 'const';
             //Get Selected Date
