@@ -138,6 +138,7 @@ class StadiumController extends Controller
         $request['bathroom'] = $request->has('bathroom') ? 1 : 0;
         $request['s_bathroom'] = $request->has('s_bathroom') ? 1 : 0;
         $period = $this->implodeArr($request->period);
+        
         $data = array(
             'name'=>$request->name,
             'description'=>$request->description,
