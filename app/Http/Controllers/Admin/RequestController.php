@@ -12,7 +12,7 @@ class RequestController extends Controller
 {
     //
     public function index()
-    {      
+    {
         return view('admin.request.index');
     }
 
@@ -21,7 +21,7 @@ class RequestController extends Controller
         $data = Booking::bending()->with(['stadium'=>function($q){
             $q->where('admin_id',auth('admin')->user()->id);
         }])->with('user')->groupBy('stadium_id','times','client_id');
-        
+
         return DataTables::of($data)->addColumn('actions',function($data){
             return view('admin.request.action',['type'=>'actions','data'=>$data]);
         })
