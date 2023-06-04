@@ -70,6 +70,16 @@
                 background-color: var(--orange);
                 color: white;
             }
+
+            ::-webkit-scrollbar {
+                width: 20px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                /* width: 500px; */
+                background-color: rgba(133, 194, 64, 0.665);
+                border-radius: 3px;
+            }
         </style>
     </head>
 
@@ -88,6 +98,7 @@
                             <p>Number Of Player <span class="fw-bolder">{{ $data->num_of_player + 1 }} <span
                                         class="text-success">V.S</span>
                                     {{ $data->num_of_player + 1 }}</span></p>
+                            <p>Players Number <span class="fw-bolder">{{ $data->num_of_player }} + </span> Goal Keeper</p>
                             <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="40%"
                                 alt="">
                         </div>
@@ -200,10 +211,18 @@
                             </div>
 
 
-                            <div class="form-check form-switch mt-5 justify-content-center align-items-center">
+                            <div class="form-check form-switch my-5 justify-content-center align-items-center">
                                 <input class="form-check-input" style="font-size:20px" type="checkbox" role="switch"
                                     id="flexSwitchCheckDefault" name="twoHour" value="off" onclick="hourToggle()">
                                 <label class="form-check-label fw-bolder" for="flexSwitchCheckDefault">Two Hour
+                                </label>
+                            </div>
+
+                            <div class="form-check form-switch  justify-content-center align-items-center">
+                                <input class="form-check-input" style="font-size:20px" type="checkbox" role="switch"
+                                    id="flexSwitchCheckDefault2" name="hour_half" value="off"
+                                    onclick="hour_half_Toggle()">
+                                <label class="form-check-label fw-bolder" for="flexSwitchCheckDefault2">Hour + Half
                                 </label>
                             </div>
                         </div>
@@ -214,11 +233,17 @@
                         <input type="hidden" name="stadium_id" value="{{ $data->id }}">
                         <input type="hidden" name="times">
                     </form>
-                    <div class="row" id="time_btn">
+                    <h2 class="fw-bolder pt-3">Avaliable Times</h2>
+                    <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="30%" alt="">
+                    <p>You Should Choose <span id="alert" class="fw-bolder"
+                            style="color:rgb(133, 194, 64) ;font-size:17px"> 2
+                        </span> Buttons For Booking <span id="hours" class="fw-bolder"
+                            style="color:rgb(133, 194, 64) ;font-size:17px"> 1 </span> Hour</p>
+                    <div class="row time_btn" id="time_btn" style="height: 500px;overflow: scroll;width: 115%;">
                         @foreach ($times as $time)
                             <button class="col-md-3" onclick="getTime({{ $time->id }})"
-                                id="{{ $time->id }}">{{ Carbon\Carbon::parse($time->from)->format('h') }} -
-                                {{ Carbon\Carbon::parse($time->to)->format('h') }}</button>
+                                id="{{ $time->id }}">{{ Carbon\Carbon::parse($time->from)->format('H:i') }} -
+                                {{ Carbon\Carbon::parse($time->to)->format('H:i') }}</button>
                         @endforeach
                     </div>
                 </div>
@@ -255,39 +280,59 @@
 
         <script>
             var ids = [];
-            var x = document.getElementsByName('twoHour')[0].value;
+            var two = document.getElementsByName('twoHour')[0].value;
+            var half = document.getElementsByName('hour_half')[0].value;
             var y = document.getElementsByName('type')[0].value;
             var hidden_month_input = document.querySelector('#months');
 
             function getTime(id) {
                 ids.push(id);
-                if (x != 'on') {
-                    ids = ids.slice(-1);
-                    document.getElementsByName('times')[0].value = ids[ids.length - 1];
-
+                if (two != 'on' && half != 'on') {
+                    ids.push(id + 1);
                     var buttons = document.querySelectorAll('#time_btn .col-md-3');
+                    ids = ids.slice(-2);
                     buttons.forEach(function(e) {
-                        if (e.id == ids[0]) {
-                            console.log(ids);
+                        if (e.id == ids[0] || e.id == ids[1]) {
+
                             e.style.backgroundColor = "#85c240";
                             e.style.color = 'white';
+                        } else {
+                            e.style.backgroundColor = "rgb(240 240 248)";
+                            e.style.color = "black";
+                        }
+                    })
+                    document.getElementsByName('times')[0].value = ids;
 
+                } else if (half != 'on') {
+                    ids.push(id + 1);
+                    ids.push(id + 2);
+                    ids.push(id + 3);
+
+                    ids = ids.slice(-4);
+                    var buttons = document.querySelectorAll('#time_btn .col-md-3');
+                    buttons.forEach(function(e) {
+                        if (e.id == ids[0] || e.id == ids[1] || e.id == ids[2] || e.id == ids[3]) {
+                            e.style.backgroundColor = "#85c240";
+                            e.style.color = 'white';
 
                         } else {
                             e.style.backgroundColor = "rgb(240 240 248)";
                             e.style.color = "black";
                         }
                     })
+
+                    document.getElementsByName('times')[0].value = ids;
+
                 } else {
-                    ids = ids.slice(-2);
+                    ids.push(id + 1);
+                    ids.push(id + 2);
+                    ids = ids.slice(-3);
                     // console.log(ids);
                     var buttons = document.querySelectorAll('#time_btn .col-md-3');
                     buttons.forEach(function(e) {
-                        if (e.id == ids[0] || e.id == ids[1]) {
-                            console.log(ids);
+                        if (e.id == ids[0] || e.id == ids[1] || e.id == ids[2]) {
                             e.style.backgroundColor = "#85c240";
                             e.style.color = 'white';
-
 
                         } else {
                             e.style.backgroundColor = "rgb(240 240 248)";
@@ -303,12 +348,47 @@
 
             function hourToggle() {
 
-                if (x == 'off') {
-                    x = 'on';
+                var buttons = document.querySelectorAll('#time_btn .col-md-3');
+                ids.splice(0, ids.length);
+                document.getElementsByName('times')[0].value = ids;
+                buttons.forEach(function(e) {
+                    e.style.backgroundColor = "rgb(240 240 248)";
+                    e.style.color = "black";
+                })
+
+                if (two == 'off') {
+                    two = 'on';
+                    document.getElementById('alert').innerHTML = 4;
+                    document.getElementById('hours').innerHTML = 2;
+
 
                 } else {
-                    x = 'off';
+                    two = 'off';
+                    document.getElementById('alert').innerHTML = 2;
+                    document.getElementById('hours').innerHTML = 1;
+
                 }
+            }
+
+            function hour_half_Toggle() {
+                var buttons = document.querySelectorAll('#time_btn .col-md-3');
+                ids.splice(0, ids.length);
+                document.getElementsByName('times')[0].value = ids;
+                buttons.forEach(function(e) {
+                    e.style.backgroundColor = "rgb(240 240 248)";
+                    e.style.color = "black";
+                })
+                if (half == 'off') {
+                    half = 'on';
+                    document.getElementById('alert').innerHTML = 3;
+                    document.getElementById('hours').innerHTML = 1.5;
+
+                } else {
+                    half = 'off';
+                    document.getElementById('alert').innerHTML = 2;
+                    document.getElementById('hours').innerHTML = 1;
+                }
+                ids.length = 0;
             }
 
             function typeToggle() {
