@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Time;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -33,7 +34,9 @@ class RequestController extends Controller
 
         ->editColumn('times',function($data){
             $times = Time::whereIn('id',$this->encodeTimes($data->times))->get();
-            return view('admin.request.action',['type'=>'times','times'=>$times]);
+            $timeFrom =  Carbon::parse($times[0]->from)->format('H:i');
+            $timeTo  = Carbon::parse($times[count($times)-1]->to)->format('H:i');     
+            return $timeFrom . ' - ' . $timeTo;
 
         })
         ->editColumn('client_id',function($data)
