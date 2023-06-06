@@ -186,9 +186,17 @@
                 {{-- Right Div --}}
 
                 <div class="mx-5">
-                    <div class=" pb-3">
-                        <h2 class="fw-bolder">Booking</h2>
-                        <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="30%" alt="">
+                    <div class=" pb-3 d-flex justify-content-between">
+                        <div>
+                            <h2 class="fw-bolder">Booking</h2>
+                            <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="100%"
+                                alt="">
+
+                        </div>
+                        <div>
+                            <h2 class="fw-bolder pt-3" style="color:#85c240" id="price">{{ $data->price }}$</h2>
+
+                        </div>
                     </div>
                     <form action="{{ route('booking', $data->id) }}" method="post" class="d-flex justify-content-between">
                         @csrf
@@ -294,6 +302,7 @@
             var half = document.getElementsByName('hour_half')[0].value;
             var y = document.getElementsByName('type')[0].value;
             var hidden_month_input = document.querySelector('#months');
+            var price = document.getElementById('price');
 
             function getTime(id) {
                 ids.push(id);
@@ -318,9 +327,12 @@
                     ids.push(id + 2);
                     ids.push(id + 3);
 
+
+
                     ids = ids.slice(-4);
                     var buttons = document.querySelectorAll('#time_btn .col-md-3');
                     buttons.forEach(function(e) {
+
                         if (e.id == ids[0] || e.id == ids[1] || e.id == ids[2] || e.id == ids[3]) {
                             e.style.backgroundColor = "#85c240";
                             e.style.color = 'white';
@@ -370,12 +382,13 @@
                     two = 'on';
                     document.getElementById('alert').innerHTML = 4;
                     document.getElementById('hours').innerHTML = 2;
-
+                    price.innerHTML = {{ $data->price }} * 2 + "$";
 
                 } else {
                     two = 'off';
                     document.getElementById('alert').innerHTML = 2;
                     document.getElementById('hours').innerHTML = 1;
+                    price.innerHTML = {{ $data->price }} + "$";
 
                 }
             }
@@ -392,11 +405,15 @@
                     half = 'on';
                     document.getElementById('alert').innerHTML = 3;
                     document.getElementById('hours').innerHTML = 1.5;
+                    price.innerHTML = {{ $data->price }} * 1.5 + "$";
+
 
                 } else {
                     half = 'off';
                     document.getElementById('alert').innerHTML = 2;
                     document.getElementById('hours').innerHTML = 1;
+                    price.innerHTML = {{ $data->price }} + "$";
+
                 }
                 ids.length = 0;
             }
