@@ -5,11 +5,13 @@ namespace App\Http\Controllers\WebSite;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\BookTime;
+use App\Models\Client;
 use App\Models\Stadium;
 use App\Models\StadiumImage;
 use App\Models\Time;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Database\DBAL\TimestampType;
 
 class WebsiteController extends Controller
 {
@@ -43,39 +45,66 @@ class WebsiteController extends Controller
 
     public function booking(Request $request){
         // return $request;
-        if($request->has('type')){
-            $request['type'] = 'const';
-            //Get Selected Date
-            $current_date =  Carbon::parse($request->date);
-            $end_date = Carbon::parse($request->date)->addMonths($request->months);
-            //Get Number Of Weeks
-            $weeks = $end_date->diffInWeeks($current_date);
-            //Loop To Add 7days limit number of months
-            for($i=0;$i<$weeks;$i++){
+        $times_ids = explode(',',$request->times);
+        $exists = BookTime::whereIn('time_id',$times_ids)->exists();
+        $stadium = Stadium::with('admin')->find($request->stadium_id);
+        $client = Client::find($request->client_id);
+        $first_time = Time::find($times_ids[0]);
+        $last_time = Time::find($times_ids[count($times_ids)-1]);
+        $admin = $stadium->admin->name;
+        // return $client;
 
+
+        if($exists){
+            $first_time = Time::where('id',$times_ids[0])->first();
+            if(count($times_ids) == 4){
+                return redirect()->back()->with('error',"You Can't Booking Two Hour From ".Carbon::parse($first_time->from)->format("H:i")." , Try Again..");
+
+            }else{
+                return redirect()->back()->with('error',"You Can't Booking Hour And Half Hour From ".Carbon::parse($first_time->from)->format("H:i")." , Try Again..");
+            }
+        }else{
+            $request->validate([
+                'date'=>'required|date',
+                'times'=>'required'
+            ]);
+            if($request->has('type')){
+                $request['type'] = 'const';
+                //Get Selected Date
+                $current_date =  Carbon::parse($request->date);
+                $end_date = Carbon::parse($request->date)->addMonths($request->months);
+                //Get Number Of Weeks
+                $weeks = $end_date->diffInWeeks($current_date);
+                //Loop To Add 7days limit number of months
+                for($i=0;$i<$weeks;$i++){
+
+                    $book = Booking::create([
+                        'client_id'=>$request->client_id,
+                        'stadium_id'=>$request->stadium_id,
+                        'times'=>$request->times,
+                        'date'=>$current_date,
+                        'type'=>$request['type']
+                    ]);
+
+                    $current_date = $current_date->addWeek();
+
+
+                }
+            }else{
                 $book = Booking::create([
                     'client_id'=>$request->client_id,
                     'stadium_id'=>$request->stadium_id,
                     'times'=>$request->times,
-                    'date'=>$current_date,
-                    'type'=>$request['type']
+                    'date'=>$request->date,
                 ]);
-
-                $current_date = $current_date->addWeek();
-
-
             }
-        }else{
-            $book = Booking::create([
-                'client_id'=>$request->client_id,
-                'stadium_id'=>$request->stadium_id,
-                'times'=>$request->times,
-                'date'=>$request->date,
-            ]);
         }
 
+        $first_time = Carbon::parse($first_time->from)->format('H:i');
+        $last_time = Carbon::parse($last_time->to)->format('H:i');
+                // return redirect()->back()->with('success','Booking Success');
+                return redirect("https://wa.me/$stadium->phone?text=Hello, Mr.$admin,%20 I'M $client->name : I want to book your stadium $stadium->name from $first_time to $last_time");
 
-        return redirect()->back()->with('success','Booking Success');
 
     }
 

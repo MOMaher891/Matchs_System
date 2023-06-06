@@ -44,6 +44,11 @@
                     <h3 class="mb-3">{{ $stadium->name }} </h3>
                     <h3><i class="fas fa-map-marker-alt"></i> {{ $stadium->region->name }}
                         - {{ $stadium->region->city->name }} </h3>
+                    <a target="_blank"
+                        href="https://wa.me/{{ $stadium->phone }}?text=Hello,%20about {{ $stadium->name }}%20Stadium%20:%20"
+                        class="text-decoration-none">
+                        <p style="color:#85c240;font-weight:bolder">{{ $stadium->phone }}</p>
+                    </a>
                     <p>{!! $stadium->description !!}</p>
                     <div class="stars">
                         <i class="fas fa-star"></i>

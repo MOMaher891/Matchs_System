@@ -84,8 +84,11 @@
     </head>
 
     <body class="light dark">
+
         <div class="container py-5 my-5" style="height:175vh;margin-top:50px">
+
             <div class="d-flex justify-content-between" style="margin-top:150px">
+
                 <div class="mt-8">
                     <h2 class="" style="font-weight:bolder">{{ $data->name }}</h2>
                     <h3><i class="fas fa-map-marker-alt" style="color:green"></i> {{ $data->region->name }}
@@ -183,9 +186,17 @@
                 {{-- Right Div --}}
 
                 <div class="mx-5">
-                    <div class=" pb-3">
-                        <h2 class="fw-bolder">Booking</h2>
-                        <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="30%" alt="">
+                    <div class=" pb-3 d-flex justify-content-between">
+                        <div>
+                            <h2 class="fw-bolder">Booking</h2>
+                            <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="100%"
+                                alt="">
+
+                        </div>
+                        <div>
+                            <h2 class="fw-bolder pt-3" style="color:#85c240" id="price">{{ $data->price }}$</h2>
+
+                        </div>
                     </div>
                     <form action="{{ route('booking', $data->id) }}" method="post" class="d-flex justify-content-between">
                         @csrf
@@ -193,6 +204,9 @@
                             <label for="" class="fw-bolder">Choose Day</label>
                             <input type="date" onchange="getDate()" name="date" placeholder="Choose Day"
                                 class="form-control mt-3 p-3 w-100" id="">
+                            @error('date')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
 
                             <input type="submit" value="Book" class="btn btn-success">
                         </div>
@@ -233,12 +247,16 @@
                         <input type="hidden" name="stadium_id" value="{{ $data->id }}">
                         <input type="hidden" name="times">
                     </form>
+
                     <h2 class="fw-bolder pt-3">Avaliable Times</h2>
                     <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="30%" alt="">
                     <p>You Should Choose <span id="alert" class="fw-bolder"
                             style="color:rgb(133, 194, 64) ;font-size:17px"> 2
                         </span> Buttons For Booking <span id="hours" class="fw-bolder"
                             style="color:rgb(133, 194, 64) ;font-size:17px"> 1 </span> Hour</p>
+                    @error('times')
+                        <div class="alert alert-danger" role="alert">{{ $message }}</div>
+                    @enderror
                     <div class="row time_btn" id="time_btn" style="height: 500px;overflow: scroll;width: 115%;">
                         @foreach ($times as $time)
                             <button class="col-md-3" onclick="getTime({{ $time->id }})"
@@ -284,6 +302,7 @@
             var half = document.getElementsByName('hour_half')[0].value;
             var y = document.getElementsByName('type')[0].value;
             var hidden_month_input = document.querySelector('#months');
+            var price = document.getElementById('price');
 
             function getTime(id) {
                 ids.push(id);
@@ -308,9 +327,12 @@
                     ids.push(id + 2);
                     ids.push(id + 3);
 
+
+
                     ids = ids.slice(-4);
                     var buttons = document.querySelectorAll('#time_btn .col-md-3');
                     buttons.forEach(function(e) {
+
                         if (e.id == ids[0] || e.id == ids[1] || e.id == ids[2] || e.id == ids[3]) {
                             e.style.backgroundColor = "#85c240";
                             e.style.color = 'white';
@@ -360,12 +382,13 @@
                     two = 'on';
                     document.getElementById('alert').innerHTML = 4;
                     document.getElementById('hours').innerHTML = 2;
-
+                    price.innerHTML = {{ $data->price }} * 2 + "$";
 
                 } else {
                     two = 'off';
                     document.getElementById('alert').innerHTML = 2;
                     document.getElementById('hours').innerHTML = 1;
+                    price.innerHTML = {{ $data->price }} + "$";
 
                 }
             }
@@ -382,11 +405,15 @@
                     half = 'on';
                     document.getElementById('alert').innerHTML = 3;
                     document.getElementById('hours').innerHTML = 1.5;
+                    price.innerHTML = {{ $data->price }} * 1.5 + "$";
+
 
                 } else {
                     half = 'off';
                     document.getElementById('alert').innerHTML = 2;
                     document.getElementById('hours').innerHTML = 1;
+                    price.innerHTML = {{ $data->price }} + "$";
+
                 }
                 ids.length = 0;
             }
