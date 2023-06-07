@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RequestController;
 use App\Http\Controllers\Admin\StadiumController;
 use App\Http\Controllers\Admin\UserController;
@@ -64,6 +65,16 @@ Route::group(['middleware'=>'auth:admin'],function(){
         $prefix = 'admin.bookings.';
         Route::get('/','index')->name($prefix.'index');
         Route::get('/data','data')->name($prefix.'data');
+    });
+
+
+    Route::group(['controller'=>ProfileController::class,'prefix'=>'profile'],function(){
+        $prefix = 'admin.profiles.';
+        Route::get('/','profile')->name($prefix.'index');
+        Route::get('/change-password','changePasswordView')->name($prefix.'change-password-view');
+        Route::post('/update','update')->name($prefix.'update');
+        Route::post('/change-password','changePassword')->name($prefix.'change-password');
+
     });
 
 
