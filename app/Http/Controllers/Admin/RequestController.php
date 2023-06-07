@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\Client;
+use App\Models\Stadium;
 use App\Models\Time;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -61,6 +63,9 @@ class RequestController extends Controller
             ['stadium_id','=',$request->stadium_id],
             ['times','=',$request->times]
         ])->get();
+        $client = Client::findOrFail($request->client_id);
+        $stadium = Stadium::findOrFail($request->stadium_id);
+
         // return $booking;
         if($request->status == 'accept')
         {
@@ -71,13 +76,30 @@ class RequestController extends Controller
                 // return $this->encodeTimes($booking->times);
                 $book->code = $this->generateCode($book->id);
 
+                // Convert Time To array 
+                $time = $this->encodeTimes($book->times);
+
                 // Add Times
-                $book->book_time()->sync($this->encodeTimes($book->times));
+                $book->book_time()->sync($time);
+
+                // Calculate Total 
+                $total =  $stadium->price * count($time); 
+
+
                 // Add Notification Here
                 // end Notification
+
+
+                $book->total = $total;
                 $book->save();
             }
-            return response()->json(['status'=>true,'message'=>'Booking Accepted Successfully']);
+            // return redirect("https://wa.me/$client->phone?text=Hii, Mr.$client->name,%20 your Request to Book $stadium->name at Has Approved. Enjoy");
+            return response()->json(['status'=>true,
+            'type'=>'accept',
+            'client'=>$client->name,
+            'phone'=>$client->phone,
+            'stadium'=>$stadium->name
+            ,'message'=>'Booking Accepted Successfully']);
 
         }else if($request->status == 'decline')
         {
@@ -86,7 +108,13 @@ class RequestController extends Controller
                 $book->status = 'decline';
                 $book->save();
             }
-            return response()->json(['status'=>true]);
+            return response()->json(['status'=>true,
+            'client'=>$client->name,
+            'phone'=>$client->phone,
+            'stadium'=>$stadium->name,
+            'type'=>'decline']);
+
+            // return redirect("https://wa.me/$client->phone?text=Hii, Mr.$$client->name,%20 Sorry your Request to Book $stadium->name at Has Decline. ");
 
         }
     }

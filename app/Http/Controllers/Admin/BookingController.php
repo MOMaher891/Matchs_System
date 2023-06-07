@@ -15,7 +15,7 @@ class BookingController extends Controller
     //
     public function index()
     {
-        $total = Booking::sum('total');
+        $total = Booking::notBending()->sum('total');
         $stadiums = Stadium::where('admin_id',auth('admin')->user()->id)->get();
         return view('admin.booking.index',['stadiums'=>$stadiums,'total'=>$total]);
     }

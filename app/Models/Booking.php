@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -60,6 +61,13 @@ class Booking extends Model
         if(isset($params['type']))
         {
             $query->where('type',$params['type']);
+        }
+
+        if(isset($params['from']) && isset($params['to']))
+        {
+            $from = Carbon::parse($params['from']);
+            $to = Carbon::parse($params['to']);   
+            $query->whereBetween('date',[$from,$to]);
         }
 
         return $query;

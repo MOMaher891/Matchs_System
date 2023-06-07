@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
+use App\Models\Stadium;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 
@@ -13,6 +15,13 @@ class HomeController extends Controller
     }
 
     public function index(){
-        return view('admin.index');
+        $stadiumCount = Stadium::owner()->count();
+        $requestCount = Booking::bending()->count();
+        $bookingCount = Booking::notBending()->count();
+        return view('admin.index',[
+            'stdCount'=>$stadiumCount,
+            'requestCount'=>$requestCount,
+            'bookingCount'=>$bookingCount
+        ]);
     }
 }

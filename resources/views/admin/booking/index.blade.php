@@ -48,10 +48,25 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Date From</label>
+                           <input type="date" class="form-control" name="date_from" id="date_from">
+                        </div>
+                    </div>
+            
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Date To</label>
+                           <input type="date" class="form-control" name="date_to" id="date_to">
+                        </div>
+                    </div>
             
             
                     <div class="col-md-2" >
-                        <div class="form-group d-inline-flex">
+                        <div class="form-group d-inline-flex" style="margin-top: 30px">
                             <button onclick="handleFilter()" class="btn btn-primary p-2" >Search <i class="fa-solid fa-magnifying-glass"></i></button>
                             <button onclick="ClearFilter()" class="btn btn-light" >Clear</button>
                         </div>    
@@ -61,7 +76,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="content">
-                            <h3>Total: {{$total}} LBP</h3>
+                            <h3>Total All: {{$total}} LBP</h3>
                         </div>
                     </div>
                 </div>
@@ -81,6 +96,18 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+        
+                            </tr>
+                        </tfoot>
+        
                     </table>
                 </div>
             </div>
@@ -147,6 +174,27 @@
                     },
                     
                 ],
+                footerCallback: function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                        console.log(api);
+                    // converting to interger to find total
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                
+                    // computing column Total of the complete result 
+                    var totalcost = api
+                        .column(4).data().reduce( function (a, b) {
+                                 return intVal(a) + intVal(b);
+                                        }, 0 );
+
+                        // Update footer by showing the total with the reference of the column index 
+                        $( api.column( 0 ).footer() ).html( "Total: "+totalcost + " LBP");
+                      
+                },
             });
         }
 
@@ -158,9 +206,12 @@
             stadium = $('#stadium').val() || '';
             status = $('#status').val() || '';
             type = $('#type').val() || '';
+            from = $('#date_from').val()||'';
+            to = $('#date_to').val()||'';
+
             
             if (RequestsTable) {
-                var url = "{{ route('admin.bookings.data') }}" + `?stadium_id=${stadium}&status=${status}&type=${type}`;
+                var url = "{{ route('admin.bookings.data') }}" + `?stadium_id=${stadium}&status=${status}&type=${type}&from=${from}&to=${to}`;
                 // console.log(url);
                 RequestsTable.ajax.url(url).load()
             }
@@ -171,6 +222,9 @@
             stadium = $('#stadium').val('') ;
             status = $('#status').val('');
             type = $('#type').val('') ;
+            from = $('#date_from').val('');
+            to = $('#date_to').val('');
+
             var url = "{{ route('admin.bookings.data') }}";
             RequestsTable.ajax.url(url).load()
         
