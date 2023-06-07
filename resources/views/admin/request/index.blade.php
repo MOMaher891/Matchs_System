@@ -102,15 +102,25 @@
                  $.ajax({
                      type: 'GET',
                      url: "{{route('request.toggle-status')}}",
-                     data: {status:status,
+                     data: {
+                        status:status,
                         client_id:client_id,
                         stadium_id,
                         times
                     },
                      dataType: 'JSON',
                      success: function (results) {
-                       console.log(results);
+                       console.log(results.phone);
                        RequestsTable.ajax.reload()
+                    //    return results
+                       if(results.type =='accept')
+                       {
+                        window.open(`https://wa.me/${results.phone}?text=Hii, Mr.${results.client},%20 your Request to Book ${results.stadium} at Has Approved. Enjoy`,'_blank')
+                       }else if(results.type == 'decline')
+                       {
+                        window.open(`https://wa.me/${results.phone}?text=Hii, Mr.${results.client},%20 Sorry your Request to Book ${results.stadium} at Has Decline`,'_blank')
+                       }
+
                      },
                      error:function(result){
                         console.log(result);
