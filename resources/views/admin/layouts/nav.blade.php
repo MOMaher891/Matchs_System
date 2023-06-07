@@ -1,8 +1,8 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="images/logo.svg" class="mr-2"
+        <a class="navbar-brand brand-logo mr-5" href="{{route('admin.home')}}"><img src="{{asset('Admin/images/logo-white.svg')}}" class="mr-2"
                 alt="DashBoard" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="DashBoard" /></a>
+        <a class="navbar-brand brand-logo-mini" href="{{route('admin.home')}}"><img src="{{asset('Admin/images/logo-white.svg')}}" alt="DashBoard" /></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -77,11 +77,11 @@
                     <img src="images/faces/face28.jpg" alt="profile" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" href="{{route('admin.profiles.index')}}">
                         <i class="ti-settings text-primary"></i>
-                        Settings
+                        Profile
                     </a>
-                    <a class="dropdown-item" href="{{ route('super_admin.logout') }}">
+                    <a class="dropdown-item" href="{{ route('admin.logout') }}">
                         <i class="ti-power-off text-primary"></i>
                         Logout
                     </a>
