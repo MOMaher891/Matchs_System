@@ -102,7 +102,8 @@
                  $.ajax({
                      type: 'GET',
                      url: "{{route('request.toggle-status')}}",
-                     data: {status:status,
+                     data: {
+                        status:status,
                         client_id:client_id,
                         stadium_id,
                         times

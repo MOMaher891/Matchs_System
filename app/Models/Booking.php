@@ -45,4 +45,23 @@ class Booking extends Model
     // {
     //     $this
     // }
+    public function scopeFilter($query, $params)
+    {
+        if(isset($params['status']))
+        {
+            $query->where('status',$params['status']);
+        }
+
+        if(isset($params['client_id']))
+        {
+            $query->where('client_id',$params['client_id']);
+        }
+
+        if(isset($params['type']))
+        {
+            $query->where('type',$params['type']);
+        }
+
+        return $query;
+    }
 }
