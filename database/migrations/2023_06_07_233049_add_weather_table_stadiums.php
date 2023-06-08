@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
-class AddDateBookTimesTable extends Migration
+class AddWeatherTableStadiums extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +13,8 @@ class AddDateBookTimesTable extends Migration
      */
     public function up()
     {
-        Schema::table('book_times', function (Blueprint $table) {
-            $table->date('date')->nullable()->default(DB::raw('CURRENT_DATE'));
+        Schema::table('stadiums', function (Blueprint $table) {
+            $table->boolean('weather');
         });
     }
 

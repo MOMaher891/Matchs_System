@@ -117,6 +117,21 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>Closing Weather</td>
+                                        <td>
+                                            <div>
+                                                <label for="">Winter</label>
+                                                <input type="radio" name="weather"
+                                                    @if ($data->weather == 'winter') checked @endif disabled
+                                                    value="winter" />
+                                                <label for="">Summer</label>
+                                                <input type="radio" name="weather"
+                                                    @if ($data->weather == 'summer') checked @endif value="summer"
+                                                    disabled />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>Closing period</td>
                                         <td>
                                             <div>
