@@ -24,6 +24,7 @@ class Stadium extends Model
         'bathroom',
         's_bathroom',
         'period',
+        'weather'
     ];
     public $timestamps = false;
 
@@ -62,7 +63,7 @@ class Stadium extends Model
 
     public function block_user(){
         return $this->belongsToMany(Client::class,'blocked_users','client_id','stadium_id');
-    }    
+    }
 
     public function scopeOwner($query)
     {

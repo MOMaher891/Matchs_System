@@ -12,6 +12,7 @@ use App\Models\Time;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Database\DBAL\TimestampType;
+use Illuminate\Support\Facades\DB;
 
 class WebsiteController extends Controller
 {
@@ -33,7 +34,12 @@ class WebsiteController extends Controller
         ])->findOrFail($stadium_id);
         $period = explode(',', $data->period);
 
-        $bookTimes = BookTime::where('date',Carbon::today()->toDateString())->pluck('time_id');
+
+        $bookTimes = DB::table('book_times')->select()
+        ->join('bookings','book_times.book_id','=','bookings.id')
+        ->where('book_times.date',Carbon::today()->toDateString())
+        ->where('bookings.stadium_id',$data->id)->pluck('book_time.time_id');
+
 
         $bookTimes = $bookTimes->toArray();
         $times = Time::whereNotIn('id', $period)->whereNotIn('id',$bookTimes)->get();
@@ -46,7 +52,13 @@ class WebsiteController extends Controller
     public function booking(Request $request){
         // return $request;
         $times_ids = explode(',',$request->times);
-        $exists = BookTime::whereIn('time_id',$times_ids)->exists();
+        $exists = DB::table('book_times')->select()
+        ->join('bookings','book_times.book_id','=','bookings.id')
+        ->where('book_times.date',Carbon::parse($request->date)->toDateString())
+        ->where('bookings.stadium_id',$request->stadium_id)->exists();
+        // $exists = BookTime::whereDate('date',$request->date)->get('time_id');
+        // return $exists;
+
         $stadium = Stadium::with('admin')->find($request->stadium_id);
         $client = Client::find($request->client_id);
         $first_time = Time::find($times_ids[0]);
@@ -102,25 +114,33 @@ class WebsiteController extends Controller
 
         $first_time = Carbon::parse($first_time->from)->format('H:i');
         $last_time = Carbon::parse($last_time->to)->format('H:i');
-                // return redirect()->back()->with('success','Booking Success');
-                return redirect("https://wa.me/$stadium->phone?text=Hello, Mr.$admin,%20 I'M $client->name : I want to book your stadium $stadium->name from $first_time to $last_time");
-
+        // return redirect()->back()->with('success','Booking Success');
+        return redirect("https://wa.me/$stadium->phone?text=Hello, Mr.$admin,%20 I'M $client->name : I want to book your stadium $stadium->name from $first_time to $last_time %20:%20 Visit link : http://www.facebook.com");
 
     }
 
     public function getTime(Request $request){
-        $book_times = BookTime::whereDate('date',$request->date)->get('time_id');
+        // $book_times = BookTime::whereDate('date',$request->date)->get('time_id');
+
+        $book_times = DB::table('book_times')->select()
+        ->join('bookings','book_times.book_id','=','bookings.id')
+        ->whereDate('book_times.date',Carbon::parse($request->date))
+        ->where('bookings.stadium_id',$request->std_id)->pluck('book_time.time_id');
         $period = Stadium::findOrFail($request->std_id);
 
+        // $book_times = explode(',',$book_times);
+        // return $book_times;
+        // return $book_times;
         $period = explode(',', $period->period);
 
         $ids =[];
         foreach ($book_times as $time){
-            array_push($ids, $time['time_id'] -1);
+            array_push($ids, $time-1);
         }
+        // return $ids;
 
-        $times = Time::whereNotIn('id',$book_times)->whereNotIn('id',$period)->get();
-
+        $times = Time::whereNotIn('id',$ids)->whereNotIn('id',$period)->get();
+        // return $times;
         $text = "";
 
         foreach($times as $time){
@@ -131,29 +151,5 @@ class WebsiteController extends Controller
         return $text;
     }
 
-    public function getTwoHour(Request $request){
-        $book_times = BookTime::whereDate('date',$request->date)->get('time_id');
-        $period = Stadium::findOrFail($request->std_id);
-
-        $period = explode(',', $period->period);
-
-        $ids =[];
-        foreach ($book_times as $time){
-            array_push($ids, $time['time_id'] -1);
-        }
-
-        $times = Time::whereNotIn('id',$book_times)->whereNotIn('id',$period)->get();
-
-        $text = "";
-
-        foreach($times as $time){
-            $time_from = Carbon::parse($time->from)->format('H:i');
-            $time_to = Carbon::parse($time->to)->format('H:i');
-            $text.="<button class='col-md-3' onclick='getTime( $time->id )'> $time_from - $time_to  </button>";
-        }
-        return $text;
-
-
-    }
 
 }
