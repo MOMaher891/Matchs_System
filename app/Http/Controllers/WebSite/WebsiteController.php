@@ -55,7 +55,8 @@ class WebsiteController extends Controller
         $exists = DB::table('book_times')->select()
         ->join('bookings','book_times.book_id','=','bookings.id')
         ->where('book_times.date',Carbon::parse($request->date)->toDateString())
-        ->where('bookings.stadium_id',$request->stadium_id)->exists();
+        ->where('bookings.stadium_id',$request->stadium_id)->whereIn('book_times.time_id',$times_ids)->exists();
+
         // $exists = BookTime::whereDate('date',$request->date)->get('time_id');
         // return $exists;
 
@@ -120,7 +121,7 @@ class WebsiteController extends Controller
     }
 
     public function getTime(Request $request){
-        // $book_times = BookTime::whereDate('date',$request->date)->get('time_id');
+
 
         $book_times = DB::table('book_times')->select()
         ->join('bookings','book_times.book_id','=','bookings.id')
@@ -128,14 +129,13 @@ class WebsiteController extends Controller
         ->where('bookings.stadium_id',$request->std_id)->pluck('book_time.time_id');
         $period = Stadium::findOrFail($request->std_id);
 
-        // $book_times = explode(',',$book_times);
-        // return $book_times;
-        // return $book_times;
+
         $period = explode(',', $period->period);
 
         $ids =[];
         foreach ($book_times as $time){
-            array_push($ids, $time-1);
+            array_push($ids, $time);
+
         }
         // return $ids;
 
