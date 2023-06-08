@@ -80,7 +80,7 @@ class RequestController extends Controller
                 $time = $this->encodeTimes($book->times);
 
                 // Add Times
-                $book->book_time()->sync($time);
+                $book->book_time()->syncWithPivotValues($time,['date'=>$book->date]);
 
                 // Calculate Total 
                 $total =  $stadium->price * count($time); 
