@@ -98,10 +98,11 @@
                         <img src="{{ asset('website/Images/tag.png') }}" alt="">
                         <div class="flex-grow-1 pt-1" style="margin-right:180px;margin-left:20px">
                             <h3 class="fw-bold">{{ $data->name }}</h3>
-                            <p>Number Of Player <span class="fw-bolder">{{ $data->num_of_player + 1 }} <span
+                            <p>Number Of Player <span class="fw-bolder">{{ $data->num_of_player }} <span
                                         class="text-success">V.S</span>
-                                    {{ $data->num_of_player + 1 }}</span></p>
-                            <p>Players Number <span class="fw-bolder">{{ $data->num_of_player }} + </span> Goal Keeper</p>
+                                    {{ $data->num_of_player }}</span></p>
+                            <p>Players Number <span class="fw-bolder">{{ $data->num_of_player - 1 }} + </span> Goal Keeper
+                            </p>
                             <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="40%"
                                 alt="">
                         </div>
@@ -175,6 +176,42 @@
                                         </div>
                                     </div>
                                 @endif
+
+                                @if ($data->weather)
+                                    @if ($data->weather == 'winter')
+                                        <div class="col-md-2">
+                                            <div class="option">
+                                                <img src="{{ asset('website/Images/winter.png') }}" width="39"
+                                                    class="mx-2" alt="">
+                                                <span>Summer</span>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-md-2">
+                                            <div class="option">
+                                                <img src="{{ asset('website/Images/summer.png') }}" width="40"
+                                                    height="39" class="mx-2" alt="">
+                                                <span>Winter</span>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @else
+                                    <div class="col-md-2">
+                                        <div class="option">
+                                            <img src="{{ asset('website/Images/summer.png') }}" width="40"
+                                                height="39" class="mx-2" alt="">
+                                            <span>Winter</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="option">
+                                            <img src="{{ asset('website/Images/winter.png') }}" width="39"
+                                                class="mx-2" alt="">
+                                            <span>Summer</span>
+                                        </div>
+                                    </div>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -198,8 +235,10 @@
 
                         </div>
                     </div>
-                    <form action="{{ route('booking', $data->id) }}" method="post" class="d-flex justify-content-between">
+                    <form action="{{ route('booking', $data->id) }}" method="post"
+                        class="d-flex justify-content-between">
                         @csrf
+                        <input type="hidden" name="price" value="{{ $data->price }}">
                         <div class="form-group " style="width:220px">
                             <label for="" class="fw-bolder">Choose Day</label>
                             <input type="date" onchange="getDate()" name="date" placeholder="Choose Day"
@@ -227,7 +266,7 @@
 
                             <div class="form-check form-switch my-5 justify-content-center align-items-center">
                                 <input class="form-check-input" style="font-size:20px" type="checkbox" role="switch"
-                                    id="flexSwitchCheckDefault" name="twoHour" value="off" onclick="hourToggle()">
+                                    id="flexSwitchCheckDefault" name="twoHour" value="off" onchange="hourToggle()">
                                 <label class="form-check-label fw-bolder" for="flexSwitchCheckDefault">Two Hour
                                 </label>
                             </div>
@@ -235,7 +274,7 @@
                             <div class="form-check form-switch  justify-content-center align-items-center">
                                 <input class="form-check-input" style="font-size:20px" type="checkbox" role="switch"
                                     id="flexSwitchCheckDefault2" name="hour_half" value="off"
-                                    onclick="hour_half_Toggle()">
+                                    onchange="hour_half_Toggle()">
                                 <label class="form-check-label fw-bolder" for="flexSwitchCheckDefault2">Hour + Half
                                 </label>
                             </div>
@@ -298,15 +337,16 @@
 
         <script>
             var ids = [];
-            var two = document.getElementsByName('twoHour')[0].value;
-            var half = document.getElementsByName('hour_half')[0].value;
+            var two = document.getElementsByName('twoHour')[0];
+            var half = document.getElementsByName('hour_half')[0];
             var y = document.getElementsByName('type')[0].value;
             var hidden_month_input = document.querySelector('#months');
             var price = document.getElementById('price');
+            var total = document.getElementsByName('price');
 
             function getTime(id) {
                 ids.push(id);
-                if (two != 'on' && half != 'on') {
+                if (two.value != 'on' && half.value != 'on') {
                     ids.push(id + 1);
                     var buttons = document.querySelectorAll('#time_btn .col-md-3');
                     ids = ids.slice(-2);
@@ -322,7 +362,7 @@
                     })
                     document.getElementsByName('times')[0].value = ids;
 
-                } else if (half != 'on') {
+                } else if (half.value != 'on') {
                     ids.push(id + 1);
                     ids.push(id + 2);
                     ids.push(id + 3);
@@ -378,18 +418,25 @@
                     e.style.color = "black";
                 })
 
-                if (two == 'off') {
-                    two = 'on';
+                if (two.value == 'off') {
+                    two.value = 'on';
                     document.getElementById('alert').innerHTML = 4;
                     document.getElementById('hours').innerHTML = 2;
                     price.innerHTML = {{ $data->price }} * 2 + "$";
+                    total[0].value = {{ $data->price }} * 2;
+                    two.checked = true;
+                    if (half.checked == true) {
+                        half.checked = false;
+                        half.value = 'off';
+                    }
 
                 } else {
-                    two = 'off';
+                    two.value = 'off';
                     document.getElementById('alert').innerHTML = 2;
                     document.getElementById('hours').innerHTML = 1;
                     price.innerHTML = {{ $data->price }} + "$";
-
+                    total[0].value = {{ $data->price }};
+                    two.checked = false;
                 }
             }
 
@@ -401,19 +448,24 @@
                     e.style.backgroundColor = "rgb(240 240 248)";
                     e.style.color = "black";
                 })
-                if (half == 'off') {
-                    half = 'on';
+                if (half.value == 'off') {
+                    half.value = 'on';
                     document.getElementById('alert').innerHTML = 3;
                     document.getElementById('hours').innerHTML = 1.5;
                     price.innerHTML = {{ $data->price }} * 1.5 + "$";
-
-
+                    total[0].value = {{ $data->price }} * 1.5;
+                    half.checked = true;
+                    if (two.checked == true) {
+                        two.checked = false;
+                        two.value = 'off';
+                    }
                 } else {
-                    half = 'off';
+                    half.value = 'off';
                     document.getElementById('alert').innerHTML = 2;
                     document.getElementById('hours').innerHTML = 1;
                     price.innerHTML = {{ $data->price }} + "$";
-
+                    total[0].value = {{ $data->price }};
+                    half.checked = false;
                 }
                 ids.length = 0;
             }

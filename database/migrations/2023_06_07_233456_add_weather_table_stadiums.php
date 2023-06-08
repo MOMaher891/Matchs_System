@@ -2,10 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class AddDateBookingsTable extends Migration
+class AddWeatherTableStadiums extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +13,8 @@ class AddDateBookingsTable extends Migration
      */
     public function up()
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->date('date')->nullable()->default(DB::raw('CURRENT_DATE'));
+        Schema::table('stadiums', function (Blueprint $table) {
+            $table->enum('weather',["winter","summer"]);
         });
     }
 
