@@ -14,6 +14,11 @@
                     Show Bookings
                 </p>
 
+                <div class="content m-2 text-center">
+                    <a class="btn btn-primary" href="{{ route('admin.bookings.create') }}">Add Booking <i
+                            class="fa fa-plus"></i></a>
+                </div>
+
                 <div class="row  w-100 ">
 
                     <div class="col-md-4">
