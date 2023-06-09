@@ -113,6 +113,7 @@ class StadiumController extends Controller
             's_bathroom'=>$request->s_bathroom,
             'period'=>$period,
             'region_id'=>$request->region_id,
+            'weather'=>$request->weather
         );
         $stadium = DB::table('stadiums')->insertGetId($data);
 

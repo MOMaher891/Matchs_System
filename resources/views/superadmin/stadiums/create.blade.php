@@ -85,7 +85,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="exampleInputPassword4">Number Of Playes</label>
+                            <label for="exampleInputPassword4">Number Of Playes + Goal Keeper</label>
                             <input type="text" class="form-control" name="num_of_player" id="exampleInputPassword4"
                                 placeholder="num_of_player">
                             @error('price')
@@ -141,6 +141,17 @@
                                                 <input type="checkbox" name="s_bathroom" class="custom-control-input"
                                                     id="s_Bathroom" />
                                                 <label class="custom-control-label" for="s_Bathroom"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Closing Weather</td>
+                                        <td>
+                                            <div>
+                                                <label for="">Winter</label>
+                                                <input type="radio" name="weather" value="winter" />
+                                                <label for="">Summer</label>
+                                                <input type="radio" name="weather" value="summer" />
                                             </div>
                                         </td>
                                     </tr>

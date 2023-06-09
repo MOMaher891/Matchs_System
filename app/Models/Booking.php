@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    protected $fillable = ['code','client_id','stadium_id','type','total','status','times','date'];
+    protected $fillable = ['code','client_id','stadium_id','type','status','times','total','date'];
     public $timestamps = false;
     use HasFactory;
 
@@ -30,7 +30,7 @@ class Booking extends Model
         $query->where('status','bending');
     }
 
-    
+
     public function scopeNotBending($query)
     {
         $query->where('status','delcine')->orWhere('status','accept');
@@ -66,7 +66,7 @@ class Booking extends Model
         if(isset($params['from']) && isset($params['to']))
         {
             $from = Carbon::parse($params['from']);
-            $to = Carbon::parse($params['to']);   
+            $to = Carbon::parse($params['to']);
             $query->whereBetween('date',[$from,$to]);
         }
 

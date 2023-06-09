@@ -9,4 +9,9 @@ class BookTime extends Model
 {
     protected $fillable = ['book_id','time_id','date'];
     public $timestamps = false;
+
+    public function booking(){
+
+        return $this->belongsTo(Booking::class,'book_id');
+    }
 }
