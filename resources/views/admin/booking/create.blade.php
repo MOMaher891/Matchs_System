@@ -63,14 +63,6 @@
                         </div>
 
 
-
-                        
-                        <div class="form-group col-md-12">
-                            <label for="exampleInputEmail3">Total</label>
-                            <input type="number" name="total" class="from-control" id="total">
-                        </div>
-
-
                         <div class="col-md-12 mx-5">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="type" id="type" onclick="showTime()" value="const">
@@ -79,15 +71,21 @@
                                 </label>
                             </div>
 
-                            <input type="text" value=""  id="month_num" onchange="getTotal()" placeholder="Number Of Time in Month">
+                            <input type="text" value="" name="month" class="form-control d-none" style="width: 70px" id="month_num" onchange="getTotal()" placeholder="Number Of Time in Month">
                               
                               <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type" onclick="getTotal()" id="type" value="once" checked>
+                                <input class="form-check-input" type="radio" name="type" onclick="getTotal()" id="type" value="once">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                   Once
                                 </label>
                               </div>
                         </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail3">Total</label>
+                            <input type="text" name="total" class="form-control" id="total">
+                        </div>
+
                     </div>
 
                    
@@ -141,10 +139,14 @@
             let times = $("#times").val();
             let month = $("#month_num").val();
 
-            let type =  $('input[name="locationthemes"]:checked').each(function() {
-                return $(this).val();
-            });
+            let type = $('input[name="type"]:checked').val(); 
             let stadium_id = $("#stadium_search").val();
+
+            if(type === 'once')
+            {
+                $("#month_num").addClass('d-none');
+
+            }
 
             console.log(times);
             console.log(month);
@@ -169,6 +171,12 @@
                     // alert('error')
                 }
             });
+        }
+
+
+        function showTime()
+        {
+            $("#month_num").removeClass('d-none');
         }
     </script>
 

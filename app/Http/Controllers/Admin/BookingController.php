@@ -78,27 +78,60 @@ class BookingController extends Controller
     }
     public function store(Request $request)
     {
+        // return $request->all();
+
         $request->validate([
             'stadium_id'=>'required',
             'type'=>'required',
             'times'=>'required|array',
-            'date'=>'required|date'
+            'date'=>'required|date',
+            'total'=>'required'
         ]);
+        $stadium = Stadium::findOrFail($request->stadium_id)->price;
         try{
-            $booking = Booking::create(array_merge($request->all(),[
-                'times'=>$this->implodeArr($request->times),
-                'code'=>$this->generateCode($request->stadium_id),
-                'status'=>'accept'
-            ]));
-    
-            $time = $this->encodeTimes($booking->times);
-            // Add In Book time
-            $booking->book_time()->syncWithPivotValues($time,['date'=>$request->date]);
+            if($request->type == 'once')
+            {
+                $booking = Booking::create(array_merge($request->all(),[
+                    'times'=>$this->implodeArr($request->times),
+                    'code'=>$this->generateCode($request->stadium_id,$request->date),
+                    'status'=>'accept'
+                ]));
+        
+                $time = $this->encodeTimes($booking->times);
+                // Add In Book time
+                $booking->book_time()->syncWithPivotValues($time,['date'=>$request->date]);
+                return redirect()->back()->with('success','Success');
 
-            return redirect()->back()->with('success','Success');
+            }
+            elseif($request->type == 'const')
+            {
+                $current_date =  Carbon::parse($request->date);
+                $end_date = Carbon::parse($request->date)->addMonths($request->month);
+                //Get Number Of Weeks
+                $weeks = $end_date->diffInWeeks($current_date);
+                //Loop To Add 7days limit number of months
+                for($i=0;$i<$weeks;$i++)
+                {
+                    $book = Booking::create(array_merge($request->all(),
+                        [
+                            'times'=>$this->implodeArr($request->times),
+                            'code'=>$this->generateCode($request->stadium_id,$current_date),
+                            'status'=>'accept',
+                            'total'=>$stadium * (count($request->times)/2),
+                            'date'=>$current_date
+                        ]
+                    ));
+                    $book->book_time()->syncWithPivotValues($request->times,['date'=>$current_date]);
+                    $current_date = $current_date->addWeek(); 
+           
+                }  
+                return redirect()->back()->with('success','Success');
+
+            }
         }catch(Exception $e)
         {
-            return redirect()->back()->with('error','Error');
+            return $e;
+            // return redirect()->back()->with('error','Error');
         }
     }
 
@@ -115,7 +148,7 @@ class BookingController extends Controller
         try{
             $booking = Booking::create(array_merge($request->all(),[
                 'times'=>$this->implodeArr($request->times),
-                'code'=>$this->generateCode($request->stadium_id),
+                'code'=>$this->generateCode($request->stadium_id,$request->date),
             ]));
     
             $time = $this->encodeTimes($booking->times);
@@ -138,7 +171,8 @@ class BookingController extends Controller
         if($request->type == 'const')
         {
             $current_date =  Carbon::parse($request->date);
-            $end_date = Carbon::parse($request->date)->addMonths($request->months);
+
+            $end_date = Carbon::parse($request->date)->addMonths($request->month);
             $weeks = $end_date->diffInWeeks($current_date);
             for($i=0;$i<$weeks;$i++){
                 $total += $price + ($times/2);            
@@ -151,8 +185,9 @@ class BookingController extends Controller
             return $total;
         }
     }
-    public function generateCode($id)
+    public function generateCode($id,$date)
     {
-        return $id.'-'.time();
+        $d = Carbon::parse($date);
+        return $id.'-'.$d;
     }
 }
