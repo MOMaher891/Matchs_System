@@ -176,14 +176,23 @@ class BookingController extends Controller
          
             $time = $this->encodeTimes($booking->times);
             // Delete and Add In Book time
-            $booking->book_time()->delete();
+            $booking->book_time()->detach();
             $booking->book_time()->syncWithPivotValues($request->times,['date'=>$request->date]);
 
             return redirect()->back()->with('success','Success');
         }catch(Exception $e)
         {
-            return redirect()->back()->with('error','Error');
+            return $e;
+            // return redirect()->back()->with('error','Error');
         }
+    }
+
+    public function delete($id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->book_time()->detach();
+        $booking->delete();
+        return redirect()->back()->with('success','Success');
     }
     
     public function total(Request $request)

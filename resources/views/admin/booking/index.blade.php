@@ -94,6 +94,7 @@
                                 <th>Name</th>
                                 <th>Stadium</th>
                                 <th>Type</th>
+                                <th>Status</th>
                                 <th>Total</th>
                                 <th>Times</th>
                                 <th>Date</th>
@@ -105,6 +106,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -170,6 +172,9 @@
                     {
                         data:'type'
                     },
+                    {
+                        data:'status'
+                    },
                     
                     {
                         data: 'total'
@@ -199,7 +204,7 @@
                 
                     // computing column Total of the complete result 
                     var totalcost = api
-                        .column(4).data().reduce( function (a, b) {
+                        .column(5).data().reduce( function (a, b) {
                                  return intVal(a) + intVal(b);
                                         }, 0 );
 
@@ -241,7 +246,8 @@
             RequestsTable.ajax.url(url).load()
         
         }
-    </script>
 
+
+    </script>
 
 @stop
