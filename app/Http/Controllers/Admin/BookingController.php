@@ -220,7 +220,6 @@ class BookingController extends Controller
     }
     public function generateCode($id,$date)
     {
-        $d = Carbon::parse($date);
-        return $id.'-'.$d;
+        return $id.'-'.$date.'-'.time();
     }
 }
