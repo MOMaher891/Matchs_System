@@ -97,12 +97,15 @@
                                 <th>Total</th>
                                 <th>Times</th>
                                 <th>Date</th>
+                                <th>Actions</th>
+
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -176,6 +179,10 @@
                     },
                     {
                         data:'date'
+                    },
+
+                    {
+                        data:'action'
                     },
                     
                 ],

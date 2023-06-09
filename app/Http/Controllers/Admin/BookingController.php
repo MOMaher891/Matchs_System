@@ -38,7 +38,11 @@ class BookingController extends Controller
             $timeFrom =  Carbon::parse($times[0]->from)->format('H:i');
             $timeTo  = Carbon::parse($times[count($times)-1]->to)->format('H:i');     
             return $timeFrom . ' - ' . $timeTo;
-        })->make(true);
+        })
+        ->addColumn('action',function($data){
+            return view('admin.booking.action',['type'=>'action','data'=>$data]);
+        })
+        ->make(true);
 
     }
 
@@ -54,7 +58,26 @@ class BookingController extends Controller
     {
         $stadiums = Stadium::owner()->get();
         $data = Booking::with('book_time')->with('stadium')->findOrFail($id);
-        return view('admin.booking.edit',['data'=>$data,'stadiums'=>$stadiums]);
+        $client = Client::all();
+        $dataTime = $this->encodeTimes($data->times);
+        $dataTime = array_map('intval', $dataTime);
+        $bookedTime = BookTime::where('date',Carbon::parse($data->date))
+        ->whereNotIn('time_id',$data->book_time->pluck('time_id'))
+        ->pluck('time_id');
+
+        
+        $Times = Time::whereNotIn('id',$bookedTime)
+        ->whereNotIn('id',$this->encodeTimes($data->stadium->period))
+        ->get(); 
+
+        
+        return view('admin.booking.edit',[
+            'clients'=>$client,
+            'data'=>$data,
+            'stadiums'=>$stadiums,
+            'times'=>$Times,
+            'dataTime'=>$dataTime
+        ]);
     }
 
     public function getAvailableTime(Request $request)
@@ -135,25 +158,26 @@ class BookingController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
         $request->validate([
             'stadium_id'=>'required',
-            'type'=>'required',
             'total'=>'required',
             'times'=>'required|array',
             'client_id'=>'required',
             'date'=>'required|date'
         ]);
         try{
-            $booking = Booking::create(array_merge($request->all(),[
-                'times'=>$this->implodeArr($request->times),
-                'code'=>$this->generateCode($request->stadium_id,$request->date),
+
+            $booking = Booking::findOrFail($id);
+            $booking->update(array_merge($request->all(),[
+                'times'=>$this->implodeArr($request->times),               
             ]));
-    
+         
             $time = $this->encodeTimes($booking->times);
-            // Add In Book time
-            $booking->book_time()->syncWithPivotValues($time,['date'=>$request->date]);
+            // Delete and Add In Book time
+            $booking->book_time()->delete();
+            $booking->book_time()->syncWithPivotValues($request->times,['date'=>$request->date]);
 
             return redirect()->back()->with('success','Success');
         }catch(Exception $e)
