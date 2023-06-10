@@ -122,7 +122,6 @@ class WebsiteController extends Controller
 
     public function getTime(Request $request){
 
-
         $book_times = DB::table('book_times')->select()
         ->join('bookings','book_times.book_id','=','bookings.id')
         ->whereDate('book_times.date',Carbon::parse($request->date))

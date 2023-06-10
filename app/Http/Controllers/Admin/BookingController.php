@@ -36,7 +36,7 @@ class BookingController extends Controller
         })->editColumn('times',function($data){
             $times = Time::whereIn('id',$this->encodeTimes($data->times))->get();
             $timeFrom =  Carbon::parse($times[0]->from)->format('H:i');
-            $timeTo  = Carbon::parse($times[count($times)-1]->to)->format('H:i');     
+            $timeTo  = Carbon::parse($times[count($times)-1]->to)->format('H:i');
             return $timeFrom . ' - ' . $timeTo;
         })
         ->addColumn('action',function($data){
@@ -65,12 +65,12 @@ class BookingController extends Controller
         ->whereNotIn('time_id',$data->book_time->pluck('time_id'))
         ->pluck('time_id');
 
-        
+
         $Times = Time::whereNotIn('id',$bookedTime)
         ->whereNotIn('id',$this->encodeTimes($data->stadium->period))
-        ->get(); 
+        ->get();
 
-        
+
         return view('admin.booking.edit',[
             'clients'=>$client,
             'data'=>$data,
@@ -86,7 +86,7 @@ class BookingController extends Controller
         $bookTimes =  DB::table('book_times')->select()
         ->join('bookings','book_times.book_id','=','bookings.id')
         ->where('book_times.date',Carbon::parse($request->date))
-        ->where('bookings.stadium_id',$request->stadium_id)->pluck('time_id'); 
+        ->where('bookings.stadium_id',$request->stadium_id)->pluck('time_id');
 
         $avaiableTime = Time::whereNotIn('id',$this->encodeTimes($closedTime))
         ->whereNotIn('id',$bookTimes)->get();
@@ -119,7 +119,7 @@ class BookingController extends Controller
                     'code'=>$this->generateCode($request->stadium_id,$request->date),
                     'status'=>'accept'
                 ]));
-        
+
                 $time = $this->encodeTimes($booking->times);
                 // Add In Book time
                 $booking->book_time()->syncWithPivotValues($time,['date'=>$request->date]);
@@ -145,9 +145,9 @@ class BookingController extends Controller
                         ]
                     ));
                     $book->book_time()->syncWithPivotValues($request->times,['date'=>$current_date]);
-                    $current_date = $current_date->addWeek(); 
-           
-                }  
+                    $current_date = $current_date->addWeek();
+
+                }
                 return redirect()->back()->with('success','Success');
 
             }
@@ -171,9 +171,9 @@ class BookingController extends Controller
 
             $booking = Booking::findOrFail($id);
             $booking->update(array_merge($request->all(),[
-                'times'=>$this->implodeArr($request->times),               
+                'times'=>$this->implodeArr($request->times),
             ]));
-         
+
             $time = $this->encodeTimes($booking->times);
             // Delete and Add In Book time
             $booking->book_time()->detach();
@@ -194,11 +194,11 @@ class BookingController extends Controller
         $booking->delete();
         return redirect()->back()->with('success','Success');
     }
-    
+
     public function total(Request $request)
     {
         $times = count($request->times);
-        
+
         $price = Stadium::findOrFail($request->stadium_id)->price;
         $total = 0;
         if($request->type == 'const')
@@ -208,7 +208,7 @@ class BookingController extends Controller
             $end_date = Carbon::parse($request->date)->addMonths($request->month);
             $weeks = $end_date->diffInWeeks($current_date);
             for($i=0;$i<$weeks;$i++){
-                $total += $price + ($times/2);            
+                $total += $price + ($times/2);
             }
 
             return $total;
