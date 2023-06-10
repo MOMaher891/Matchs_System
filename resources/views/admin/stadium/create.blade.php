@@ -16,13 +16,13 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="exampleInputName1">Name</label>
-                            <input type="text" class="form-control" name="name" value="{{old('name')}}" id="exampleInputName1"
-                                placeholder="Name">
+                            <input type="text" class="form-control" name="name" value="{{ old('name') }}"
+                                id="exampleInputName1" placeholder="Name">
                             @error('name')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
-                   
+
                     </div>
 
                     <div class="row">
@@ -31,7 +31,7 @@
                             <select name="city" class="form-control" id="city_search" onchange="getRegion()">
                                 <option value="">Select City</option>
                                 @foreach ($cities as $city)
-                                    <option value="{{ old('city_id',$city->id) }}">{{ $city->name }}</option>
+                                    <option value="{{ old('city_id', $city->id) }}">{{ $city->name }}</option>
                                 @endforeach
                             </select>
                             @error('city')
@@ -42,7 +42,7 @@
                         <div class="form-group col-md-6">
                             <label for="exampleInputEmail3">Region</label>
                             <select name="region_id" class="form-control" id="region_search">
-                                <option value="{{old('region_id')}}" disabled>Select Region</option>
+                                <option value="{{ old('region_id') }}" disabled>Select Region</option>
                             </select>
                             @error('region_id')
                                 <span class="text-danger"> {{ $message }} </span>
@@ -53,8 +53,8 @@
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label for="exampleInputPassword4">Price</label>
-                            <input type="text" class="form-control" name="price" value="{{old('price')}}" id="exampleInputPassword4"
-                                placeholder="Price">
+                            <input type="text" class="form-control" name="price" value="{{ old('price') }}"
+                                id="exampleInputPassword4" placeholder="Price">
                             @error('price')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
@@ -62,23 +62,23 @@
 
                         <div class="form-group col-md-4">
                             <label for="exampleInputPassword4">Phone</label>
-                            <input type="text" class="form-control" name="phone" value="{{old('phone')}}" id="exampleInputPassword4"
-                                placeholder="Phone">
+                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}"
+                                id="exampleInputPassword4" placeholder="Phone">
                             @error('phone')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
                         <div class="form-group col-md-4">
                             <label for="exampleInputPassword4">Number Of Playes</label>
-                            <input type="text" class="form-control" name="num_of_player" value="{{old('num_of_player')}}" id="exampleInputPassword4"
-                                placeholder="num_of_player">
+                            <input type="text" class="form-control" name="num_of_player"
+                                value="{{ old('num_of_player') }}" id="exampleInputPassword4" placeholder="num_of_player">
                             @error('price')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
                         <div class="form-group col-md-12">
                             <label for="exampleInputPassword4">Image</label>
-                            <input type="file" class="form-control"  name="image[]" value="{{old('image[]')}}" multiple 
+                            <input type="file" class="form-control" name="image[]" value="{{ old('image[]') }}" multiple
                                 placeholder="Image">
                             @error('image')
                                 <span class="text-danger"> {{ $message }} </span>
@@ -89,7 +89,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="exampleInputEmail3">Description</label>
-                            <textarea name="description" id="description" class="description">{{old('description')}}</textarea>
+                            <textarea name="description" id="description" class="description">{{ old('description') }}</textarea>
                             @error('description')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
@@ -137,13 +137,25 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>Closing Weather</td>
+                                        <td>
+                                            <div>
+                                                <label for="">Winter</label>
+                                                <input type="radio" name="weather" value="winter" />
+                                                <label for="">Summer</label>
+                                                <input type="radio" name="weather" value="summer" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>Closing period</td>
                                         <td>
                                             <div>
                                                 <select name="period[]" id="" multiple class="form-control">
                                                     <option value="" selected>Select Periods</option>
                                                     @foreach ($times as $time)
-                                                        <option value="{{old('period',$time->id)  }}">{{ $time->from }} -
+                                                        <option value="{{ old('period', $time->id) }}">{{ $time->from }}
+                                                            -
                                                             {{ $time->to }}</option>
                                                     @endforeach
                                                 </select>
@@ -203,8 +215,10 @@
 
             $.ajax({
                 type: 'GET',
-                url: `{{route('admin.stadiums.get-region-data')}}`,
-                data:{city_id:city_id},
+                url: `{{ route('admin.stadiums.get-region-data') }}`,
+                data: {
+                    city_id: city_id
+                },
                 success: function(data) {
                     $("#region_search").html(data);
                 },

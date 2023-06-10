@@ -37,7 +37,7 @@ class RequestController extends Controller
         ->editColumn('times',function($data){
             $times = Time::whereIn('id',$this->encodeTimes($data->times))->get();
             $timeFrom =  Carbon::parse($times[0]->from)->format('H:i');
-            $timeTo  = Carbon::parse($times[count($times)-1]->to)->format('H:i');     
+            $timeTo  = Carbon::parse($times[count($times)-1]->to)->format('H:i');
             return $timeFrom . ' - ' . $timeTo;
 
         })
@@ -76,14 +76,14 @@ class RequestController extends Controller
                 // return $this->encodeTimes($booking->times);
                 $book->code = $this->generateCode($book->id);
 
-                // Convert Time To array 
+                // Convert Time To array
                 $time = $this->encodeTimes($book->times);
 
                 // Add Times
                 $book->book_time()->syncWithPivotValues($time,['date'=>$book->date]);
 
-                // Calculate Total 
-                $total =  $stadium->price * count($time); 
+                // Calculate Total
+                $total =  $stadium->price * (count($time)/2);
 
 
                 // Add Notification Here

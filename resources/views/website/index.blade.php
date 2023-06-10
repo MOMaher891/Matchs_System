@@ -59,7 +59,7 @@
                     </div>
                     <div class="price"> ${{ $stadium->price }}</div>
                     @if (!Auth::guard('client')->check())
-                        <a disabled title="Login In First" class="btn">Book Now</a>
+                        <a title="Login In First" class="btn unAuth">Book Now</a>
                     @else
                         <a href="{{ route('web.stadium', $stadium->id) }}" class="btn">Book Now</a>
                     @endif
