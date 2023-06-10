@@ -35,12 +35,12 @@ class StadiumController extends Controller
         ->editColumn('description',function($d)
         {
             return view('admin.stadium.action',['type'=>'description','data'=>$d]);
-            
+
         })
         ->editColumn('is_open',function($d)
         {
             return view('admin.stadium.action',['type'=>'is_open','data'=>$d]);
-            
+
         })
         ->addColumn('image',function($data){
             return view('admin.stadium.action',['type'=>'image','data'=>$data]);
@@ -51,7 +51,7 @@ class StadiumController extends Controller
 
     }
 
-    
+
     public function create()
     {
         $cities = City::all();
@@ -70,12 +70,12 @@ class StadiumController extends Controller
             'lat'=>'required',
             'long'=>'required'
         ]);
-        
+
         $request['clothes'] = $request->has('clothes') ? 1 : 0;
         $request['bathroom'] = $request->has('bathroom') ? 1 : 0;
         $request['s_bathroom'] = $request->has('s_bathroom') ? 1 : 0;
         $period = $this->implodeArr($request->period);
-      
+
         $data = array(
             'name'=>$request->name,
             'description'=>$request->description,
@@ -90,6 +90,7 @@ class StadiumController extends Controller
             's_bathroom'=>$request->s_bathroom,
             'period'=>$period,
             'region_id'=>$request->region_id,
+            'weather'=>$request->weather
         );
         $stadium = Stadium::create($data)->id;
 
@@ -112,6 +113,7 @@ class StadiumController extends Controller
         $times = Time::all();
         $data = Stadium::findOrFail($id);
         $openTime = $this->encodeTimes($data->period);
+        $openTime = array_map('intval', $openTime);
 
         // return $openTime;
 
@@ -138,7 +140,7 @@ class StadiumController extends Controller
         $request['bathroom'] = $request->has('bathroom') ? 1 : 0;
         $request['s_bathroom'] = $request->has('s_bathroom') ? 1 : 0;
         $period = $this->implodeArr($request->period);
-        
+
         $data = array(
             'name'=>$request->name,
             'description'=>$request->description,
@@ -153,6 +155,7 @@ class StadiumController extends Controller
             's_bathroom'=>$request->s_bathroom,
             'period'=>$period,
             'region_id'=>$request->region_id,
+            'weather'=>$request->weather
         );
 
         $stadium->update($data);
@@ -173,15 +176,15 @@ class StadiumController extends Controller
             }
         }
         return redirect()->back()->with('success','Success');
-    
-      
+
+
     }
     public function toggleOpen(Request $request)
     {
         $data = Stadium::findOrFail($request->id);
         $data->is_open = $request->is_open;
         $data->save();
-        return response()->json(['status'=>true]);   
+        return response()->json(['status'=>true]);
     }
 
     public function delete($id)
