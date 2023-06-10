@@ -112,6 +112,7 @@ class StadiumController extends Controller
         $times = Time::all();
         $data = Stadium::findOrFail($id);
         $openTime = $this->encodeTimes($data->period);
+        $openTime = array_map('intval', $openTime);
 
         // return $openTime;
 
