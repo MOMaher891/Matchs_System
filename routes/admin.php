@@ -65,6 +65,15 @@ Route::group(['middleware'=>'auth:admin'],function(){
         $prefix = 'admin.bookings.';
         Route::get('/','index')->name($prefix.'index');
         Route::get('/data','data')->name($prefix.'data');
+        Route::get('/create','create')->name($prefix.'create');
+        Route::get('/edit/{id}','edit')->name($prefix.'edit');
+        Route::get('/delete/{id}','delete')->name($prefix.'delete');
+
+        Route::post('store','store')->name($prefix.'store');
+        Route::get('/get-available-time','getAvailableTime')->name($prefix.'get-time');
+        Route::get('/get-total','total')->name($prefix.'total');
+
+        Route::post('update/{id}','update')->name($prefix.'update');
     });
 
 

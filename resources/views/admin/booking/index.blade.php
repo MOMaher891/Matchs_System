@@ -14,6 +14,11 @@
                     Show Bookings
                 </p>
 
+                <div class="content m-2 text-center">
+                    <a class="btn btn-primary" href="{{ route('admin.bookings.create') }}">Add Booking <i
+                            class="fa fa-plus"></i></a>
+                </div>
+
                 <div class="row  w-100 ">
 
                     <div class="col-md-4">
@@ -89,15 +94,20 @@
                                 <th>Name</th>
                                 <th>Stadium</th>
                                 <th>Type</th>
+                                <th>Status</th>
                                 <th>Total</th>
                                 <th>Times</th>
                                 <th>Date</th>
+                                <th>Actions</th>
+
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -162,6 +172,9 @@
                     {
                         data:'type'
                     },
+                    {
+                        data:'status'
+                    },
                     
                     {
                         data: 'total'
@@ -171,6 +184,10 @@
                     },
                     {
                         data:'date'
+                    },
+
+                    {
+                        data:'action'
                     },
                     
                 ],
@@ -187,7 +204,7 @@
                 
                     // computing column Total of the complete result 
                     var totalcost = api
-                        .column(4).data().reduce( function (a, b) {
+                        .column(5).data().reduce( function (a, b) {
                                  return intVal(a) + intVal(b);
                                         }, 0 );
 
@@ -229,7 +246,8 @@
             RequestsTable.ajax.url(url).load()
         
         }
-    </script>
 
+
+    </script>
 
 @stop
