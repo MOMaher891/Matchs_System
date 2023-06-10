@@ -116,12 +116,11 @@ class WebsiteController extends Controller
         $first_time = Carbon::parse($first_time->from)->format('H:i');
         $last_time = Carbon::parse($last_time->to)->format('H:i');
         // return redirect()->back()->with('success','Booking Success');
-        return redirect("https://wa.me/$stadium->phone?text=Hello, Mr.$admin,%20 I'M $client->name : I want to book your stadium $stadium->name from $first_time to $last_time %20:%20 Visit link : http://www.facebook.com");
+        return redirect()->away("https://wa.me/$stadium->phone?text=Hello, Mr.$admin,%20 I'M $client->name : I want to book your stadium $stadium->name from $first_time to $last_time %20:%20 Visit link : http://www.facebook.com")->header('target', '_blank');
 
     }
 
     public function getTime(Request $request){
-
 
         $book_times = DB::table('book_times')->select()
         ->join('bookings','book_times.book_id','=','bookings.id')
