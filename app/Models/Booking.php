@@ -36,6 +36,11 @@ class Booking extends Model
         $query->where('status','delcine')->orWhere('status','accept');
     }
 
+    public function scopeOwner($query)
+    {
+        $query->where('client_id',auth('client')->user()->id);
+    }
+
 
     public function getAdminStadiums()
     {
