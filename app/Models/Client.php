@@ -14,7 +14,7 @@ class Client extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = ['name','phone','verified','password','address','image','lat','long','birth_date','is_blocked','otp'];
+    protected $fillable = ['name','phone','verified','image','password','address','image','lat','long','birth_date','is_blocked','otp'];
     public $timestamps = false;
 
     /**

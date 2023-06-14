@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Client\Auth\AuthController;
+use App\Http\Controllers\Website\ProfileController;
 use App\Http\Controllers\WebSite\WebsiteController;
 use Illuminate\Support\Facades\Route;
 use App\Utils\WhatsApp;
@@ -27,6 +28,17 @@ Route::group(['controller'=>WebsiteController::class],function(){
         Route::get('getLocation','getlocation');
      
     });
+});
+
+
+
+Route::group(['controller'=>ProfileController::class],function(){
+    Route::get('profile','index')->name('client.profile');
+    Route::get('booking-data','data')->name('client.profile.data');
+    Route::get('change-password','changeview')->name('client.change.password.view');
+    Route::post('change-password','changePassword')->name('client.change.password');
+    Route::post('update-profile/{id}','updateProfile')->name('client.profile.update');
+
 });
 
 Route::get('start-test-message',function(){
