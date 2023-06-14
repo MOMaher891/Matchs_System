@@ -177,7 +177,7 @@
                                                     <option value="" selected>Select Periods</option>
                                                     @foreach ($times as $time)
                                                         <option value="{{ old('period', $time->id) }}"
-                                                            {{ old('period', $time->id) == $openTime[0] || old('period', $time->id) == $openTime[1] ? 'selected' : '' }}>
+                                                            {{ in_array($time->id, $openTime) ? 'selected' : '' }}>
                                                             {{ $time->from }} -
                                                             {{ $time->to }}</option>
                                                     @endforeach
