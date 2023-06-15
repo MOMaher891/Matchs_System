@@ -256,10 +256,13 @@ header .search-bar-container label:hover {
 .home .content {
     text-align: center;
 }
+.content .search-content{
+    padding: 40px;
+}
 
 .home .content h3 {
     font-size: 4.5rem;
-    color: #fff;
+    color: #222;
     text-transform: uppercase;
     text-shadow: 0 .3rem .5rem rgba(0, 0, 0, .1);
 }
