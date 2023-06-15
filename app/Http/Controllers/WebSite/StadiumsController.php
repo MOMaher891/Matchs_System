@@ -11,7 +11,7 @@ class StadiumsController extends Controller
     //
     public function index()
     {
-        $data = Stadium::paginate(8);
+        $data = Stadium::paginate(9);
         return view('website.stadiums', ['data'=>$data]);
     }
 }

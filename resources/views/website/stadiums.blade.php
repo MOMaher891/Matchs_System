@@ -40,5 +40,6 @@
         </div>
         @endforeach
     </div>
+    {{ $data->onEachSide(3)->links('pagination::bootstrap-4') }}
 </section>
 @endsection
