@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{ asset('Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('Admin/vendors/datatables/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Admin/js/select.dataTables.min.css') }}">
-   
+
     <style>
         html,
         body {
@@ -62,6 +62,21 @@
 
             border-radius: 20px;
         }
+        .pagination > li > a:focus,
+        .pagination > li > span:focus {
+            background-color:#85c240 !important ;
+
+        }
+
+        .page-item.active .page-link {
+            background-color: #85c240 !important;
+            border-color: #85c240 !important;
+        }
+        .pagination > li > a {
+          color: #000 !important; 
+
+        }
+
     </style>
 </head>
 

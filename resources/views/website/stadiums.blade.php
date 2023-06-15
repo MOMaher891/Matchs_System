@@ -3,8 +3,11 @@
 @section('content')
 
 <section class="m-auto">
-    
-    <div class="box-container row"  style="margin-top:100px">
+    <div class="header text-center mb-5" style="margin-top:100px">
+        <h1 style="font-size: 40px" ><span style="color: #85c240">All </span>Stadiums</h1>
+    </div>
+    <div class="box-container row"  >
+       
         @foreach ($data as $stadium)
         <div class="col-md-4 mb-4">
             <div class="card h-100" >
@@ -40,6 +43,6 @@
         </div>
         @endforeach
     </div>
-    {{ $data->onEachSide(3)->links('pagination::bootstrap-4') }}
+    {{ $data->onEachSide(3)->links('pagination::bootstrap-4', ['class' => 'text-success']) }}
 </section>
 @endsection
