@@ -27,7 +27,6 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-
                 border-radius: 20px;
             }
 
@@ -84,27 +83,23 @@
     </head>
 
     <body class="light dark">
-
-        <div class="container py-5 my-5" style="height:175vh;margin-top:50px">
-
-            <div class="d-flex justify-content-between" style="margin-top:150px">
-
-                <div class="mt-8">
-                    <h2 class="" style="font-weight:bolder">{{ $data->name }}</h2>
-                    <h3><i class="fas fa-map-marker-alt" style="color:green"></i> {{ $data->region->name }}
-                        - {{ $data->region->city->name }} </h3>
-                    <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="20%" alt="">
-                    <div class="d-flex pt-4">
+        <div class="container my-5" style="">
+            <div class="row" style="margin-top:150px">
+                {{-- Left Div --}}
+                <div class="col-xl-6 col-md-12 com-sm-12 mt-8 px-2" style="overflow: hidden">
+                    <div class="d-flex">
                         <img src="{{ asset('website/Images/tag.png') }}" alt="">
                         <div class="flex-grow-1 pt-1" style="margin-right:180px;margin-left:20px">
                             <h3 class="fw-bold">{{ $data->name }}</h3>
+                            <h3 class="mb-2"><i class="fas fa-map-marker-alt" style="color:green"></i>
+                                {{ $data->region->name }}
+                                - {{ $data->region->city->name }} </h3>
                             <p>Number Of Player <span class="fw-bolder">{{ $data->num_of_player }} <span
                                         class="text-success">V.S</span>
                                     {{ $data->num_of_player }}</span></p>
                             <p>Players Number <span class="fw-bolder">{{ $data->num_of_player - 1 }} + </span> Goal Keeper
                             </p>
-                            <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="40%"
-                                alt="">
+
                         </div>
                         <div class="d-none d-md-block">
                             <a target="_blank"
@@ -112,9 +107,9 @@
                                 class="text-decoration-none"><img src="{{ asset('website/Images/whatsapp.png') }}"
                                     width="22" class="me-2" alt="img"></a>
                         </div>
-
                     </div>
-                    <div class="position-relative mt-3" style="width:700px;height:400px">
+                    <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="40%" alt="">
+                    <div class="mt-3" style="width:100%;">
                         <div class="swiper mySwiper position-relative">
                             <div class="swiper-wrapper">
                                 @foreach ($images as $image)
@@ -131,7 +126,7 @@
                                 <h3>Stadium Location</h3>
                                 <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="30%"
                                     alt="">
-                                <div id="map" style="height:300px; width: 600px;" class="my-3"></div>
+                                <div id="map" style="height:300px; width: 100%;" class="my-3"></div>
                             </div>
                             {{-- Location Inputs --}}
                         </div>
@@ -139,7 +134,7 @@
                             <h3>Options</h3>
                             <img src="{{ asset('website/Images/bgSmall.png') }}" width="25%" class="bgsmall"
                                 alt="">
-                            <div class="row d-flex my-5">
+                            <div class="row d-flex my-5 justify-content-between" style="width: 97%;">
                                 <div class="col-md-2">
                                     <div class="option">
                                         <img src="{{ asset('website/Images/ball.png') }}" width="40" class="mx-2"
@@ -215,14 +210,9 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
-
                 {{-- Right Div --}}
-
-                <div class="mx-5">
+                <div class="col-xl-6 col-md-12 com-sm-12 px-3">
                     <div class=" pb-3 d-flex justify-content-between">
                         <div>
                             <h2 class="fw-bolder">Booking</h2>
@@ -282,7 +272,9 @@
                         @php
                             use Illuminate\Support\Facades\Auth;
                         @endphp
-                        <input type="hidden" name="client_id" value="{{ Auth::guard('client')->user()->id }}">
+                        @isset(Auth::guard('client')->user()->id)
+                            <input type="hidden" name="client_id" value="{{ Auth::guard('client')->user()->id }}">
+                        @endisset
                         <input type="hidden" name="stadium_id" value="{{ $data->id }}">
                         <input type="hidden" name="times">
                     </form>
@@ -296,7 +288,7 @@
                     @error('times')
                         <div class="alert alert-danger" role="alert">{{ $message }}</div>
                     @enderror
-                    <div class="row time_btn" id="time_btn" style="height: 500px;overflow: scroll;width: 115%;">
+                    <div class="row time_btn" id="time_btn" style="height: 500px;overflow: scroll;">
                         @foreach ($times as $time)
                             <button class="col-md-3" onclick="getTime({{ $time->id }})"
                                 id="{{ $time->id }}">{{ Carbon\Carbon::parse($time->from)->format('H:i') }} -
@@ -304,12 +296,19 @@
                         @endforeach
                     </div>
                 </div>
-
             </div>
-
-
         </div>
         {{-- Get Long and lat from map --}}
+
+
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+        <script>
+            flatpickr("input[type=date]", {
+                minDate: new Date(),
+            });
+        </script>
 
         <script>
             function getDate() {
@@ -366,8 +365,6 @@
                     ids.push(id + 1);
                     ids.push(id + 2);
                     ids.push(id + 3);
-
-
 
                     ids = ids.slice(-4);
                     var buttons = document.querySelectorAll('#time_btn .col-md-3');
@@ -482,6 +479,7 @@
                 }
             }
         </script>
+
         <script>
             let map;
 
@@ -519,13 +517,6 @@
                 //         marker.setPosition(pos)
                 //     })
             }
-        </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" type="text/javascript"></script>
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-        <script>
-            flatpickr("input[type=date]", {
-                minDate: new Date(),
-            });
         </script>
     </body>
 

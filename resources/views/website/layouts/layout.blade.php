@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="{{ asset('website/style.css') }}">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('website/style.css') }}">
+    <link href="{{ asset('website/CDN/toastr.css') }}" rel="stylesheet" />
 
 
     <link rel="stylesheet" href="{{ asset('Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
@@ -27,7 +27,7 @@
         html,
         body {
             position: relative;
-            height: 100%;
+            height: 100vh;
         }
 
         body {
@@ -87,7 +87,6 @@
         @include('website.layouts.footer')
     </div>
 
-    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js" defer data-deferred="1"></script>
     <script src="{{ asset('website/main.js') }}" defer data-deferred="1"></script>
     <!-- Swiper JS -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> --}}
@@ -112,18 +111,17 @@
         });
     </script>
 
-    <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="{{ asset('website/CDN/jquery.js') }}"></script>
 
 
-    {{-- <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js" defer data-deferred="1"></script> --}}
     <script src="{{ asset('website/main.js') }}" defer data-deferred="1"></script>
     <script src="{{ asset('website/calendar.js') }}" defer data-deferred="1"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    <script src="{{ asset('website/CDN/toastr.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-    </script> --}}
-    <script src="{{asset('Admin/cdns/bootstrap.min.js')}}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" type="text/javascript"></script>
+    </script>
+    <script async defer src="{{ asset('website/CDN/googleMaps.js') }}" type="text/javascript"></script>
+
     <script>
         $(document).ready(function() {
             toastr.options.timeOut = 10000;
