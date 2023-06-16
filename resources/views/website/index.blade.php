@@ -2,10 +2,62 @@
 @section('content')
 @section('title', 'Ml3bna')
 <section class="home" id="home">
-    <div class="content">
-        <h3>welcome to A Ml3bna</h3>
-        <p>You Can Book Stadium Through Us</p>
-        <a href="#" class="btn">discover more</a>
+    <div class="content bg-light rounded shadow  text-center">
+        <div class="search-content">
+            <h3 >welcome to <span style="color:#85c240">Ml3bna</span></h3>
+
+            <form action="{{route('stadiums')}}" method="GET" class="mt-3" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                    
+
+                            <div class="col-lg-2 col-md-3 col-sm-12 p-0 mb-3">
+
+                                <input type="date" class="form-control search-slt" name="date" placeholder="Enter Date">
+                                
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0 mb-3">
+
+                                {{-- <input type="time" class="form-control search-slt" name="time_from" placeholder="Enter Time"> --}}
+                                <select name="time_from" class="search-slt form-control" id="">
+                                    <option  selected>Select Time From</option>
+                                    @foreach ($times as $time )
+                                        <option value="{{$time->id}}">{{$time->from}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0 mb-3">
+                                <select name="time_to" class="search-slt" id="">
+                                    <option value="" selected>Select Time To</option>
+                                    @foreach ($times as $time )
+                                        <option value="{{$time->id}}">{{$time->to}}</option>
+                                    @endforeach
+                                </select>
+                         
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0 mb-3">
+
+                                <select class="form-select search-slt" name="region"  id="exampleFormControlSelect1">
+                                    @foreach ($regions as $data )
+                                        <option value="{{$data->id}}">{{$data->name}}</option>    
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-1 col-md-3 col-sm-12">
+                                <button type="submit" class="btn btn-primary ">
+                                    <i class="fas fa-search" ></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            
+        </div>
     </div>
 
     <div class="video-container">

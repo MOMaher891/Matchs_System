@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Client\Auth\AuthController;
 use App\Http\Controllers\Website\ProfileController;
+use App\Http\Controllers\Website\StadiumsController;
 use App\Http\Controllers\WebSite\WebsiteController;
 use Illuminate\Support\Facades\Route;
 use App\Utils\WhatsApp;
@@ -29,6 +30,8 @@ Route::group(['controller'=>WebsiteController::class],function(){
 
     });
 });
+
+Route::get('stadiums',[StadiumsController::class,'index'])->name('stadiums');
 
 
 

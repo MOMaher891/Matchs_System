@@ -69,4 +69,7 @@ class Stadium extends Model
     {
         $query->where('admin_id',auth()->user()->id);
     }
+
+
+    
 }
