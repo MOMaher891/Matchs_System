@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\BookTime;
 use App\Models\Client;
+use App\Models\Region;
 use App\Models\Stadium;
 use App\Models\StadiumImage;
 use App\Models\Time;
@@ -18,9 +19,11 @@ class WebsiteController extends Controller
 {
     public function index()
     {
+        $regions = Region::all();
+        $times = Time::all();
         $images = StadiumImage::get('image');
         $stadiums = Stadium::active()->with(['stadium_image', 'region'])->paginate(5);
-        return view('website.index', compact('images', 'stadiums'));
+        return view('website.index', compact('times','images', 'stadiums','regions'));
         // return $images;
     }
 

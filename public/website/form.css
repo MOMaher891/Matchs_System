@@ -1,0 +1,33 @@
+.search-slt{
+    display: block;
+    width: 100%;
+    font-size: 1.4rem;
+    padding: 1.5rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius:0;
+}
+.wrn-btn{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+
+    text-transform: capitalize;
+    height: calc(3rem + 2px) !important;
+    border-radius:0;
+}
+/* @media (min-width: 992px){
+    .search-sec{
+        position: relative;
+        top: -114px;
+        background: rgba(26, 70, 104, 0.51);
+    }
+}
+
+@media (max-width: 992px){
+    .search-sec{
+        background: #1A4668;
+    }
+} */
