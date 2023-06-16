@@ -22,6 +22,8 @@
             <i class="fas fa-user" id="login-btn"></i>
         @else
             <a href="{{ route('client.logout') }}"><i class="fa-solid fa-right-from-bracket"></i></a>
+           <a href="{{route('client.profile')}}"> <i class="fas fa-user"></i></a>
+        
         @endif
 
         <form action="" class="search-bar-container">

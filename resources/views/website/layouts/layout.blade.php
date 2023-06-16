@@ -8,7 +8,8 @@
     <title>@yield('title') </title>
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" /> --}}
+    <link rel="stylesheet" href="{{asset('Admin/cdns/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -17,6 +18,11 @@
     <link rel="stylesheet" href="{{ asset('website/style.css') }}">
     <link href="{{ asset('website/CDN/toastr.css') }}" rel="stylesheet" />
 
+
+    <link rel="stylesheet" href="{{ asset('Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Admin/vendors/datatables/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Admin/js/select.dataTables.min.css') }}">
+   
     <style>
         html,
         body {
@@ -101,6 +107,7 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
     </script>
     <script async defer src="{{ asset('website/CDN/googleMaps.js') }}" type="text/javascript"></script>
+
     <script>
         $(document).ready(function() {
             toastr.options.timeOut = 10000;
@@ -112,7 +119,11 @@
         });
     </script>
 
+    <script src="{{ asset('Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('Admin/vendors/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('Admin/vendors/datatables/datatables.min.js') }}"></script>
 
+    @yield('js')
 </body>
 
 </html>
