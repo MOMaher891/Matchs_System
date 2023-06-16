@@ -154,7 +154,8 @@
                                                 <select name="period[]" id="" multiple class="form-control">
                                                     <option value="" selected>Select Periods</option>
                                                     @foreach ($times as $time)
-                                                        <option value="{{ old('period', $time->id) }}">{{ $time->from }}
+                                                        <option value="{{ old('period', $time->id) }}">
+                                                            {{ $time->from }}
                                                             -
                                                             {{ $time->to }}</option>
                                                     @endforeach
