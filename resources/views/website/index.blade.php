@@ -58,11 +58,8 @@
                         <i class="far fa-star"></i>
                     </div>
                     <div class="price"> ${{ $stadium->price }}</div>
-                    @if (!Auth::guard('client')->check())
-                        <a title="Login In First" class="btn unAuth">Book Now</a>
-                    @else
-                        <a href="{{ route('web.stadium', $stadium->id) }}" class="btn">Book Now</a>
-                    @endif
+
+                    <a href="{{ route('web.stadium', $stadium->id) }}" class="btn">Book Now</a>
                 </div>
             </div>
         @endforeach
