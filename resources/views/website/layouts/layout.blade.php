@@ -7,21 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') </title>
 
-    <link rel="stylesheet" href="{{ asset('website/CDN/swiper.css') }}" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="{{ asset('website/style.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('website/CDN/swiper.css') }}" />
+    <link rel="stylesheet" href="{{ asset('website/style.css') }}">
     <link href="{{ asset('website/CDN/toastr.css') }}" rel="stylesheet" />
 
     <style>
         html,
         body {
             position: relative;
-            height: 100%;
+            height: 100vh;
         }
 
         body {
