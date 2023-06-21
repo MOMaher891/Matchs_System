@@ -68,7 +68,8 @@ class StadiumController extends Controller
             'num_of_player'=>'required',
             'period'=>'array',
             'lat'=>'required',
-            'long'=>'required'
+            'long'=>'required',
+            'image'=>'required|array'
         ]);
 
         $request['clothes'] = $request->has('clothes') ? 1 : 0;
