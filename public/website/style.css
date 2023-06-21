@@ -148,6 +148,9 @@ header .search-bar-container label:hover {
     color: var(--orange);
 }
 
+#home .content{
+    opacity: 0.9;
+}
 .login-form-container {
     position: fixed;
     top: -120%;

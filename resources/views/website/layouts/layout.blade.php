@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') </title>
-
+    <link rel="stylesheet" href="{{asset('Admin/cdns/bootstrap.min.css')}}">
     {{-- <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> --}}
     <link rel="stylesheet" href="{{asset('Admin/cdns/swiper.css')}}">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" /> --}}
@@ -117,9 +117,11 @@
     <script src="{{ asset('website/main.js') }}" defer data-deferred="1"></script>
     <script src="{{ asset('website/calendar.js') }}" defer data-deferred="1"></script>
     <script src="{{ asset('website/CDN/toastr.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-    </script>
+    </script> --}}
+
+    <script src="{{asset('Admin/cdns/bootstrap.min.js')}}"></script>
     <script async defer src="{{ asset('website/CDN/googleMaps.js') }}" type="text/javascript"></script>
 
     <script>

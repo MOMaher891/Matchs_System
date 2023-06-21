@@ -37,7 +37,7 @@
                             <label for="">Status</label>
                             <select name="" class=" form-control select" id="status">
                                     <option value="accept">Accept</option>
-                                    <option value="cencel">cencel</option>
+                                    <option value="decline">cencel</option>
                             </select>
                         </div>
                     </div>

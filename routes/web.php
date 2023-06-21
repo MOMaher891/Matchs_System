@@ -31,7 +31,7 @@ Route::group(['controller'=>WebsiteController::class],function(){
     });
 });
 
-Route::get('stadiums',[StadiumsController::class,'index'])->name('stadiums');
+Route::get('stadiums',[StadiumsController::class,'index'])->name('stadiums')->middleware();
 
 
 
