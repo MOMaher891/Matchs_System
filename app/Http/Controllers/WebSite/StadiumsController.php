@@ -17,7 +17,7 @@ class StadiumsController extends Controller
     {
         $data = Stadium::latest();
         if($request->get('date') && $request->get('time_from') && $request->get('time_to'))
-        {
+        { 
             $bookedTime = BookTime::whereIn('time_id',[$request->get('time_from'),$request->get('time_to')])
             ->where('date',$request->get('date'))->pluck('book_id');
             $bookedTime =  json_decode(json_encode($bookedTime), true);;

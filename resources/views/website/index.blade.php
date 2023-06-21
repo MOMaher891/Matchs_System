@@ -2,7 +2,7 @@
 @section('content')
 @section('title', 'Ml3bna')
 <section class="home" id="home">
-    <div class="content bg-light rounded shadow  text-center">
+    <div class="content bg-light rounded-3  text-center">
         <div class="search-content">
             <h3 >welcome to <span style="color:#85c240">Ml3bna</span></h3>
 
