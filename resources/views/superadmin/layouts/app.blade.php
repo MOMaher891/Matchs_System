@@ -27,7 +27,9 @@
     <link rel="shortcut icon" href="{{ asset('Admin/images/favicon.png') }}" />
 
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> --}}
+    <link rel="stylesheet" href="{{asset('Admin/cdns/swiper.css')}}">
+  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css" integrity="sha512-LX0YV/MWBEn2dwXCYgQHrpa9HJkwB+S+bnBpifSOTO1No27TqNMKYoAn6ff2FBh03THAzAiiCwQ+aPX+/Qt/Ow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @yield('css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
@@ -123,6 +125,8 @@
     <script src="{{ asset('Admin/js/template.js') }}"></script>
     <script src="{{ asset('Admin/js/settings.js') }}"></script>
     <script src="{{ asset('Admin/js/todolist.js') }}"></script>
+    <script src="{{asset('Admin/cdns/swiper.js')}}"></script>
+
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="{{ asset('Admin/js/dashboard.js') }}"></script>
