@@ -49,7 +49,13 @@ class StadiumController extends Controller
 
     public function edit($id)
     {
-        return view($this->view.'edit');
+        $cities = City::all();
+        $times = Time::all();
+        $data = Stadium::findOrFail($id);
+        $openTime = $this->encodeTimes($data->period);
+        $openTime = array_map('intval', $openTime);
+
+        return view($this->view.'edit',compact('data','cities','times','openTime'));
     }
     public function show($id)
     {
@@ -138,16 +144,63 @@ class StadiumController extends Controller
         $data->delete();
         return redirect()->back()->with('success','Deleted');
     }
-    public function update(StoreAdmin $request,$id)
+    public function update(Request $request,$id)
     {
-        $data = $request->validated();
-        $user  = Stadium::findOrFail($id);
-        if($request->file('image'))
-        {
-            $this->updateImage($user->image,$data['image'],$this->adminPath);
+        $stadium = Stadium::findOrFail($id);
+           // Validation //
+        // $request->validate([
+        //     'name'=>'required',
+        //     'city'=>'required',
+        //     'phone'=>'required|unique:stadiums,phone',
+        //     'num_of_player'=>'required',
+        //     'period'=>'array',
+        //     'lat'=>'required',
+        //     'long'=>'required'
+        // ]);
+
+        // return $request->all();
+
+        $request['clothes'] = $request->has('clothes') ? 1 : 0;
+        $request['bathroom'] = $request->has('bathroom') ? 1 : 0;
+        $request['s_bathroom'] = $request->has('s_bathroom') ? 1 : 0;
+        $period = $this->implodeArr($request->period);
+
+        $data = array(
+            'name'=>$request->name,
+            'description'=>$request->description,
+            'price'=>$request->price,
+            'phone'=>$request->phone,
+            'admin_id'=>auth('admin')->user()->id,
+            'lat'=>$request->lat,
+            'long'=>$request->long,
+            'num_of_player'=>$request->num_of_player,
+            'clothes'=>$request->clothes,
+            'bathroom'=>$request->bathroom,
+            's_bathroom'=>$request->s_bathroom,
+            'period'=>$period,
+            'region_id'=>$request->region_id,
+            'weather'=>$request->weather
+        );
+
+        $stadium->update($data);
+
+        if($request->hasFile('image')){
+            $dataImage =  StadiumImage::where('stadium_id',$stadium->id)->get();
+            foreach($dataImage as $img)
+            {
+                $this->updateImage($img->image,null,$this->stadiumPath);
+                $img->delete();
+            }
+            foreach($request->image as $image){
+                $image= $this->uploadImage($image,$this->stadiumPath);
+                StadiumImage::create([
+                    'image'=>$image,
+                    'stadium_id'=>$stadium->id
+                ]);
+            }
         }
-        $user->update($data);
         return redirect()->back()->with('success','Success');
+
 
     }
 
