@@ -126,7 +126,9 @@
                                 <h3>Stadium Location</h3>
                                 <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="30%"
                                     alt="">
-                                <div id="map" style="height:300px; width: 100%;" class="my-3"></div>
+                                {{-- <div id="map" style="height:300px; width: 100%;" class="my-3"></div> --}}
+                                <iframe src="https://maps.google.com/maps?q={{$data->lat}},{{$data->long}}&hl=es;z=14&amp;output=embed"  style="height:300px; width: 100%;"   allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
+
                             </div>
                             {{-- Location Inputs --}}
                         </div>
