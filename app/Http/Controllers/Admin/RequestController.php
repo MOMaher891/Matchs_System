@@ -23,7 +23,7 @@ class RequestController extends Controller
     {
         $data = Booking::bending()->with(['stadium'=>function($q){
             $q->where('admin_id',auth('admin')->user()->id);
-        }])->with('user')->groupBy('stadium_id','times','client_id');
+        }])->with('user')->groupBy('stadium_id','times','client_id')->latest();
 
         return DataTables::of($data)->addColumn('actions',function($data){
             return view('admin.request.action',['type'=>'actions','data'=>$data]);
@@ -106,6 +106,7 @@ class RequestController extends Controller
             foreach($booking as $book)
             {
                 $book->status = 'decline';
+                $book->total = 0;
                 $book->save();
             }
             return response()->json(['status'=>true,

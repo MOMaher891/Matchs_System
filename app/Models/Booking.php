@@ -33,8 +33,9 @@ class Booking extends Model
 
     public function scopeNotBending($query)
     {
-        $query->where('status','delcine')->orWhere('status','accept');
+        $query->where('status','!=','pending');
     }
+
 
     public function scopeOwner($query)
     {
