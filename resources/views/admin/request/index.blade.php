@@ -110,7 +110,7 @@
                     },
                      dataType: 'JSON',
                      success: function (results) {
-                       console.log(results.phone);
+                       console.log(results);
                        RequestsTable.ajax.reload()
                     //    return results
                        if(results.type =='accept')

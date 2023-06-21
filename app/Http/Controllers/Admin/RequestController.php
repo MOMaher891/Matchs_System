@@ -23,7 +23,7 @@ class RequestController extends Controller
     {
         $data = Booking::bending()->with(['stadium'=>function($q){
             $q->where('admin_id',auth('admin')->user()->id);
-        }])->with('user')->groupBy('stadium_id','times','client_id')->latest();
+        }])->with('user')->groupBy('stadium_id','times','client_id');
 
         return DataTables::of($data)->addColumn('actions',function($data){
             return view('admin.request.action',['type'=>'actions','data'=>$data]);
@@ -57,11 +57,11 @@ class RequestController extends Controller
 
     public function toggleStatus(Request $request)
     {
-        // return $request->all();
-        $booking = Booking::where([
+        $booking = Booking::bending()->where([
             ['client_id','=',$request->client_id],
             ['stadium_id','=',$request->stadium_id],
             ['times','=',$request->times]
+            
         ])->get();
         $client = Client::findOrFail($request->client_id);
         $stadium = Stadium::findOrFail($request->stadium_id);
@@ -101,7 +101,9 @@ class RequestController extends Controller
             'stadium'=>$stadium->name
             ,'message'=>'Booking Accepted Successfully']);
 
-        }else if($request->status == 'decline')
+        } 
+        
+        if($request->status == 'decline')
         {
             foreach($booking as $book)
             {
