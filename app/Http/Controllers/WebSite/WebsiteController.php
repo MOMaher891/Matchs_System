@@ -24,7 +24,6 @@ class WebsiteController extends Controller
         $images = StadiumImage::get('image');
         $stadiums = Stadium::active()->with(['stadium_image', 'region'])->paginate(5);
         return view('website.index', compact('times','images', 'stadiums','regions'));
-        // return $images;
     }
 
     public function showStadium($stadium_id)

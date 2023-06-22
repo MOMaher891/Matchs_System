@@ -4,51 +4,52 @@
 <section class="home" id="home">
     <div class="content bg-light rounded-3  text-center">
         <div class="search-content">
-            <h3 >welcome to <span style="color:#85c240">Ml3bna</span></h3>
+            <h3>welcome to <span style="color:#85c240">Ml3bna</span></h3>
 
-            <form action="{{route('stadiums')}}" method="GET" class="mt-3" novalidate="novalidate">
+            <form action="{{ route('stadiums') }}" method="GET" class="mt-3" novalidate="novalidate">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
-                    
+
 
                             <div class="col-lg-2 col-md-3 col-sm-12 p-0 mb-3">
 
-                                <input type="date" class="form-control search-slt" name="date" placeholder="Enter Date">
-                                
+                                <input type="date" class="form-control search-slt" name="date"
+                                    placeholder="Enter Date">
+
                             </div>
 
                             <div class="col-lg-3 col-md-3 col-sm-12 p-0 mb-3">
 
                                 {{-- <input type="time" class="form-control search-slt" name="time_from" placeholder="Enter Time"> --}}
                                 <select name="time_from" class="search-slt form-control" id="">
-                                    <option  selected>Select Time From</option>
-                                    @foreach ($times as $time )
-                                        <option value="{{$time->id}}">{{$time->from}}</option>
+                                    <option selected>Select Time From</option>
+                                    @foreach ($times as $time)
+                                        <option value="{{ $time->id }}">{{ $time->from }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                             <div class="col-lg-3 col-md-3 col-sm-12 p-0 mb-3">
                                 <select name="time_to" class="search-slt" id="">
                                     <option value="" selected>Select Time To</option>
-                                    @foreach ($times as $time )
-                                        <option value="{{$time->id}}">{{$time->to}}</option>
+                                    @foreach ($times as $time)
+                                        <option value="{{ $time->id }}">{{ $time->to }}</option>
                                     @endforeach
                                 </select>
-                         
+
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12 p-0 mb-3">
 
-                                <select class="form-select search-slt" name="region"  id="exampleFormControlSelect1">
-                                    @foreach ($regions as $data )
-                                        <option value="{{$data->id}}">{{$data->name}}</option>    
+                                <select class="form-select search-slt" name="region" id="exampleFormControlSelect1">
+                                    @foreach ($regions as $data)
+                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-1 col-md-3 col-sm-12">
                                 <button type="submit" class="btn btn-primary ">
-                                    <i class="fas fa-search" ></i>
+                                    <i class="fas fa-search"></i>
                                 </button>
                             </div>
                         </div>
@@ -56,7 +57,7 @@
                 </div>
             </form>
 
-            
+
         </div>
     </div>
 
@@ -90,8 +91,11 @@
     <div class="box-container row">
         @foreach ($stadiums as $stadium)
             <div class="box col-md-3">
-                <img decoding="async" src="  {{ asset('uploads/stadium/' . $stadium->stadium_image[0]->image) }}"
-                    alt="">
+
+                <img decoding="async"
+                    @if (count($stadium->stadium_image)) src="{{ asset('uploads/stadium/' . $stadium->stadium_image[0]->image) }}" @endif
+                    alt="No Image">
+
                 <div class="content">
                     <h3 class="mb-3">{{ $stadium->name }} </h3>
                     <h3><i class="fas fa-map-marker-alt"></i> {{ $stadium->region->name }}

@@ -7,7 +7,8 @@
         <link rel="stylesheet" href="{{ asset('website/calendar.css') }}">
         <style>
             .swiper {
-                width: 100%;
+                max-width: 100%;
+                min-width: 100%;
                 height: 100% !important;
                 border-radius: 20px;
                 z-index: 1
@@ -20,6 +21,10 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+            }
+
+            .swiper-slide-active {
+                width: 100% !important;
             }
 
             .swiper-slide img {
@@ -48,8 +53,8 @@
                 transform: scaleX(-1);
             }
 
-            .col-md-3 {
-                width: 160px;
+            .avaliable_times {
+                width: 130px;
                 padding: 20px 15px;
                 border: 1px solid #DDD;
                 border-radius: 15px;
@@ -57,7 +62,6 @@
                 text-align: center;
                 cursor: pointer;
                 text-decoration: none;
-                /* display: none; */
             }
 
             .col-md-3:hover {
@@ -78,6 +82,20 @@
                 /* width: 500px; */
                 background-color: rgba(133, 194, 64, 0.665);
                 border-radius: 3px;
+            }
+
+            @media (min-resolution: 300dpi) {
+                body {
+                    width: 100% !important;
+                }
+
+                .avaliable_times {
+                    width: 100px;
+                    padding: 10px 5px;
+                    border: 1px solid #DDD;
+                    border-radius: 15px;
+                    margin: 10px 5px;
+                }
             }
         </style>
     </head>
@@ -122,7 +140,7 @@
                         </div>
                         <div class="position-relative w-100 my-5">
                             {{-- Location Inputs --}}
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-xl-12 col-sm-12">
                                 <h3>Stadium Location</h3>
                                 <img src="{{ asset('website/Images/bgSmall.png') }}" class="bgsmall" width="30%"
                                     alt="">
@@ -239,7 +257,11 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
 
-                            <input type="submit" value="Book" class="btn btn-success">
+                            @if (!Auth::guard('client')->check())
+                                <input type="submit" value="Book" class="btn btn-success">
+                            @else
+                                <input type="submit" value="Book" class="btn btn-success">
+                            @endif
                         </div>
                         <div class="d-flex flex-column">
 
@@ -292,7 +314,8 @@
                     @enderror
                     <div class="row time_btn" id="time_btn" style="height: 500px;overflow: scroll;">
                         @foreach ($times as $time)
-                            <button class="col-md-3" onclick="getTime({{ $time->id }})"
+                            <button class="col-md-3 col-xl-3 col-sm-3 avaliable_times"
+                                onclick="getTime({{ $time->id }})"
                                 id="{{ $time->id }}">{{ Carbon\Carbon::parse($time->from)->format('H:i') }} -
                                 {{ Carbon\Carbon::parse($time->to)->format('H:i') }}</button>
                         @endforeach
