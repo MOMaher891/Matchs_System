@@ -17,7 +17,7 @@
                         <div class="form-group col-md-4">
                             <label for="exampleInputName1">Name</label>
                             <input type="text" class="form-control" name="name" id="exampleInputName1"
-                                placeholder="Name">
+                                placeholder="Name" value="{{ old('name') }}">
                             @error('name')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
@@ -52,7 +52,7 @@
                             <select name="region_id" class="form-control" id="region_search">
                                 <option value="" disabled>Select Region</option>
                             </select>
-                            @error('city')
+                            @error('region')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
@@ -62,7 +62,7 @@
                         <div class="form-group col-md-3">
                             <label for="exampleInputPassword4">Price</label>
                             <input type="text" class="form-control" name="price" id="exampleInputPassword4"
-                                placeholder="Price">
+                                placeholder="Price" value="{{ old('price') }}">
                             @error('price')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
@@ -71,8 +71,8 @@
                         <div class="form-group col-md-3">
                             <label for="exampleInputPassword4">Phone</label>
                             <input type="text" class="form-control" name="phone" id="exampleInputPassword4"
-                                placeholder="Phone">
-                            @error('price')
+                                placeholder="Phone" value="{{ old('phone') }}">
+                            @error('phone')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
@@ -80,15 +80,15 @@
                             <label for="exampleInputPassword4">Image</label>
                             <input type="file" class="form-control" name="image[]" multiple id="exampleInputPassword4"
                                 placeholder="Image">
-                            @error('price')
+                            @error('image')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
                         <div class="form-group col-md-3">
                             <label for="exampleInputPassword4">Number Of Playes + Goal Keeper</label>
                             <input type="text" class="form-control" name="num_of_player" id="exampleInputPassword4"
-                                placeholder="num_of_player">
-                            @error('price')
+                                placeholder="num_of_player" value="{{ old('num_of_player') }}">
+                            @error('num_of_player')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
@@ -97,7 +97,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="exampleInputEmail3">Description</label>
-                            <textarea name="description" id="description" class="description"></textarea>
+                            <textarea name="description" id="description" class="description">{{ old('description') }}</textarea>
                             @error('description')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror

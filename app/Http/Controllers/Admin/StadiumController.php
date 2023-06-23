@@ -63,13 +63,14 @@ class StadiumController extends Controller
         // Validation //
         $request->validate([
             'name'=>'required',
+            "description"=>"required",
             'city'=>'required',
             'phone'=>'required|unique:stadiums,phone',
             'num_of_player'=>'required',
             'period'=>'array',
             'lat'=>'required',
             'long'=>'required',
-            'image'=>'required|array'
+            'image'=>'required|array',
         ]);
 
         $request['clothes'] = $request->has('clothes') ? 1 : 0;
