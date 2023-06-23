@@ -21,7 +21,7 @@ class WebsiteController extends Controller
     {
         $regions = Region::all();
         $times = Time::all();
-        $images = StadiumImage::get('image');
+        $images = StadiumImage::limit(5)->get('image');
         $stadiums = Stadium::active()->with(['stadium_image', 'region'])->paginate(5);
         return view('website.index', compact('times','images', 'stadiums','regions'));
     }
@@ -147,7 +147,7 @@ class WebsiteController extends Controller
         foreach($times as $time){
             $time_to = Carbon::parse($time->to)->format('H:i');
             $time_from = Carbon::parse($time->from)->format('H:i');
-            $text.="<button class='col-md-3' id='$time->id' onclick='getTime( $time->id )'> $time_from - $time_to  </button>";
+            $text.="<button class='col-md-3 col-xl-3 col-sm-3 avaliable_times' id='$time->id' onclick='getTime( $time->id )'> $time_from - $time_to  </button>";
         }
         return $text;
     }

@@ -17,13 +17,13 @@ class StadiumsController extends Controller
     public function index(Request $request)
     {
         $data = Stadium::active()->with('stadium_image');
-        
+
         if($request->get('date') && $request->get('time_from') && $request->get('time_to'))
-        { 
+        {
             $bookedTime = BookTime::whereIn('time_id',[$request->get('time_from'),$request->get('time_to')])
             ->where('date',$request->get('date'))->pluck('book_id');
             $bookedTime =  json_decode(json_encode($bookedTime), true);;
-         
+
             $bookings = Booking::whereIn('id',$bookedTime)->pluck('stadium_id');
             $data->whereNotIn('id',$bookings);
         }
@@ -35,5 +35,6 @@ class StadiumsController extends Controller
         $times = Time::all();
         $regions = Region::all();
         return view('website.stadiums', ['data'=>$data->paginate(9),'times'=>$times,'regions'=>$regions]);
+        return $data->get();
     }
 }

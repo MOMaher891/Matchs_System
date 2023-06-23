@@ -42,6 +42,7 @@
                             <div class="col-lg-3 col-md-3 col-sm-12 p-0 mb-3">
 
                                 <select class="form-select search-slt" name="region" id="exampleFormControlSelect1">
+                                    <option value="" selected>Select Region</option>
                                     @foreach ($regions as $data)
                                         <option value="{{ $data->id }}">{{ $data->name }}</option>
                                     @endforeach
@@ -64,11 +65,22 @@
     <div class="video-container">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                @foreach ($images as $image)
+                @if (count($images) != null)
+                    @foreach ($images as $image)
+                        <div class="swiper-slide">
+                            <img src="{{ asset('uploads/stadium/' . $image->image) }}" alt="">
+                        </div>
+                    @endforeach
+                @else
                     <div class="swiper-slide">
-                        <img src="{{ asset('uploads/stadium/' . $image->image) }}" alt="">
+                        <img src="{{ asset('website/Images/xOqn0ywH4vQJL61K1IxoAOhsrESyTIWn7gr7dyaZ.jpg') }}"
+                            alt="">
                     </div>
-                @endforeach
+                    <div class="swiper-slide">
+                        <img src="{{ asset('website/Images/yjinU1veH240ONnWMDD1hT1BnYy5EJT7Ax5EDOq8.jpg') }}"
+                            alt="">
+                    </div>
+                @endif
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -93,7 +105,9 @@
             <div class="box col-md-3">
 
                 <img decoding="async"
-                    @if (count($stadium->stadium_image)) src="{{ asset('uploads/stadium/' . $stadium->stadium_image[0]->image) }}" @endif
+                    @if (count($stadium->stadium_image)) src="{{ asset('uploads/stadium/' . $stadium->stadium_image[0]->image) }}"
+                    @else
+                    src="{{ asset('website/Images/Default_Image.png') }}" style="object-fit:contain" @endif
                     alt="No Image">
 
                 <div class="content">
@@ -121,11 +135,6 @@
         @endforeach
     </div>
 </section>
-
-
-
-
-
 
 <section class="services" id="services">
     <h1 class="heading">
@@ -175,329 +184,8 @@
                 Lorem Ipsum is simply dummy text of the farhan and typesetting industry
                 Lorem Ipsum is simply dummy text of the farhan and typesetting industry</p>
         </div>
-        <div class="box">
-            <i class="fas fa-hiking"></i>
-            <h3>adventures</h3>
-            <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.
-                Lorem Ipsum is simply dummy text of the farhan and typesetting industry
-                Lorem Ipsum is simply dummy text of the farhan and typesetting industry</p>
-        </div>
     </div>
 </section>
-
-
-
-
-
-
-<section class="gallery" id="gallery">
-    <h1 class="heading">
-        <span>g</span>
-        <span>a</span>
-        <span>l</span>
-        <span>l</span>
-        <span>e</span>
-        <span>r</span>
-        <span>y</span>
-    </h1>
-
-
-    <div class="box-container">
-        <div class="box">
-            <img decoding="async" src="img/g-1.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img decoding="async" src="img/g-2.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img decoding="async" src="img/g-3.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img decoding="async" src="img/g-4.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img decoding="async" src="img/g-5.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img decoding="async" src="img/g-6.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img decoding="async" src="img/g-7.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img decoding="async" src="img/g-8.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img decoding="async" src="img/g-9.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
-
-<section class="review" id="review">
-    <h1 class="heading">
-        <span>r</span>
-        <span>e</span>
-        <span>v</span>
-        <span>i</span>
-        <span>e</span>
-        <span>w</span>
-    </h1>
-    <div class="swiper mySwiper review-slider">
-        <div class="swiper-wrapper wrapper">
-            <div class="swiper-slide">
-                <div class="box">
-                    <img decoding="async" src="img/pic1.png" alt="">
-                    <h3>Lalisa Bey</h3>
-                    <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the farhan and typesetting industry
-                        Lorem Ipsum is simply dummy text of the farhan and typesetting industry
-                        farhan and typesetting industry.</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="box">
-                    <img decoding="async" src="img/pic2.png" alt="">
-                    <h3>Edward Bey</h3>
-                    <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the farhan and typesetting industry
-                        Lorem Ipsum is simply dummy text of the farhan and typesetting industry
-                        farhan and typesetting industry.</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="box">
-                    <img decoding="async" src="img/pic3.png" alt="">
-                    <h3>Jenna Bey</h3>
-                    <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the farhan and typesetting industry
-                        Lorem Ipsum is simply dummy text of the farhan and typesetting industry
-                        farhan and typesetting industry.</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="box">
-                    <img decoding="async" src="img/pic4.png" alt="">
-                    <h3>Edward Bey</h3>
-                    <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the farhan and typesetting industry
-                        Lorem Ipsum is simply dummy text of the farhan and typesetting industry
-                        farhan and typesetting industry.</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="book" id="book">
-    <h1 class="heading">
-        <span>b</span>
-        <span>o</span>
-        <span>o</span>
-        <span>k</span>
-        <span class="space"></span>
-        <span>n</span>
-        <span>o</span>
-        <span>w</span>
-    </h1>
-
-    <div class="row">
-        <div class="img">
-            <img decoding="async" src="img/book-img.svg" alt="">
-        </div>
-
-        <form action="">
-            <div class="inputBox">
-                <h3>where to</h3>
-                <input type="text" placeholder="place name">
-            </div>
-            <div class="inputBox">
-                <h3>how many</h3>
-                <input type="number" placeholder="number of guests">
-            </div>
-            <div class="inputBox">
-                <h3>arrivals</h3>
-                <input type="date">
-            </div>
-            <div class="inputBox">
-                <h3>leaving</h3>
-                <input type="date">
-            </div>
-            <input type="submit" class="btn" value="book now">
-        </form>
-    </div>
-</section>
-
-
-
-<section class="contact" id="contact">
-    <h1 class="heading">
-        <span>c</span>
-        <span>o</span>
-        <span>n</span>
-        <span>t</span>
-        <span>a</span>
-        <span>c</span>
-        <span>t</span>
-    </h1>
-    <div class="row">
-        <div class="img">
-            <img decoding="async" src="img/contact-img.svg" alt="">
-        </div>
-        <form action="">
-            <div class="inputBox">
-                <input type="text" placeholder="name">
-                <input type="email" placeholder="email">
-            </div>
-            <div class="inputBox">
-                <input type="number" placeholder="number">
-                <input type="text" placeholder="subject">
-            </div>
-            <textarea placeholder="message" name="" cols="30" rows="10"></textarea>
-            <input type="submit" class="btn" value="send message">
-        </form>
-    </div>
-</section>
-
-
-
-
-
-<section class="brand-container">
-    <div class="swiper mySwiper brand-slider">
-        <div class="swiper-wrapper wrapper">
-            <div class="swiper-slide"><img decoding="async" src="img/1.jpg" alt=""></div>
-            <div class="swiper-slide"><img decoding="async" src="img/2.jpg" alt=""></div>
-            <div class="swiper-slide"><img decoding="async" src="img/3.jpg" alt=""></div>
-            <div class="swiper-slide"><img decoding="async" src="img/4.jpg" alt=""></div>
-            <div class="swiper-slide"><img decoding="async" src="img/5.jpg" alt=""></div>
-            <div class="swiper-slide"><img decoding="async" src="img/6.jpg" alt=""></div>
-        </div>
-    </div>
-</section>
-
-
-
-<section class="book" id="book">
-    <h1 class="heading">
-        <span>b</span>
-        <span>o</span>
-        <span>o</span>
-        <span>k</span>
-        <span class="space"></span>
-        <span>n</span>
-        <span>o</span>
-        <span>w</span>
-    </h1>
-
-    <div class="row">
-        <div class="img">
-            <img decoding="async" src="img/book-img.svg" alt="">
-        </div>
-
-        <form action="">
-            <div class="inputBox">
-                <h3>where to</h3>
-                <input type="text" placeholder="place name">
-            </div>
-            <div class="inputBox">
-                <h3>how many</h3>
-                <input type="number" placeholder="number of guests">
-            </div>
-            <div class="inputBox">
-                <h3>arrivals</h3>
-                <input type="date">
-            </div>
-            <div class="inputBox">
-                <h3>leaving</h3>
-                <input type="date">
-            </div>
-            <input type="submit" class="btn" value="book now">
-        </form>
-    </div>
-</section>
-
-
 
 
 @stop()
