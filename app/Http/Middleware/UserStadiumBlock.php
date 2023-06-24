@@ -19,14 +19,21 @@ class UserStadiumBlock
      */
     public function handle(Request $request, Closure $next)
     {
-        $stadiumId =  $request->route('stadium_id');
-        $owner = Stadium::find($stadiumId)->admin_id; 
-        $checkIfBlock = BlockedUser::where('client_id',auth('client')->user()->id)
-        ->where('admin_id',$owner)->first();
-        if($checkIfBlock)
-        {
-            return redirect()->back()->with('error','Stadium Owner Has Blocked You . Contact Us');
+        if(Auth::guard('client')->check()){
+            $stadiumId =  $request->route('stadium_id');
+            $owner = Stadium::find($stadiumId)->admin_id;
+            $checkIfBlock = BlockedUser::where('client_id',auth('client')->user()->id)
+            ->where('admin_id',$owner)->first();
+            if($checkIfBlock)
+            {
+                return redirect()->back()->with('error','Stadium Owner Has Blocked You . Contact Us');
+            }else{
+                return $next($request);
+            }
+        }else{
+            return $next($request);
+
         }
-        return $next($request);
+
     }
 }

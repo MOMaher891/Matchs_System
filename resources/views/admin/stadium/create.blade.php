@@ -69,7 +69,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="exampleInputPassword4">Number Of Playes</label>
+                            <label for="exampleInputPassword4">Number Of Playes + Goal Keeper</label>
                             <input type="text" class="form-control" name="num_of_player"
                                 value="{{ old('num_of_player') }}" id="exampleInputPassword4" placeholder="num_of_player">
                             @error('price')

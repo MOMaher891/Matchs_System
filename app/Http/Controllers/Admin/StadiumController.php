@@ -63,7 +63,6 @@ class StadiumController extends Controller
         // Validation //
         $request->validate([
             'name'=>'required',
-            "region_id"=>"required",
             "description"=>"required",
             'city'=>'required',
             'price'=>'required',
@@ -72,6 +71,7 @@ class StadiumController extends Controller
             'period'=>'required',
             'lat'=>'required',
             'long'=>'required',
+            'image'=>'required|array',
         ]);
 
     
