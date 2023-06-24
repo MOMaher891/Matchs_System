@@ -63,14 +63,18 @@ class StadiumController extends Controller
         // Validation //
         $request->validate([
             'name'=>'required',
+            "region_id"=>"required",
+            "description"=>"required",
             'city'=>'required',
-            'phone'=>'required|unique:stadiums,phone',
+            'price'=>'required',
+            'phone'=>'required',
             'num_of_player'=>'required',
-            'period'=>'array',
+            'period'=>'required',
             'lat'=>'required',
             'long'=>'required',
-            'image'=>'required|array'
         ]);
+
+    
 
         $request['clothes'] = $request->has('clothes') ? 1 : 0;
         $request['bathroom'] = $request->has('bathroom') ? 1 : 0;
@@ -125,15 +129,15 @@ class StadiumController extends Controller
     {
         $stadium = Stadium::findOrFail($id);
            // Validation //
-        // $request->validate([
-        //     'name'=>'required',
-        //     'city'=>'required',
-        //     'phone'=>'required|unique:stadiums,phone',
-        //     'num_of_player'=>'required',
-        //     'period'=>'array',
-        //     'lat'=>'required',
-        //     'long'=>'required'
-        // ]);
+        $request->validate([
+            'name'=>'required',
+            'city'=>'required',
+            'phone'=>'required',
+            'num_of_player'=>'required',
+            'period'=>'array',
+            'lat'=>'required',
+            'long'=>'required'
+        ]);
 
         // return $request->all();
 

@@ -83,7 +83,7 @@
 <body>
     @include('website.layouts.nav')
     @yield('content')
-    <div style="width:150% !important;">
+    <div >
         @include('website.layouts.footer')
     </div>
 
