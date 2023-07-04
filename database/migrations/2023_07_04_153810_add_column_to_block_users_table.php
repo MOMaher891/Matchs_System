@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddWeatherTableStadiums extends Migration
+class AddColumnToBlockUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddWeatherTableStadiums extends Migration
      */
     public function up()
     {
-        Schema::table('stadiums', function (Blueprint $table) {
-            $table->enum('weather',["winter","summer"])->default(null)->nullable();
+        Schema::table('blocked_users', function (Blueprint $table) {
+            $table->enum('status', ['blocked', 'trusted']);
         });
     }
 
@@ -25,6 +25,8 @@ class AddWeatherTableStadiums extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('block_users', function (Blueprint $table) {
+            //
+        });
     }
 }
