@@ -61,7 +61,7 @@ class RequestController extends Controller
             ['client_id','=',$request->client_id],
             ['stadium_id','=',$request->stadium_id],
             ['times','=',$request->times]
-            
+
         ])->get();
         $client = Client::findOrFail($request->client_id);
         $stadium = Stadium::findOrFail($request->stadium_id);
@@ -89,7 +89,6 @@ class RequestController extends Controller
                 // Add Notification Here
                 // end Notification
 
-
                 $book->total = $total;
                 $book->save();
             }
@@ -101,8 +100,8 @@ class RequestController extends Controller
             'stadium'=>$stadium->name
             ,'message'=>'Booking Accepted Successfully']);
 
-        } 
-        
+        }
+
         if($request->status == 'decline')
         {
             foreach($booking as $book)

@@ -1,16 +1,15 @@
 @extends('website.layouts.layout')
 @section('content')
-@section('title', 'Ml3bna')
+@section('title', 'MlE3bna')
 <section class="home" id="home">
     <div class="content bg-light rounded-3  text-center">
         <div class="search-content">
-            <h3>welcome to <span style="color:#85c240">Ml3bna</span></h3>
+            <h3>welcome to <span style="color:#85c240">MlE3bna</span></h3>
 
             <form action="{{ route('stadiums') }}" method="GET" class="mt-3" novalidate="novalidate">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
-
 
                             <div class="col-lg-2 col-md-3 col-sm-12 p-0 mb-3">
 
@@ -65,22 +64,24 @@
     <div class="video-container">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                @if (count($images) != null)
-                    @foreach ($images as $image)
-                        <div class="swiper-slide">
-                            <img src="{{ asset('uploads/stadium/' . $image->image) }}" alt="">
-                        </div>
-                    @endforeach
-                @else
-                    <div class="swiper-slide">
-                        <img src="{{ asset('website/Images/xOqn0ywH4vQJL61K1IxoAOhsrESyTIWn7gr7dyaZ.jpg') }}"
-                            alt="">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{{ asset('website/Images/yjinU1veH240ONnWMDD1hT1BnYy5EJT7Ax5EDOq8.jpg') }}"
-                            alt="">
-                    </div>
-                @endif
+                <div class="swiper-slide">
+                    <img src="{{ asset('website/Images/landing5.jpeg') }}" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{{ asset('website/Images/landing3.jpeg') }}" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{{ asset('website/Images/landing2.jpeg') }}" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{{ asset('website/Images/landing4.jpeg') }}" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{{ asset('website/Images/landing1.jpeg') }}" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{{ asset('website/Images/landing6.jpeg') }}" alt="">
+                </div>
             </div>
             <div class="swiper-pagination"></div>
         </div>
