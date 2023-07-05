@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="{{ asset('website/style.css') }}">
     <link href="{{ asset('website/CDN/toastr.css') }}" rel="stylesheet" />
+    <link rel="icon" href="{{ asset('website/Images/ball.png') }}">
 
 
     <link rel="stylesheet" href="{{ asset('Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">

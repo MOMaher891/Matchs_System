@@ -25,30 +25,30 @@ Route::group(['controller'=>AuthController::class],function(){
  */
 
 Route::group(['middleware'=>'auth:admin'],function(){
-    
+
     Route::group(['controller'=>HomeController::class,'prefix'=>'home'],function(){
-        Route::get('/','index')->name('admin.home');    
+        Route::get('/','index')->name('admin.home');
     });
 
-    
+
     Route::group(['controller'=>RequestController::class,'prefix'=>'requests'],function(){
         $prefix = 'request.';
         Route::get('/','index')->name($prefix.'index');
         Route::get('/data','data')->name($prefix.'data');
-        Route::get('/toggle-status','toggleStatus')->name($prefix.'toggle-status');    
+        Route::get('/toggle-status','toggleStatus')->name($prefix.'toggle-status');
     });
 
 
-    
+
     Route::group(['controller'=>StadiumController::class,'prefix'=>'stadiums'],function(){
         $prefix = 'admin.stadiums.';
         Route::get('/','index')->name($prefix.'index');
         Route::get('/data','data')->name($prefix.'data');
-        Route::get('/toggle-status','toggleOpen')->name($prefix.'toggle-status');   
+        Route::get('/toggle-status','toggleOpen')->name($prefix.'toggle-status');
         Route::get('create','create')->name($prefix.'create');
-        Route::post('store','store')->name($prefix.'store'); 
+        Route::post('store','store')->name($prefix.'store');
         Route::get('edit/{id}','edit')->name($prefix.'edit');
-        Route::post('update/{id}','update')->name($prefix.'update'); 
+        Route::post('update/{id}','update')->name($prefix.'update');
         Route::get('get-region-data','getRegions')->name($prefix.'get-region-data');
         Route::get('delete/{id}','delete')->name($prefix.'delete');
     });
@@ -59,6 +59,7 @@ Route::group(['middleware'=>'auth:admin'],function(){
         Route::get('/data','data')->name($prefix.'data');
         Route::get('/active-user','ActiveUser')->name($prefix.'active-user');
         Route::get('/block-user','BlockUser')->name($prefix.'block-user');
+        Route::get('/trust-user','trustedUser')->name($prefix.'trust-user');
     });
 
     Route::group(['controller'=>BookingController::class,'prefix'=>'bookings'],function(){

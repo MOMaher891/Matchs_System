@@ -26,7 +26,12 @@ class UserStadiumBlock
             ->where('admin_id',$owner)->first();
             if($checkIfBlock)
             {
-                return redirect()->back()->with('error','Stadium Owner Has Blocked You . Contact Us');
+                if($checkIfBlock->status == "blocked"){
+                    return redirect()->back()->with('error','Stadium Owner Has Blocked You . Contact Us');
+                }
+                else{
+                    return $next($request);
+                }
             }else{
                 return $next($request);
             }

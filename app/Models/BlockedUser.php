@@ -11,7 +11,8 @@ class BlockedUser extends Model
     protected $table = 'blocked_users';
     protected $fillable = [
         'client_id',
-        'admin_id'
+        'admin_id',
+        'status'
     ];
 
     public function client()

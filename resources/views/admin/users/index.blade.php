@@ -19,7 +19,9 @@
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th>Status</th>
+                                <th>Blocked</th>
+                                <th>Trusted</th>
+
                             </tr>
                         </thead>
                         <tbody class="text-center">
@@ -66,6 +68,9 @@
                     },
                     {
                         data: 'actions'
+                    },
+                    {
+                        data: 'trusted'
                     }
                 ],
             });
@@ -73,44 +78,64 @@
 
         setUserDatatable();
 
-        function activeUser(id)
-        {
+        function activeUser(id) {
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.users.active-user')}}",
-                data: {id:id},
-                dataType: 'JSON',
-                success: function (results) {
-                  console.log(results);
-                  UsersTable.ajax.reload()
+                url: "{{ route('admin.users.active-user') }}",
+                data: {
+                    id: id
                 },
-                error:function(result){
-                   console.log(result);
-                   alert(error)
+                dataType: 'JSON',
+                success: function(results) {
+                    console.log(results);
+                    UsersTable.ajax.reload()
+                },
+                error: function(result) {
+                    console.log(result);
+                    alert(error)
                 }
             });
         }
 
-        function blockUser(id)
-        {
+        function blockUser(id) {
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.users.block-user')}}",
-                data: {id:id},
-                dataType: 'JSON',
-                success: function (results) {
-                  console.log(results);
-                  UsersTable.ajax.reload()
+                url: "{{ route('admin.users.block-user') }}",
+                data: {
+                    id: id
                 },
-                error:function(result){
-                   console.log(result);
-                   alert(error)
+                dataType: 'JSON',
+                success: function(results) {
+                    console.log(results);
+                    UsersTable.ajax.reload()
+                },
+                error: function(result) {
+                    console.log(result);
+                    alert(error)
                 }
             });
         }
-     
+
+        function trustedUser(id) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('admin.users.trust-user') }}",
+                data: {
+                    id: id
+                },
+                dataType: 'JSON',
+                success: function(results) {
+                    console.log(results);
+                    UsersTable.ajax.reload()
+                },
+                error: function(result) {
+                    console.log(result);
+                    alert(error)
+                }
+            });
+        }
     </script>
 
- 
+
 
 @stop

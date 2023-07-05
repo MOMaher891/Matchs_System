@@ -6,24 +6,21 @@
 <header style="z-index: 1000">
     <div id="menu-bar" class="fas fa-bars"></div>
 
-    <a href="{{ route('client.home') }}" class="logo"><span>ML3</span>bna</a>
+    <a href="{{ route('client.home') }}" class="logo"><span>MLE3</span>bna</a>
     <nav class="navbar">
-        <a href="{{ route('client.home') }}">home</a>
-        <a href="#review">reviews</a>
-        <a href="#review">Book</a>
-        @if (!auth('client')->user())
-            <a href="{{ route('register.view') }}">Register</a>
-        @endif
+
     </nav>
 
     <div class="icons">
         <i class="fas fa-search" id="search-btn"></i>
         @if (!auth('client')->user())
-            <i class="fas fa-user" id="login-btn"></i>
+            <a href="{{ route('register.view') }}"><i class="fa-solid fa-user-plus" title="Sign Up"></i></a>
+        @endif
+        @if (!auth('client')->user())
+            <i class="fas fa-user" id="login-btn" title="Login"></i>
         @else
-            <a href="{{ route('client.logout') }}"><i class="fa-solid fa-right-from-bracket"></i></a>
-           <a href="{{route('client.profile')}}"> <i class="fas fa-user"></i></a>
-        
+            <a href="{{ route('client.logout') }}"><i class="fa-solid fa-right-from-bracket" title="Logout"></i></a>
+            <a href="{{ route('client.profile') }}"> <i class="fas fa-user" title="Profile"></i></a>
         @endif
 
         <form action="" class="search-bar-container">

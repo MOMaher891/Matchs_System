@@ -355,7 +355,7 @@ header .search-bar-container label:hover {
 .packages .box-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 0rem;
 }
 
 .packages .box-container .box {
