@@ -7,7 +7,9 @@
 @elseif ($type == 'actions')
     <a class="btn btn-primary" href="{{ route('super_admin.clients.edit', $data->id) }}"><i class="fa fa-pen"></i></a>
     <a class="btn btn-danger" href="{{ route('super_admin.clients.delete', $data->id) }}"><i class="fa fa-trash"></i></a>
-@elseif ($type == 'is_blocked')
+    <a class="btn btn-info" href="{{ route('super_admin.clients.change-password-view', $data->id) }}"><i class="fa fa-lock"></i></a>
+
+    @elseif ($type == 'is_blocked')
 
 
     <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-danger d-inline">

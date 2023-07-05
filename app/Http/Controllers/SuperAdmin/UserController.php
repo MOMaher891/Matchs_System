@@ -88,4 +88,22 @@ class UserController extends Controller
             return view($this->view.'actions',['type'=>'image','data'=>$data]);
         })->make(true);
     }
+
+
+
+    public function changePasswordView($id)
+    {
+        $data = Admin::findOrFail($id);
+        return view('superadmin.users.change-password',['data'=>$data]);
+    }
+
+    public function changePassword(Request $request,$id)
+    {
+        $request->validate([
+            'password'=>'required|confirmed'
+        ]);
+        $data = Admin::findOrFail($id);
+        $data->update(['password'=>Hash::make($request->password)]);
+        return redirect()->back()->with('success','Updated Success');        
+    }
 }

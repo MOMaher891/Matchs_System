@@ -23,7 +23,9 @@
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Phone</th>
-                                <th>Price</th>
+                                <th>Price In LB</th>
+                                <th>Price In $</th>
+
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -71,6 +73,10 @@
                     },
                     {
                         data: 'price'
+                    },
+
+                    {
+                        data: 'price_in_dolar'
                     },
                     {
                         data: 'actions'

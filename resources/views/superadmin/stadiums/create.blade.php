@@ -59,8 +59,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-md-3">
-                            <label for="exampleInputPassword4">Price</label>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword4">Price in LB</label>
                             <input type="text" class="form-control" name="price" id="exampleInputPassword4"
                                 placeholder="Price" value="{{ old('price') }}">
                             @error('price')
@@ -68,7 +68,19 @@
                             @enderror
                         </div>
 
-                        <div class="form-group col-md-3">
+
+                        
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword4">Price in Dolar </label>
+                            <input type="text" class="form-control" name="price_in_dolar" value="{{ old('price_in_dolar') }}"
+                                id="exampleInputPassword4" placeholder="Price In Dolar">
+                            @error('price_in_dolar')
+                                <span class="text-danger"> {{ $message }} </span>
+                            @enderror
+                        </div>
+
+
+                        <div class="form-group col-md-6">
                             <label for="exampleInputPassword4">Phone</label>
                             <input type="text" class="form-control" name="phone" id="exampleInputPassword4"
                                 placeholder="Phone" value="{{ old('phone') }}">

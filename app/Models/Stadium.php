@@ -24,6 +24,7 @@ class Stadium extends Model
         'bathroom',
         's_bathroom',
         'period',
+        'price_in_dolar',
         'weather'
     ];
     public $timestamps = false;

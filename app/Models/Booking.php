@@ -75,7 +75,6 @@ class Booking extends Model
             $to = Carbon::parse($params['to']);
             $query->whereBetween('date',[$from,$to]);
         }
-
         return $query;
     }
 }

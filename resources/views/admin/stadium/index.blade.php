@@ -22,7 +22,9 @@
                             <tr>
                                 <th>Image</th>
                                 <th>Name</th>
-                                <th>Price</th>
+                                <th>Price in LB</th>
+                                <th>Price in $</th>
+
                                 <th>Description</th>
                                 <th>Phone</th>
                                 <th>Region</th>
@@ -72,6 +74,9 @@
                     },
                     {
                         data: 'price'
+                    },
+                    {
+                        data: 'price_in_dolar'
                     },
                     {
                         data:'description'
