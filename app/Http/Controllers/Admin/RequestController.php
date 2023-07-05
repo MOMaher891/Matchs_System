@@ -61,7 +61,7 @@ class RequestController extends Controller
             ['client_id','=',$request->client_id],
             ['stadium_id','=',$request->stadium_id],
             ['times','=',$request->times]
-            
+
         ])->get();
         $client = Client::findOrFail($request->client_id);
         $stadium = Stadium::findOrFail($request->stadium_id);
@@ -84,13 +84,15 @@ class RequestController extends Controller
 
                 // Calculate Total
                 $total =  $stadium->price * (count($time)/2);
+                $totalInDolar = $stadium->price_in_dolar * (count($time)/2);
 
 
                 // Add Notification Here
                 // end Notification
 
-
                 $book->total = $total;
+                $book->total_in_dolar = $totalInDolar;
+
                 $book->save();
             }
             // return redirect("https://wa.me/$client->phone?text=Hii, Mr.$client->name,%20 your Request to Book $stadium->name at Has Approved. Enjoy");
@@ -101,8 +103,8 @@ class RequestController extends Controller
             'stadium'=>$stadium->name
             ,'message'=>'Booking Accepted Successfully']);
 
-        } 
-        
+        }
+
         if($request->status == 'decline')
         {
             foreach($booking as $book)

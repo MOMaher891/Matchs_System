@@ -82,8 +82,13 @@
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail3">Total</label>
+                            <label for="exampleInputEmail3">Total in LB</label>
                             <input type="text" name="total" class="form-control" id="total">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail3">Total in LB</label>
+                            <input type="text" name="total_in_dolar" class="form-control" id="total-dolar">
                         </div>
 
                     </div>
@@ -147,12 +152,6 @@
                 $("#month_num").addClass('d-none');
 
             }
-
-            console.log(times);
-            console.log(month);
-            console.log(type);
-            console.log(stadium_id);
-
             $.ajax({
                 type: 'GET',
                 url: `{{route('admin.bookings.total')}}`,
@@ -164,7 +163,9 @@
                 },
                 success: function(data) {
                     console.log(data);
-                    $("#total").val(data);
+                    $("#total").val(data[0]);
+                    $("#total-dolar").val(data[1]);
+
                 },
                 error: function(error) {
                     console.log('error');
@@ -172,6 +173,8 @@
                 }
             });
         }
+
+     
 
 
         function showTime()

@@ -42,6 +42,8 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('delete/{id}','delete')->name($PREFIX.'delete');
         Route::post('store','store')->name($PREFIX.'store');
         Route::post('update','update')->name($PREFIX.'update');
+        Route::post('change-password/{id}','changePassword')->name($PREFIX.'change-password-view');
+        Route::get('change-password/{id}','changePasswordView')->name($PREFIX.'change-password');      
     });
 
 /**
@@ -73,6 +75,9 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('delete/{id}','delete')->name($PREFIX.'delete');
         Route::post('update/{id}','update')->name($PREFIX.'update');
         Route::get('/toggle','toggle')->name($PREFIX.'toggle');
+        Route::post('change-password/{id}','changePassword')->name($PREFIX.'change-password-view');
+        Route::get('change-password/{id}','changePasswordView')->name($PREFIX.'change-password');      
+    
     });
 
 });

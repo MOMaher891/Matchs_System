@@ -1,7 +1,8 @@
 let searchBtn = document.querySelector('#search-btn');
 let searchBar = document.querySelector('.search-bar-container');
 let formBtn = document.querySelector('#login-btn');
-let unAuth = document.querySelectorAll('.content .unAuth');
+let unAuths = document.querySelectorAll('.content .unAuth');
+let unAuth = document.querySelector('.unAuth');
 let loginForm = document.querySelector('.login-form-container');
 let formClose = document.querySelector('#form-close');
 let menu = document.querySelector('#menu-bar');
@@ -30,8 +31,11 @@ searchBtn.addEventListener('click', () => {
 formBtn.addEventListener('click', () => {
     loginForm.classList.add('active');
 });
+unAuth.addEventListener('click', () => {
+    loginForm.classList.add('active');
+});
 
-unAuth.forEach((e) => {
+unAuths.forEach((e) => {
     e.addEventListener('click', () => {
         loginForm.classList.add('active');
         // console.log(e);

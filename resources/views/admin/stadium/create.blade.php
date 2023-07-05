@@ -51,8 +51,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="exampleInputPassword4">Price</label>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword4">Price in LB</label>
                             <input type="text" class="form-control" name="price" value="{{ old('price') }}"
                                 id="exampleInputPassword4" placeholder="Price">
                             @error('price')
@@ -60,7 +60,17 @@
                             @enderror
                         </div>
 
-                        <div class="form-group col-md-4">
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword4">Price in Dolar </label>
+                            <input type="text" class="form-control" name="price_in_dolar" value="{{ old('price') }}"
+                                id="exampleInputPassword4" placeholder="Price In Dolar">
+                            @error('price_in_dolar')
+                                <span class="text-danger"> {{ $message }} </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-md-6">
                             <label for="exampleInputPassword4">Phone</label>
                             <input type="text" class="form-control" name="phone" value="{{ old('phone') }}"
                                 id="exampleInputPassword4" placeholder="Phone">
@@ -68,8 +78,8 @@
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="exampleInputPassword4">Number Of Playes</label>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword4">Number Of Playes + Goal Keeper</label>
                             <input type="text" class="form-control" name="num_of_player"
                                 value="{{ old('num_of_player') }}" id="exampleInputPassword4" placeholder="num_of_player">
                             @error('price')

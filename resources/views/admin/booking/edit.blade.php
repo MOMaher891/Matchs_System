@@ -67,8 +67,14 @@
 
                         
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail3">Total</label>
+                            <label for="exampleInputEmail3">Total in LB</label>
                             <input type="text" name="total" value="{{$data->total}}" class="form-control" id="total">
+                        </div>
+
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail3">Total in LB</label>
+                            <input type="text" name="total_in_dolar" value="{{$data->total_in_dolar}}" class="form-control" id="total">
                         </div>
 
                     </div>

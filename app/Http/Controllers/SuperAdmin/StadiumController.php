@@ -76,6 +76,20 @@ class StadiumController extends Controller
     */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'=>'required',
+
+            'city'=>'required',
+            "region_id"=>"required",
+            "description"=>"required",
+            "price"=>"required",
+            'phone'=>'required|unique:stadiums,phone',
+            'num_of_player'=>'required',
+            'period'=>'array',
+            'lat'=>'required',
+            'long'=>'required',
+            'image'=>'required|array',
+        ]);
         $request['clothes'] = $request->has('clothes') ? 1 : 0;
         $request['bathroom'] = $request->has('bathroom') ? 1 : 0;
         $request['s_bathroom'] = $request->has('s_bathroom') ? 1 : 0;

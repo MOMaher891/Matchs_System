@@ -148,9 +148,10 @@ header .search-bar-container label:hover {
     color: var(--orange);
 }
 
-#home .content{
+#home .content {
     opacity: 0.9;
 }
+
 .login-form-container {
     position: fixed;
     top: -120%;
@@ -259,7 +260,8 @@ header .search-bar-container label:hover {
 .home .content {
     text-align: center;
 }
-.content .search-content{
+
+.content .search-content {
     padding: 40px;
 }
 
@@ -353,15 +355,25 @@ header .search-bar-container label:hover {
 .packages .box-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 0rem;
 }
 
 .packages .box-container .box {
     width: calc(100% / 3);
-    flex: 1 1 30rem;
-    border-radius: .5rem;
+    border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+}
+
+@media (max-width: 767px) {
+    .packages .box-container .box {
+        width: 100%;
+        flex: 1 1 30rem;
+    }
+
+    header {
+        width: 100% !important;
+    }
 }
 
 .packages .box-container .box img {
@@ -633,17 +645,18 @@ header .search-bar-container label:hover {
 
 
 
-.profile{
+.profile {
     height: 100%;
 }
-.profile .content{
+
+.profile .content {
     /* text-align: center; */
     margin-top: 120px;
 }
 
-.profile .profile-content{
+.profile .profile-content {
     padding: 20px;
-    border: 1px solid ;
+    border: 1px solid;
 }
 
 

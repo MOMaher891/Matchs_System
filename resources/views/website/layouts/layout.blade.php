@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="{{ asset('website/style.css') }}">
     <link href="{{ asset('website/CDN/toastr.css') }}" rel="stylesheet" />
+    <link rel="icon" href="{{ asset('website/Images/ball.png') }}">
 
 
     <link rel="stylesheet" href="{{ asset('Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
@@ -78,12 +79,13 @@
         }
 
     </style>
+    @yield('css')
 </head>
 
 <body>
     @include('website.layouts.nav')
     @yield('content')
-    <div style="width:150% !important;">
+    <div >
         @include('website.layouts.footer')
     </div>
 

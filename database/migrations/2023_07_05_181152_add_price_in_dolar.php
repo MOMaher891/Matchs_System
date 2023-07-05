@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTotalCol extends Migration
+class AddPriceInDolar extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddTotalCol extends Migration
      */
     public function up()
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            //
-            $table->double('total')->after('type')->default(0);
+        Schema::table('stadiums', function (Blueprint $table) {
+            $table->double('price_in_dolar')->default(0);
         });
     }
 
@@ -26,7 +25,7 @@ class AddTotalCol extends Migration
      */
     public function down()
     {
-        Schema::table('bookings', function (Blueprint $table) {
+        Schema::table('stadiums', function (Blueprint $table) {
             //
         });
     }

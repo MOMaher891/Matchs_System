@@ -77,4 +77,21 @@ class ClientController extends Controller
             $client->save();
         }
     }
+
+
+    public function changePasswordView($id)
+    {
+        $data = Client::findOrFail($id);
+        return view('superadmin.clients.change-password',['data'=>$data]);
+    }
+
+    public function changePassword(Request $request,$id)
+    {
+        $request->validate([
+            'password'=>'required|confirmed'
+        ]);
+        $data = Client::findOrFail($id);
+        $data->update(['password'=>Hash::make($request->password)]);
+        return redirect()->back()->with('success','Updated Success');        
+    }
 }

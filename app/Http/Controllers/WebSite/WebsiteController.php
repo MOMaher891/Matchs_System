@@ -21,10 +21,9 @@ class WebsiteController extends Controller
     {
         $regions = Region::all();
         $times = Time::all();
-        $images = StadiumImage::get('image');
+        $images = StadiumImage::limit(5)->get('image');
         $stadiums = Stadium::active()->with(['stadium_image', 'region'])->paginate(5);
         return view('website.index', compact('times','images', 'stadiums','regions'));
-        // return $images;
     }
 
     public function showStadium($stadium_id)
@@ -53,23 +52,17 @@ class WebsiteController extends Controller
     }
 
     public function booking(Request $request){
-        // return $request;
         $times_ids = explode(',',$request->times);
         $exists = DB::table('book_times')->select()
         ->join('bookings','book_times.book_id','=','bookings.id')
         ->where('book_times.date',Carbon::parse($request->date)->toDateString())
         ->where('bookings.stadium_id',$request->stadium_id)->whereIn('book_times.time_id',$times_ids)->exists();
 
-        // $exists = BookTime::whereDate('date',$request->date)->get('time_id');
-        // return $exists;
-
         $stadium = Stadium::with('admin')->find($request->stadium_id);
-        $client = Client::find($request->client_id);
+        $client = Client::with('block_user')->find($request->client_id);
         $first_time = Time::find($times_ids[0]);
         $last_time = Time::find($times_ids[count($times_ids)-1]);
         $admin = $stadium->admin->name;
-        // return $client;
-
 
         if($exists){
             $first_time = Time::where('id',$times_ids[0])->first();
@@ -82,37 +75,101 @@ class WebsiteController extends Controller
         }else{
             $request->validate([
                 'date'=>'required|date',
-                'times'=>'required'
+                'times'=>'required',
             ]);
-            if($request->has('type')){
-                $request['type'] = 'const';
-                //Get Selected Date
-                $current_date =  Carbon::parse($request->date);
-                $end_date = Carbon::parse($request->date)->addMonths($request->months);
-                //Get Number Of Weeks
-                $weeks = $end_date->diffInWeeks($current_date);
-                //Loop To Add 7days limit number of months
-                for($i=0;$i<$weeks;$i++){
-
+            if(count($client->block_user)!= 0 && $client->block_user[0]->status == 'trusted'){
+                if($request->has('type')){
+                    $request->validate([
+                        'months' =>'nullable|required'
+                    ]);
+                    $request['type'] = 'const';
+                    //Get Selected Date
+                    $current_date =  Carbon::parse($request->date);
+                    $end_date = Carbon::parse($request->date)->addMonths($request->months);
+                    //Get Number Of Weeks
+                    $weeks = $end_date->diffInWeeks($current_date);
+                    //Loop To Add 7days limit number of months
+                    for($i=0;$i<$weeks;$i++){
+                        $book = Booking::create([
+                            'client_id'=>$request->client_id,
+                            'stadium_id'=>$request->stadium_id,
+                            'times'=>$request->times,
+                            'date'=>$current_date,
+                            'type'=>$request['type'],
+                            'status'=>"accept"
+                        ]);
+                        $current_date = $current_date->addWeek();
+                    }
+                }else{
                     $book = Booking::create([
                         'client_id'=>$request->client_id,
                         'stadium_id'=>$request->stadium_id,
                         'times'=>$request->times,
-                        'date'=>$current_date,
-                        'type'=>$request['type']
+                        'date'=>$request->date,
+                        'status'=>"accept"
                     ]);
-
-                    $current_date = $current_date->addWeek();
-
-
                 }
-            }else{
-                $book = Booking::create([
-                    'client_id'=>$request->client_id,
-                    'stadium_id'=>$request->stadium_id,
-                    'times'=>$request->times,
-                    'date'=>$request->date,
-                ]);
+
+                $booking = Booking::where([
+                    ['client_id','=',$request->client_id],
+                    ['stadium_id','=',$request->stadium_id],
+                    ['times','=',$request->times]
+
+                ])->get();
+                $client = Client::findOrFail($request->client_id);
+                $stadium = Stadium::findOrFail($request->stadium_id);
+
+                foreach($booking as $book)
+                {
+                    // Make New Appointment //
+                    $book->status = 'accept';
+                    // return $this->encodeTimes($booking->times);
+                    $book->code = $this->generateCode($book->id);
+                    // Convert Time To array
+                    $time = $this->encodeTimes($book->times);
+                    // Add Times
+                    $book->book_time()->syncWithPivotValues($time,['date'=>$book->date]);
+                    // Calculate Total
+                    $total =  $stadium->price * (count($time)/2);
+                    // Add Notification Here
+                    // end Notification
+                    $book->total = $total;
+                    $book->save();
+                }
+
+            }
+            else{
+                if($request->has('type')){
+                    $request->validate([
+                        'months' =>'nullable|required'
+                    ]);
+                    $request['type'] = 'const';
+                    //Get Selected Date
+                    $current_date =  Carbon::parse($request->date);
+                    $end_date = Carbon::parse($request->date)->addMonths($request->months);
+                    //Get Number Of Weeks
+                    $weeks = $end_date->diffInWeeks($current_date);
+                    //Loop To Add 7days limit number of months
+                    for($i=0;$i<$weeks;$i++){
+                        $book = Booking::create([
+                            'client_id'=>$request->client_id,
+                            'stadium_id'=>$request->stadium_id,
+                            'times'=>$request->times,
+                            'date'=>$current_date,
+                            'type'=>$request['type']
+                        ]);
+
+                        $current_date = $current_date->addWeek();
+
+                    }
+                }else{
+                    $book = Booking::create([
+                        'client_id'=>$request->client_id,
+                        'stadium_id'=>$request->stadium_id,
+                        'times'=>$request->times,
+                        'date'=>$request->date,
+                    ]);
+                }
             }
         }
 
@@ -148,10 +205,19 @@ class WebsiteController extends Controller
         foreach($times as $time){
             $time_to = Carbon::parse($time->to)->format('H:i');
             $time_from = Carbon::parse($time->from)->format('H:i');
-            $text.="<button class='col-md-3' id='$time->id' onclick='getTime( $time->id )'> $time_from - $time_to  </button>";
+            $text.="<button class='col-md-3 col-xl-3 col-sm-3 avaliable_times' id='$time->id' onclick='getTime( $time->id )'> $time_from - $time_to  </button>";
         }
         return $text;
     }
 
+    public function generateCode($id)
+    {
+        return $id.'-'.time();
+    }
 
+    public function encodeTimes($str)
+    {
+        $data = explode(',',$str);
+        return $data;
+    }
 }
