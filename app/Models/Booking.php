@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    protected $fillable = ['code','client_id','stadium_id','type','status','times','total','date'];
+    protected $fillable = ['code','client_id','stadium_id','type','status','times','total','total_in_dolar','date'];
     public $timestamps = false;
     use HasFactory;
 
     /* Relations */
-
     public function user(){
         return $this->belongsTo(Client::class,'client_id');
     }
@@ -54,6 +53,10 @@ class Booking extends Model
     // }
     public function scopeFilter($query, $params)
     {
+        if(isset($params['stadium_id']))
+        {
+            $query->where('stadium_id',$params['stadium_id']);
+        }
         if(isset($params['status']))
         {
             $query->where('status',$params['status']);

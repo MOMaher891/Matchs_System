@@ -95,7 +95,9 @@
                                 <th>Stadium</th>
                                 <th>Type</th>
                                 <th>Status</th>
-                                <th>Total</th>
+                                <th>Total in LB</th>
+                                <th>Total in $</th>
+
                                 <th>Times</th>
                                 <th>Date</th>
                                 <th>Actions</th>
@@ -180,6 +182,9 @@
                         data: 'total'
                     },
                     {
+                        data: 'total_in_dolar'
+                    },
+                    {
                         data:'times'
                     },
                     {
@@ -193,7 +198,7 @@
                 ],
                 footerCallback: function ( row, data, start, end, display ) {
                     var api = this.api(), data;
-                        console.log(api);
+                        // console.log(api);
                     // converting to interger to find total
                     var intVal = function ( i ) {
                         return typeof i === 'string' ?
@@ -229,7 +234,6 @@
             
             if (RequestsTable) {
                 var url = "{{ route('admin.bookings.data') }}" + `?stadium_id=${stadium}&status=${status}&type=${type}&from=${from}&to=${to}`;
-                // console.log(url);
                 RequestsTable.ajax.url(url).load()
             }
         }

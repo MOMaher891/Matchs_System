@@ -128,7 +128,17 @@
                         <i class="fas fa-star"></i>
                         <i class="far fa-star"></i>
                     </div>
-                    <div class="price"> ${{ $stadium->price }}</div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="price"> {{ $stadium->price }} LB</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="price"> {{ $stadium->price_in_dolar }} $</div>
+                            
+                        </div>
+    
+                    </div>
+                    
 
                     <a href="{{ route('web.stadium', $stadium->id) }}" class="btn">Book Now</a>
                 </div>

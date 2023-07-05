@@ -66,6 +66,8 @@ class StadiumController extends Controller
             "description"=>"required",
             'city'=>'required',
             'price'=>'required',
+            'price_in_dolar'=>'required',
+
             'phone'=>'required',
             'num_of_player'=>'required',
             'period'=>'required',
@@ -85,6 +87,8 @@ class StadiumController extends Controller
             'name'=>$request->name,
             'description'=>$request->description,
             'price'=>$request->price,
+            'price_in_dolar'=>$request->price_in_dolar,
+
             'phone'=>$request->phone,
             'admin_id'=>auth('admin')->user()->id,
             'lat'=>$request->lat,
@@ -150,6 +154,8 @@ class StadiumController extends Controller
             'name'=>$request->name,
             'description'=>$request->description,
             'price'=>$request->price,
+            'price_in_dolar'=>$request->price_in_dolar,
+
             'phone'=>$request->phone,
             'admin_id'=>auth('admin')->user()->id,
             'lat'=>$request->lat,

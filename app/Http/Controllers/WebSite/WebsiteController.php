@@ -98,9 +98,7 @@ class WebsiteController extends Controller
                             'type'=>$request['type'],
                             'status'=>"accept"
                         ]);
-
                         $current_date = $current_date->addWeek();
-
                     }
                 }else{
                     $book = Booking::create([
