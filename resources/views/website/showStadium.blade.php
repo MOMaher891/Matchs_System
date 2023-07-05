@@ -310,13 +310,17 @@
 
                     </div>
                     <div>
-                        <h2 class="fw-bolder pt-3" style="color:#85c240" id="price">{{ $data->price }}$</h2>
+                        <h2 class="fw-bolder pt-3" style="color:#85c240" id="price">{{ $data->price }} LB</h2>
+                        <h2 class="fw-bolder pt-3" style="color:#85c240" id="price_in_dolar">{{ $data->price_in_dolar }} $</h2>
+                   
                     </div>
                 </div>
                 <form action="{{ route('booking', $data->id) }}" method="post"
                     class="book_form d-flex justify-content-between" style="width:100%">
                     @csrf
                     <input type="hidden" name="price" value="{{ $data->price }}">
+                    <input type="hidden" name="price_in_dolar" value="{{ $data->price_in_dolar }}">
+
                     <div class="form-group " style="width:220px">
                         <label for="" class="fw-bolder">Choose Day</label>
                         <input type="date" onchange="getDate()" name="date" placeholder="Choose Day"

@@ -73,7 +73,7 @@ Route::group(['middleware'=>'auth:admin'],function(){
         Route::post('store','store')->name($prefix.'store');
         Route::get('/get-available-time','getAvailableTime')->name($prefix.'get-time');
         Route::get('/get-total','total')->name($prefix.'total');
-
+        Route::get('/get-total-dolar','totalInDolar')->name($prefix.'total-dolar');
         Route::post('update/{id}','update')->name($prefix.'update');
     });
 

@@ -27,7 +27,7 @@ class BookingController extends Controller
 
     public function data(Request $request)
     {
-        $data = Booking::filter($request->except('_token'))->notBending()->with('stadium')->latest();
+        $data = Booking::filter($request->all())->notBending()->with('stadium')->latest();
         return DataTables::of($data)
         ->editColumn('client_id',function($data){
             return $data->user->name;
@@ -110,7 +110,7 @@ class BookingController extends Controller
             'date'=>'required|date',
             'total'=>'required'
         ]);
-        $stadium = Stadium::findOrFail($request->stadium_id)->price;
+        $stadium = Stadium::findOrFail($request->stadium_id);
         try{
             if($request->type == 'once')
             {
@@ -140,7 +140,8 @@ class BookingController extends Controller
                             'times'=>$this->implodeArr($request->times),
                             'code'=>$this->generateCode($request->stadium_id,$current_date),
                             'status'=>'accept',
-                            'total'=>$stadium * (count($request->times)/2),
+                            'total'=>$stadium->price * (count($request->times)/2),
+                            'total_in_dolar'=>$stadium->price_in_dolar * (count($request->times)/2),
                             'date'=>$current_date
                         ]
                     ));
@@ -197,10 +198,12 @@ class BookingController extends Controller
 
     public function total(Request $request)
     {
+        $data = [];
         $times = count($request->times);
 
-        $price = Stadium::findOrFail($request->stadium_id)->price;
+        $price = Stadium::findOrFail($request->stadium_id);
         $total = 0;
+        $total_in_dolar = 0;
         if($request->type == 'const')
         {
             $current_date =  Carbon::parse($request->date);
@@ -208,14 +211,22 @@ class BookingController extends Controller
             $end_date = Carbon::parse($request->date)->addMonths($request->month);
             $weeks = $end_date->diffInWeeks($current_date);
             for($i=0;$i<$weeks;$i++){
-                $total += $price + ($times/2);
+                $total += $price->price + ($times/2);
+                $total_in_dolar += $price->price_in_dolar +($times/2);
             }
 
-            return $total;
+            $data[0] = $total;
+            $data[1] = $total_in_dolar;
+            return $data;
         }else if($request->type == 'once')
         {
-            $total = $price * ($times/2);
-            return $total;
+            $total = $price->price * ($times/2);
+            $total_in_dolar = $price->price_in_dolar * ($times/2);
+
+            $data[0] = $total;
+            $data[1] = $total_in_dolar;
+            return $data;
+
         }
     }
     public function generateCode($id,$date)
