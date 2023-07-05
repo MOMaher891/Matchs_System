@@ -341,7 +341,9 @@
                                 Booking</label>
                             <input type="number" hidden class="form-control mt-3 p-3 w-100"
                                 placeholder="Enter Month Number" name="months" id="months">
-
+                            @error('months')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
 
 
@@ -428,6 +430,13 @@
     </script>
 
     <script>
+        var times = {{ $times }};
+        console.log(times);
+    </script>
+
+
+
+    <script>
         var ids = [];
         var two = document.getElementsByName('twoHour')[0];
         var half = document.getElementsByName('hour_half')[0];
@@ -439,7 +448,11 @@
         function getTime(id) {
             ids.push(id);
             if (two.value != 'on' && half.value != 'on') {
-                ids.push(id + 1);
+                if (id == 48) {
+                    ids.push(1);
+                } else {
+                    ids.push(id + 1);
+                }
                 var buttons = document.querySelectorAll('#time_btn .col-md-3');
                 ids = ids.slice(-2);
                 buttons.forEach(function(e) {
@@ -455,9 +468,23 @@
                 document.getElementsByName('times')[0].value = ids;
 
             } else if (half.value != 'on') {
-                ids.push(id + 1);
-                ids.push(id + 2);
-                ids.push(id + 3);
+                if (id == 46) {
+                    ids.push(id + 1);
+                    ids.push(id + 2);
+                    ids.push(1);
+                } else if (id == 47) {
+                    ids.push(id + 1);
+                    ids.push(1);
+                    ids.push(2);
+                } else if (id == 48) {
+                    ids.push(1);
+                    ids.push(2);
+                    ids.push(3);
+                } else {
+                    ids.push(id + 1);
+                    ids.push(id + 2);
+                    ids.push(id + 3);
+                }
 
                 ids = ids.slice(-4);
                 var buttons = document.querySelectorAll('#time_btn .col-md-3');
@@ -476,8 +503,18 @@
                 document.getElementsByName('times')[0].value = ids;
 
             } else {
-                ids.push(id + 1);
-                ids.push(id + 2);
+                if (id == 47) {
+                    ids.push(id + 1);
+                    ids.push(1);
+                } else if (id == 48) {
+                    ids.push(1);
+                    ids.push(2);
+                } else {
+                    ids.push(id + 1);
+                    ids.push(id + 2);
+                }
+
+
                 ids = ids.slice(-3);
                 // console.log(ids);
                 var buttons = document.querySelectorAll('#time_btn .col-md-3');
