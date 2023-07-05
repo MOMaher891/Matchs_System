@@ -84,6 +84,13 @@
                             <h3>Total All: {{$total}} LBP</h3>
                         </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <div class="content">
+                            <h3>Total All: {{$dolar}} $</h3>
+                        </div>
+                    </div>
+                    
                 </div>
 
                 <div class="table-responsive">
@@ -213,8 +220,15 @@
                                  return intVal(a) + intVal(b);
                                         }, 0 );
 
+                    var totalcostD = api
+                        .column(6).data().reduce( function (a, b) {
+                                 return intVal(a) + intVal(b);
+                                        }, 0 );
+
                         // Update footer by showing the total with the reference of the column index 
                         $( api.column( 0 ).footer() ).html( "Total: "+totalcost + " LBP");
+                        $( api.column( 1 ).footer() ).html( "Total: "+totalcostD + " $");
+
                       
                 },
             });
