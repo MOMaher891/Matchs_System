@@ -60,23 +60,24 @@ class StadiumController extends Controller
     }
     public function store(Request $request)
     {
-        // Validation //
+        // // Validation //
+        
         $request->validate([
             'name'=>'required',
-            "description"=>"required",
-            'city'=>'required',
-            'price'=>'required',
-            'price_in_dolar'=>'required',
 
-            'phone'=>'required',
+            'city'=>'required',
+            "region_id"=>"required",
+            "description"=>"required",
+            "price"=>"required",
+            "price_in_dolar"=>"required",
+
+            'phone'=>'required|unique:stadiums,phone',
             'num_of_player'=>'required',
-            'period'=>'required',
+            'period'=>'array',
             'lat'=>'required',
             'long'=>'required',
             'image'=>'required|array',
         ]);
-
-    
 
         $request['clothes'] = $request->has('clothes') ? 1 : 0;
         $request['bathroom'] = $request->has('bathroom') ? 1 : 0;
@@ -88,7 +89,6 @@ class StadiumController extends Controller
             'description'=>$request->description,
             'price'=>$request->price,
             'price_in_dolar'=>$request->price_in_dolar,
-
             'phone'=>$request->phone,
             'admin_id'=>auth('admin')->user()->id,
             'lat'=>$request->lat,
@@ -99,7 +99,8 @@ class StadiumController extends Controller
             's_bathroom'=>$request->s_bathroom,
             'period'=>$period,
             'region_id'=>$request->region_id,
-            'weather'=>$request->weather
+            'weather'=>$request->weather,
+            'is_open'=>true
         );
         $stadium = Stadium::create($data)->id;
 
@@ -134,11 +135,10 @@ class StadiumController extends Controller
         $stadium = Stadium::findOrFail($id);
            // Validation //
         $request->validate([
-            'name'=>'required',
-            'city'=>'required',
-            'phone'=>'required',
+            'name'=>'required|nullable',
+            'city'=>'required|nullable',
+            'phone'=>'required|unique:stadiums,phone,'.$id,
             'num_of_player'=>'required',
-            'period'=>'array',
             'lat'=>'required',
             'long'=>'required'
         ]);
