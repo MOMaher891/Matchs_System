@@ -131,9 +131,12 @@ class WebsiteController extends Controller
                     $book->book_time()->syncWithPivotValues($time,['date'=>$book->date]);
                     // Calculate Total
                     $total =  $stadium->price * (count($time)/2);
+                    $total_in_dolar = $stadium->price_in_dolar  *  (count($time)/2);
                     // Add Notification Here
                     // end Notification
                     $book->total = $total;
+                    $book->total_in_dolar = $total_in_dolar;
+
                     $book->save();
                 }
 
