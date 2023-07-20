@@ -310,9 +310,10 @@
 
                     </div>
                     <div>
-                        <h2 class="fw-bolder pt-3" style="color:#85c240" id="price">{{ $data->price }} LB</h2>
-                        <h2 class="fw-bolder pt-3" style="color:#85c240" id="price_in_dolar">{{ $data->price_in_dolar }} $</h2>
-                   
+                        <h2 class="fw-bolder pt-3" style="color:#85c240" id="price_in_lb">{{ $data->price }} LB</h2>
+                        <h2 class="fw-bolder pt-3" style="color:#85c240" id="price_in_dolar">{{ $data->price_in_dolar }}
+                            $</h2>
+
                     </div>
                 </div>
                 <form action="{{ route('booking', $data->id) }}" method="post"
@@ -446,8 +447,8 @@
         var half = document.getElementsByName('hour_half')[0];
         var y = document.getElementsByName('type')[0].value;
         var hidden_month_input = document.querySelector('#months');
-        var price = document.getElementById('price');
-        var total = document.getElementsByName('price');
+        var price_lb = document.getElementById('price_in_lb');
+        var price_doller = document.getElementById('price_in_dolar');
 
         function getTime(id) {
             ids.push(id);
@@ -553,8 +554,9 @@
                 two.value = 'on';
                 document.getElementById('alert').innerHTML = 4;
                 document.getElementById('hours').innerHTML = 2;
-                price.innerHTML = {{ $data->price }} * 2 + "$";
-                total[0].value = {{ $data->price }} * 2;
+                price_doller.innerHTML = {{ $data->price }} * 2 + " $";
+                price_lb.innerHTML = {{ $data->price }} * 2 + " LB";
+                // total[0].value = {{ $data->price }} * 2;
                 two.checked = true;
                 if (half.checked == true) {
                     half.checked = false;
@@ -565,7 +567,8 @@
                 two.value = 'off';
                 document.getElementById('alert').innerHTML = 2;
                 document.getElementById('hours').innerHTML = 1;
-                price.innerHTML = {{ $data->price }} + "$";
+                price_doller.innerHTML = {{ $data->price }} + " $";
+                price_lb.innerHTML = {{ $data->price }} + " LB";
                 total[0].value = {{ $data->price }};
                 two.checked = false;
             }
@@ -583,8 +586,9 @@
                 half.value = 'on';
                 document.getElementById('alert').innerHTML = 3;
                 document.getElementById('hours').innerHTML = 1.5;
-                price.innerHTML = {{ $data->price }} * 1.5 + "$";
-                total[0].value = {{ $data->price }} * 1.5;
+                price_doller.innerHTML = {{ $data->price }} * 1.5 + " $";
+                price_lb.innerHTML = {{ $data->price }} * 1.5 + " LB";
+                // total[0].value = {{ $data->price }} * 1.5;
                 half.checked = true;
                 if (two.checked == true) {
                     two.checked = false;
@@ -594,7 +598,8 @@
                 half.value = 'off';
                 document.getElementById('alert').innerHTML = 2;
                 document.getElementById('hours').innerHTML = 1;
-                price.innerHTML = {{ $data->price }} + "$";
+                price_doller.innerHTML = {{ $data->price }} + " $";
+                price_lb.innerHTML = {{ $data->price }} + " LB";
                 total[0].value = {{ $data->price }};
                 half.checked = false;
             }
