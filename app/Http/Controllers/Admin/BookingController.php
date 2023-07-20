@@ -44,6 +44,10 @@ class BookingController extends Controller
         ->addColumn('action',function($data){
             return view('admin.booking.action',['type'=>'action','data'=>$data]);
         })
+        ->editColumn('type',function($data)
+        {
+            return view('admin.booking.action',['type'=>'type','data'=>$data]);
+        })
         ->make(true);
 
     }
