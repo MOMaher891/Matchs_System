@@ -2,6 +2,12 @@
     <a class="btn btn-primary" href="{{route('admin.bookings.edit',$data->id)}}"><i class="fa fa-pen"></i></a>
     <a class="btn btn-danger delete-confirm"   href="{{route('admin.bookings.delete',$data->id)}}"><i class="fa fa-trash"></i></a>
 
+@elseif ($type == 'type')
+    @if ($data->type == 'const')
+        <p class="bg-danger text-white p-2 rounded">{{$data->type}}</p>    
+    @else
+        <p class="bg-warning text-white p-2 rounded">{{$data->type}}</p>    
+    @endif
 @endif
 
 <script type="text/javascript">

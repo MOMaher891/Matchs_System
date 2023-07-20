@@ -103,7 +103,7 @@
 
     <div class="box-container row">
         @foreach ($stadiums as $stadium)
-            <div class="box col-md-3">
+            <div class="box col-md-3 mb-3">
 
                 <img decoding="async"
                     @if (count($stadium->stadium_image)) src="{{ asset('uploads/stadium/' . $stadium->stadium_image[0]->image) }}"
@@ -147,7 +147,7 @@
     </div>
 </section>
 
-<section class="services" id="services">
+{{-- <section class="services" id="services">
     <h1 class="heading">
         <span>s</span>
         <span>e</span>
@@ -196,7 +196,7 @@
                 Lorem Ipsum is simply dummy text of the farhan and typesetting industry</p>
         </div>
     </div>
-</section>
+</section> --}}
 
 
 @stop()
